@@ -8,7 +8,7 @@
                     <div class="card-header">Dashboard</div>
 
                     <div class="card-body">
-                        <a href="#">map</a>
+                        <a href="{{ route('map') }}">map</a>
                     </div>
                 </div>
             </div>

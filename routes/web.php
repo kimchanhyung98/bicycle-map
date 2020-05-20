@@ -13,4 +13,6 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::get('map', 'HomeController@map')->name('map');
+
 Auth::routes();
