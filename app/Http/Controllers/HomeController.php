@@ -2,21 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        // $this->middleware('auth');
-    }
-
     /**
      * Show the application dashboard.
      *
@@ -24,16 +14,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return Renderable
-     */
-    public function map()
-    {
-        return view('map');
+        return view('home', [
+            'posts' => Post::popular()->get(),
+        ]);
     }
 }

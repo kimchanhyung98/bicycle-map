@@ -13,6 +13,13 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('map', 'HomeController@map')->name('map');
+Auth::routes([
+    'verify' => true
+]);
 
-Auth::routes();
+Route::group(['prefix' => 'post', 'as' => 'post.'], function () {
+    Route::get('create', 'PostController@create')->name('create');
+    Route::get('{post}', 'PostController@index')->name('index');
+
+    Route::post('store', 'PostController@store')->name('store');
+});
