@@ -8,6 +8,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -75,5 +76,10 @@ class PostController extends Controller
         ]);
 
         return redirect(route('post.index', $post->id));
+    }
+
+    public function download(Post $post)
+    {
+        return Storage::download($post->file->path, $post->file->name);
     }
 }

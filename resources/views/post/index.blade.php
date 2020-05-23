@@ -26,7 +26,7 @@
                             <div id="map" style="width:100%;height:700px;"></div>
 
                             <div class="col-md-10 mt-3 mb-4">
-                                <a href="{{ $post->file->path }}">
+                                <a href="{{ route('post.download', $post->id) }}">
                                     다운로드 : {{ $post->file->name }}
                                 </a>
                             </div>
