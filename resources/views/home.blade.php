@@ -7,11 +7,9 @@
                 <div class="card">
                     <div class="card-header">Dashboard</div>
 
-                    @auth
-                        <div class="card-body">
-                            <a href="{{ route('post.create') }}">Create</a>
-                        </div>
-                    @endauth
+                    <div class="card-body">
+                        <a href="{{ route('post.create') }}">Create</a>
+                    </div>
 
                     <div class="card-body">
                         @forelse($posts as $post)
