@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\File;
+use App\Models\Files;
 use App\Models\Post;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
@@ -61,7 +61,7 @@ class PostController extends Controller
         $path = $validatedData['gpx']->store('public');
         // $path = $validatedData['gpx']->storeAs('public', uniqid().'.gpx');
 
-        $file = File::create([
+        $file = Files::create([
             'user_id' => Auth::id(),
             'name' => $name,
             'path' => $path,
