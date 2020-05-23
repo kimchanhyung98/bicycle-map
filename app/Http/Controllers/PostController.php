@@ -54,13 +54,8 @@ class PostController extends Controller
         $validatedData = $request->validate([
             'title' => ['required', 'max:255'],
             'content' => ['required'],
-            'gpx' => ['required', 'file'],
+            'gpx' => ['required', 'file', 'mimes:gpx,xml'],
         ]);
-
-        if ($validatedData['gpx']->getClientOriginalExtension() != 'gpx') {
-            // gpx 파일이 아닌 경우
-            return redirect(route('post.create'));
-        }
 
         $name = $validatedData['gpx']->getClientOriginalName();
         $path = $validatedData['gpx']->store('public');
