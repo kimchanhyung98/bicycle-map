@@ -26,6 +26,12 @@
                                 <div class="col-md-6">
                                     <input id="title" type="text" class="form-control" name="title" required="required"
                                            autofocus="">
+
+                                    @error('title')
+                                        <span class="" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -34,6 +40,12 @@
 
                                 <div class="col-md-6">
                                     <input id="gpx" type="file" class="form-control-file" name="gpx" autofocus="">
+
+                                    @error('gpx')
+                                        <span class="" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -41,14 +53,20 @@
                                 <label for="content" class="col-md-4 col-form-label text-md-right">내용</label>
 
                                 <div class="col-md-6">
-                                <textarea id="content" class="form-control-plaintext" name="content"
-                                          autofocus=""></textarea>
+                                    <textarea id="content" class="form-control" name="content"
+                                              autofocus=""></textarea>
+
+                                    @error('content')
+                                        <span class="" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
 
                         <div class="card-footer">
-                            <input type="submit">
+                            <input type="submit" value="Create">
                         </div>
                     </form>
                 </div>
