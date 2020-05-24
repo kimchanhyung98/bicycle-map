@@ -17,7 +17,7 @@ class CreateFilesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->comment('원본 파일명');
             $table->string('path')->comment('파일 경로');
-            $table->unsignedInteger('download')->default(0)->comment('다운로드 횟수');
+            $table->unsignedBigInteger('download')->default(0)->comment('다운로드 횟수');
             $table->timestamps();
             $table->softDeletes();
         });

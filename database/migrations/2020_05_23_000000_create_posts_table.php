@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title')->comment('제목');
             $table->text('content')->comment('내용');
-            $table->unsignedInteger('views')->default(0)->comment('조회수');
+            $table->unsignedBigInteger('views')->default(0)->comment('조회수');
             $table->boolean('is_notice')->default(false)->comment('공지사항 여부');
             $table->timestamps();
             $table->softDeletes();
