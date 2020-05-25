@@ -28,6 +28,14 @@ class Post extends Model
     protected $guarded = [];
 
     /**
+     * Defining Relationships
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
      * Defining The Inverse Of The Relationship
      */
     public function user()
