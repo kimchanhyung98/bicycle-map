@@ -37,7 +37,18 @@
                     </div>
 
                     <div class="card-footer">
-                        comment
+                        @forelse($comments as $comment)
+                            <ul class="form-group row">
+                                <li class="col-md-4 col-form-label text-md-right">
+                                    {{ $comment->user->name }}
+                                </li>
+                                <li class="col-md-6">
+                                    {{ $comment->user->content }}
+                                </li>
+                            </ul>
+                        @empty
+                            댓글이 없습니다.
+                        @endforelse
                     </div>
                 </div>
             </div>

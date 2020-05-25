@@ -32,6 +32,7 @@ class PostController extends Controller
     {
         return view('post.index', [
             'post' => $post,
+            'comments' => $post->comments,
             'gpx_url' => str_replace('public/', '/storage/', $post->file->path),
         ]);
     }
