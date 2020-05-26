@@ -37,23 +37,37 @@
                     </div>
 
                     <div class="card-footer">
-                        <ul class="form-group row">
-                            @forelse($comments as $comment)
-                                <li class="col-md-2">
-                                    {{ $comment->user->name }}
-                                </li>
-                                <li class="col-md-10">
-                                    {{ $comment->content }}
-                                </li>
-                            @empty
-                                <li class="col-md-4">
-                                    댓글이 없습니다.
-                                </li>
-                            @endforelse
-                        </ul>
+                        @forelse($comments as $comment)
+                            <div class="form-group row">
+                                <div class="col-md-4 text-md-right">{{ $comment->user->name }} :</div>
+                                <div class="col-md-6">{{ $comment->content }}</div>
+                            </div>
+                        @empty
+                            <div class="form-group row justify-content-center">작성된 댓글이 없습니다.</div>
+                        @endforelse
+
+                        <form method="POST" action="{{ route('post.comment.store') }}">
+                            <div class="form-group row">
+                                @csrf
+
+                                <label for="title" class="col-md-4 col-form-label text-md-right">댓글 작성</label>
+
+                                <div class="col-md-6">
+                                    <input id="content" type="text" class="form-control" name="content">
+                                    @error('content')
+                                        <span class="" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <div class="col-md-1">
+                                    <input type="submit">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 @endsection
