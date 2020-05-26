@@ -46,26 +46,28 @@
                             <div class="form-group row justify-content-center">작성된 댓글이 없습니다.</div>
                         @endforelse
 
-                        <form method="POST" action="{{ route('post.comment.store') }}">
-                            <div class="form-group row">
-                                @csrf
+                        @auth
+                            <form method="POST" action="{{ route('post.comment.store') }}">
+                                <div class="form-group row">
+                                    @csrf
+                                    <input type="hidden" name="post_id" value="{{ $post->id }}">
+                                    <label for="title" class="col-md-4 col-form-label text-md-right">댓글 작성</label>
 
-                                <label for="title" class="col-md-4 col-form-label text-md-right">댓글 작성</label>
+                                    <div class="col-md-6">
+                                        <input id="content" type="text" class="form-control" name="content">
+                                        @error('content')
+                                            <span class="" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
 
-                                <div class="col-md-6">
-                                    <input id="content" type="text" class="form-control" name="content">
-                                    @error('content')
-                                        <span class="" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    <div class="col-md-1">
+                                        <input type="submit">
+                                    </div>
                                 </div>
-
-                                <div class="col-md-1">
-                                    <input type="submit">
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        @endauth
                     </div>
                 </div>
             </div>

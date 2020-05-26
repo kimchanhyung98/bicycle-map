@@ -21,6 +21,7 @@ Route::group(['prefix' => 'post', 'as' => 'post.'], function () {
     Route::middleware(['auth'])->group(function () {
         Route::get('create', 'PostController@create')->name('create');
         Route::post('store', 'PostController@store')->name('store');
+        Route::post('comment/store', 'CommentController@store')->name('comment.store');
     });
 
     Route::get('{post}', 'PostController@index')->name('index');
