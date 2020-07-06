@@ -14,3 +14,4 @@ yarn-error.log
 .rnd
 /public/css
 /public/js
+/public/mix-manifest.json
