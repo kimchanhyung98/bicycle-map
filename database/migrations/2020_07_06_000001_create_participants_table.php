@@ -16,7 +16,9 @@ class CreateParticipantsTable extends Migration
         Schema::create('participants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('ride_id')->constrained();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
