@@ -1,36 +1,28 @@
-import { INCREMENT, DECREMENT } from '../actions';
 import { combineReducers } from 'redux';
+import { INCREMENT, DECREMENT } from '../actions';
 
-const counterInitialState = {
-    value: 0,
-    diff: 1
-};
+const initState = {
+    value : 0,
+    diff : 1
+}
 
-const counter = (state = counterInitialState, action) => {
-    switch(action.type) {
+const reducerCount = (state = initState, actions) => {
+    switch(actions.type){
         case INCREMENT:
-            return Object.assign({}, state, {
-                value: state.value + state.diff
-            });
+            return state = {
+                ...state,
+                value : state.value + state.diff
+            };
         case DECREMENT:
-            return Object.assign({}, state, {
-                value: state.value - state.diff
-            });
-        default:
-            return state;
-    }
-};
-
-const extra = (state = { value: 'this_is_extra_reducer' }, action) => {
-    switch(action.type) {
+            return state = {
+                ...state,
+                value : state.value - state.diff
+            };
         default:
             return state;
     }
 }
 
-const counterApp = combineReducers({
-    counter,
-    extra
-});
-
-export default counterApp;
+export const reducer = combineReducers({
+    reducerCount
+})
