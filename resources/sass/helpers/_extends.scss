@@ -1,0 +1,23 @@
+%reset-button{
+    padding: 0;
+    border: 0;
+    background: none;
+    outline: none;
+    cursor: pointer;
+}
+
+%reset-box-height{
+    &:after{
+        display: block;
+        clear: both;
+        content: '';
+    }
+}
+
+%reset-link{
+    text-decoration: none;
+}
+
+%reset-outline{
+    outline: none;
+}

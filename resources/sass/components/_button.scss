@@ -1,0 +1,58 @@
+// 버튼 default
+%btn-default{
+    @include box-sizing(border-box);
+    display: block;
+    background: none;
+    font-family: $font-family-base;
+    text-align: center;
+    text-decoration: none;;
+    outline: none;
+    cursor: pointer;
+}
+
+%btn-bg-none{
+    color: $gray-400;
+    border: 1px solid $gray-800;
+    background: none;
+}
+
+%btn-blue{
+    color: $white;
+    background: $page-color;
+}
+
+%btn-gray{
+    color: $white;
+    background: $gray-700;
+}
+
+@mixin btn($type: null, $radius: 0, $border-color: null) {
+    @extend %btn-default;
+
+    @if $type == blue-fill {
+        @extend %btn-blue;
+    }
+    @else if $type == gray-fill {
+        @extend %btn-gray;
+    }
+    @else if $type == gray-600-fill {
+        @extend %btn-gray-600;
+    }
+    @else if $type == none-fill {
+        @extend %btn-bg-none;
+    }
+
+    @if $border-color != null {
+        @include border(1px solid $border-color);
+    }
+    @else {
+        @include border(0);
+    }
+
+    @if $radius != null {
+        @include border-radius($radius);
+    }
+    @else {
+        @include border-radius(0);
+    }
+}
