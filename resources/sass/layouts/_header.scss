@@ -1,0 +1,39 @@
+@import '@sass/helpers/_variables';
+@import '@sass/helpers/_extends';
+@import '@sass/helpers/_mixins';
+
+.header{
+    @include size(null, 56px);
+    background: $page-color;
+}
+
+.header-wrap{
+    @include padding(12px);
+    overflow: hidden;
+
+    .gnb-area{
+        @include margin(4px 20px 0 0);
+        float: left;
+
+        a{
+            @include size(22px, 22px);
+            @include border(1px solid $border-color-base);
+            display: block;
+        }
+    }
+
+    .header-logo{
+        float: left;
+
+        a{
+            @extend %reset-link;
+            font-size: $font-size-large;
+            line-height: 32px;
+            color: $white;
+
+        }
+    }
+
+
+
+}

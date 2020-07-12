@@ -1,93 +1,9 @@
-.header-wrap .header-logo a {
-  text-decoration: none;
-}
-
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0-modified | 20110126
    License: none (public domain)
 */
 
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
@@ -104,17 +20,7 @@ video {
 
 /* HTML5 display-role reset for older browsers */
 
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
   display: block;
 }
 
@@ -122,26 +28,26 @@ body {
   line-height: 1;
 }
 
-ol,
-ul {
+ol, ul {
   list-style: none;
 }
 
-blockquote,
-q {
+blockquote, q {
   quotes: none;
 }
 
-blockquote:before,
-blockquote:after {
-  content: "";
-  content: none;
+blockquote {
+  &:before, &:after {
+    content: '';
+    content: none;
+  }
 }
 
-q:before,
-q:after {
-  content: "";
-  content: none;
+q {
+  &:before, &:after {
+    content: '';
+    content: none;
+  }
 }
 
 table {
@@ -150,17 +56,16 @@ table {
 }
 
 input[type=search] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  box-sizing: content-box;
-}
+  &::-webkit-search-cancel-button, &::-webkit-search-decoration, &::-webkit-search-results-button, &::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
 
-input[type=search]::-webkit-search-cancel-button,
-input[type=search]::-webkit-search-decoration,
-input[type=search]::-webkit-search-results-button,
-input[type=search]::-webkit-search-results-decoration {
   -webkit-appearance: none;
   -moz-appearance: none;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
 }
 
 textarea {
@@ -173,9 +78,7 @@ textarea {
  * Correct `inline-block` display not defined in IE 6/7/8/9 and Firefox 3.
  */
 
-audio,
-canvas,
-video {
+audio, canvas, video {
   display: inline-block;
   *display: inline;
   *zoom: 1;
@@ -210,10 +113,13 @@ audio:not([controls]) {
 
 html {
   font-size: 100%;
+
   /* 1 */
   -webkit-text-size-adjust: 100%;
+
   /* 2 */
   -ms-text-size-adjust: 100%;
+
   /* 2 */
 }
 
@@ -221,13 +127,14 @@ html {
  * Address `outline` inconsistency between Chrome and other browsers.
  */
 
-a:focus {
-  outline: thin dotted;
-}
+a {
+  &:focus {
+    outline: thin dotted;
+  }
 
-a:active,
-a:hover {
-  outline: 0;
+  &:active, &:hover {
+    outline: 0;
+  }
 }
 
 /**
@@ -241,8 +148,10 @@ a:hover {
 
 img {
   border: 0;
+
   /* 1 */
   -ms-interpolation-mode: bicubic;
+
   /* 2 */
 }
 
@@ -250,8 +159,7 @@ img {
  * Address margin not present in IE 6/7/8/9, Safari 5, and Opera 11.
  */
 
-figure,
-form {
+figure, form {
   margin: 0;
 }
 
@@ -277,11 +185,14 @@ fieldset {
 
 legend {
   border: 0;
+
   /* 1 */
   padding: 0;
   white-space: normal;
+
   /* 2 */
   *margin-left: -7px;
+
   /* 3 */
 }
 
@@ -292,17 +203,18 @@ legend {
  * 3. Improve appearance and consistency in all browsers.
  */
 
-button,
-input,
-select,
-textarea {
+button, input, select, textarea {
   font-size: 100%;
+
   /* 1 */
   margin: 0;
+
   /* 2 */
   vertical-align: baseline;
+
   /* 3 */
   *vertical-align: middle;
+
   /* 3 */
 }
 
@@ -311,8 +223,7 @@ textarea {
  * the UA stylesheet.
  */
 
-button,
-input {
+button, input {
   line-height: normal;
 }
 
@@ -323,8 +234,7 @@ input {
  * Correct `select` style inheritance in Firefox 4+ and Opera.
  */
 
-button,
-select {
+button, select {
   text-transform: none;
 }
 
@@ -338,32 +248,37 @@ select {
  *    Known issue: inner spacing remains in IE 6.
  */
 
-button,
-html input[type=button] {
+button, html input[type="button"] {
   -webkit-appearance: button;
+
   /* 2 */
   cursor: pointer;
+
   /* 3 */
   *overflow: visible;
+
   /* 4 */
 }
 
-input[type=reset],
-input[type=submit] {
-  -webkit-appearance: button;
-  /* 2 */
-  cursor: pointer;
-  /* 3 */
-  *overflow: visible;
-  /* 4 */
+input {
+  &[type="reset"], &[type="submit"] {
+    -webkit-appearance: button;
+
+    /* 2 */
+    cursor: pointer;
+
+    /* 3 */
+    *overflow: visible;
+
+    /* 4 */
+  }
 }
 
 /**
  * Re-set default cursor for disabled elements.
  */
 
-button[disabled],
-html input[disabled] {
+button[disabled], html input[disabled] {
   cursor: default;
 }
 
@@ -374,28 +289,36 @@ html input[disabled] {
  *    Known issue: excess padding remains in IE 6.
  */
 
-input[type=checkbox],
-input[type=radio] {
-  box-sizing: border-box;
-  /* 1 */
-  padding: 0;
-  /* 2 */
-  *height: 13px;
-  /* 3 */
-  *width: 13px;
-  /* 3 */
-}
+input {
+  &[type="checkbox"], &[type="radio"] {
+    box-sizing: border-box;
 
-input[type=search] {
-  -webkit-appearance: textfield;
-  /* 1 */
-  /* 2 */
-  box-sizing: content-box;
-}
+    /* 1 */
+    padding: 0;
 
-input[type=search]::-webkit-search-cancel-button,
-input[type=search]::-webkit-search-decoration {
-  -webkit-appearance: none;
+    /* 2 */
+    *height: 13px;
+
+    /* 3 */
+    *width: 13px;
+
+    /* 3 */
+  }
+
+  &[type="search"] {
+    -webkit-appearance: textfield;
+
+    /* 1 */
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+
+    /* 2 */
+    box-sizing: content-box;
+
+    &::-webkit-search-cancel-button, &::-webkit-search-decoration {
+      -webkit-appearance: none;
+    }
+  }
 }
 
 /**
@@ -413,8 +336,7 @@ input[type=search]::-webkit-search-decoration {
  * Remove inner padding and border in Firefox 3+.
  */
 
-button::-moz-focus-inner,
-input::-moz-focus-inner {
+button::-moz-focus-inner, input::-moz-focus-inner {
   border: 0;
   padding: 0;
 }
@@ -426,8 +348,10 @@ input::-moz-focus-inner {
 
 textarea {
   overflow: auto;
+
   /* 1 */
   vertical-align: top;
+
   /* 2 */
 }
 
@@ -440,21 +364,11 @@ table {
   border-spacing: 0;
 }
 
-html,
-button,
-input,
-select,
-textarea {
+html, button, input, select, textarea {
   color: #222;
 }
 
-::-moz-selection {
-  background: #b3d4fc;
-  text-shadow: none;
-}
-
-::-moz-selection,
-::selection {
+::-moz-selection, ::selection {
   background: #b3d4fc;
   text-shadow: none;
 }
@@ -479,56 +393,3 @@ textarea {
   color: #000;
   padding: 0.2em 0;
 }
-
-body {
-  background: #f5f5f5;
-  font-family: Helvetica, "Malgun Gothic", "Apple SD Gothic Neo", AppleGothic, Dotum, Arial, Tahoma;
-  font-size: 16px;
-  line-height: 1;
-  color: #333;
-}
-
-.hidden {
-  display: none;
-}
-
-.header-wrap .header-logo a {
-  text-decoration: none;
-}
-
-.header {
-  height: 56px;
-  background: #1abc9c;
-}
-
-.header-wrap {
-  padding: 12px;
-  overflow: hidden;
-}
-
-.header-wrap .gnb-area {
-  margin: 4px 20px 0 0;
-  float: left;
-}
-
-.header-wrap .gnb-area a {
-  width: 22px;
-  height: 22px;
-  border: 1px solid #d8d8d8;
-  display: block;
-}
-
-.header-wrap .header-logo {
-  float: left;
-}
-
-.header-wrap .header-logo a {
-  font-size: 18px;
-  line-height: 32px;
-  color: #fff;
-}
-
-.header-wrap .header-logo a {
-  text-decoration: none;
-}
-

@@ -1,0 +1,15 @@
+%selectbox-default{
+    @extend %reset-outline;
+    @include padding(0 30px 0 20px);
+    @include border(0);
+    @include background('/images/desktop/global/select_arrow_icon.svg', no-repeat, top 13px right 10px, $light-gray);
+    @include prefix(appearance, none);
+    background-size: 14px 14px;
+    font-size: $font-size-base;
+    color: $gray-600;
+    text-align: center;
+}
+
+@mixin selectbox(){
+    @extend %selectbox-default;
+}
