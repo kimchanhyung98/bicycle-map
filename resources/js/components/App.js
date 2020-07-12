@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { Route, BrowserRouter } from 'react-router-dom';
-import { Home } from '../pages';
-import Header from './Header';
-import Footer from './Footer';
+import { Home } from '@/pages';
+import Header from '@/components/Header';
+import '@sass/app.scss';
 
 class App extends Component {
     render() {
@@ -15,8 +15,6 @@ class App extends Component {
                        <Route exact path="/" component={Home}/>
                     </BrowserRouter>
                 </main>
-
-                <Footer />
             </div>
         );
     }
