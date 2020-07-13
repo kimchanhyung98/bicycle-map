@@ -1,8 +1,8 @@
 import React from 'react';
 import {BrowserRouter, Link, Route, Switch} from 'react-router-dom';
 import Home from '@/pages/Home';
-import Login from '@/pages/Login';
-import Register from '@/pages/Register';
+import Login from '@/pages/auth/Login';
+import Register from '@/pages/auth/Register';
 
 const Main = props => (
     <Switch>
