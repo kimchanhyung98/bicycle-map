@@ -27,7 +27,6 @@
             @include padding(20px);
             @include border(1px solid $page-color);
             @include box-sizing(border-box);
-            display: none;
             position: fixed;
             top: 44px;
             left: 12px;
