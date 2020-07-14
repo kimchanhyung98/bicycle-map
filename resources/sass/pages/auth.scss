@@ -1,0 +1,48 @@
+@import '@sass/helpers/_variables.scss';
+@import '@sass/helpers/_extends.scss';
+@import '@sass/helpers/_mixins.scss';
+
+@import '@sass/components/_input.scss';
+@import '@sass/components/_button.scss';
+
+.auth-container{
+    @include padding(0 20px);
+
+    .title{
+        @include margin(top 30px);
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .form-group{
+        @include margin(top 15px);
+
+        input[type="text"],
+        input[type="password"],
+        input[type="number"]{
+            @include input();
+            @include size(100%, 45px);
+        }
+    }
+
+    .btn-area{
+        @include margin(top 25px);
+        overflow: hidden;
+        line-height: 40px;
+
+        .btn-submit{
+            @include button(green-fill, 0);
+            @include size(auto, 40px);
+            @include margin(0 auto);
+            @include padding(0 20px);
+            font-size: $font-size-base;
+            line-height: 40px;
+        }
+
+        .btn-link{
+            @extend %reset-underline;
+            float: right;
+            color: $page-color;
+        }
+    }
+}

@@ -21,3 +21,11 @@
 %reset-outline{
     outline: none;
 }
+
+%reset-underline{
+    text-decoration: none;
+
+    &:hover{
+        text-decoration: underline;
+    }
+}
