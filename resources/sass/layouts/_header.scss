@@ -15,10 +15,37 @@
         @include margin(4px 20px 0 0);
         float: left;
 
-        a{
+        .btn-gnb{
             @include size(22px, 22px);
             @include border(1px solid $border-color-base);
             display: block;
+            background: transparent;
+        }
+
+        .gnb-menu-list{
+            @include size(200px);
+            @include padding(20px);
+            @include border(1px solid $page-color);
+            @include box-sizing(border-box);
+            position: fixed;
+            top: 44px;
+            left: 12px;
+            z-index: 100;
+            background: $white;
+
+            li{
+                @include margin(top 12px);
+            }
+
+            li:first-child{
+                @include margin(top 0);
+            }
+
+            a{
+                @extend %reset-link;
+                font-size: $font-size-base;
+                color: $font-color-base;
+            }
         }
     }
 
@@ -30,10 +57,6 @@
             font-size: $font-size-large;
             line-height: 32px;
             color: $white;
-
         }
     }
-
-
-
 }

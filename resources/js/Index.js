@@ -14,13 +14,13 @@ class Index extends Component {
     render() {
         return (
             <div>
-                <Header />
+                <BrowserRouter>
+                    <Header />
 
-                <main className="main">
-                    <BrowserRouter>
+                    <main className="main">
                        <Route component={Main}/>
-                    </BrowserRouter>
-                </main>
+                    </main>
+                </BrowserRouter>
             </div>
         );
     }
