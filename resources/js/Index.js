@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 
 import Main from '@/Router';
 import Header from '@/components/Header';
-import store from '@/store';
 
 import '@sass/app.scss';
 
