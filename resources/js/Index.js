@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter, Link, Route, Switch} from 'react-router-dom';
-import Main from '@/Router';
-
-import Header from '@/components/Header';
-
+import {BrowserRouter, Route} from 'react-router-dom';
 import { Provider } from 'react-redux';
+
+import Main from '@/Router';
+import Header from '@/components/Header';
 import store from '@/store';
 
 import '@sass/app.scss';
