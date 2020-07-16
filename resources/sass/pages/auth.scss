@@ -19,7 +19,8 @@
 
         input[type="text"],
         input[type="password"],
-        input[type="number"]{
+        input[type="email"],
+        input[type="tel"]{
             @include input();
             @include size(100%, 45px);
         }
