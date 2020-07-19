@@ -1,30 +1,37 @@
 import { combineReducers } from 'redux';
-import { login, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '@/actions/user.js';
+import { AUTH_LOGIN, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_FAILURE } from '@/actions/ActionTypes.js';
 
-const defaultState = {
-    isLoggedIn: false,
-    fetchingUpdate: false,
-    user: {}
-};
-
-const userReducer = (state = defaultState, action) => {
+const userReducer = (state = {}, action) => {
     switch (action.type) {
-        case LOGIN_REQUEST:
+        case AUTH_LOGIN:
             return {
                 ...state,
-                fetchingUpdate: true
+                login: {
+                    status: 'WAITING'
+                }
             };
-        case LOGIN_SUCCESS:
+        case AUTH_LOGIN_SUCCESS:
             return {
                 ...state,
-                fetchingUpdate: false,
-                isLoggedIn: true,
-                user: action.result,
+                login: {
+                    status: 'SUCCESS'
+                },
+                status: {
+                    ...state.status,
+                    isLoggedIn: true,
+                    currentUser: action.username
+                }
             };
-        case LOGIN_FAILURE:
+        case AUTH_LOGIN_FAILURE:
             return {
                 ...state,
-                fetchingUpdate: false
+                login: {
+                    status: 'FAILURE'
+                }
+            };
+        default:
+            return {
+                status: 'asdasd'
             };
     }
 };

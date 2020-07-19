@@ -2,16 +2,22 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter, Route} from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import reducers from '@/reducers/user.js';
+import thunk from 'redux-thunk';
 
 import Main from '@/Router';
 import Header from '@/components/Header';
 
 import '@sass/app.scss';
 
+const store = createStore(reducers, applyMiddleware(thunk));
+
+
 class Index extends Component {
     render() {
         return (
-            <div>
+            <Provider store = {store}>
                 <BrowserRouter>
                     <Header />
 
@@ -19,11 +25,9 @@ class Index extends Component {
                        <Route component={Main}/>
                     </main>
                 </BrowserRouter>
-            </div>
+            </Provider>
         );
     }
 }
 
-ReactDOM.render(<Provider store = {store}>
-    <Index />
-</Provider>, document.getElementById('app'));
+ReactDOM.render(<Index />, document.getElementById('app'));
