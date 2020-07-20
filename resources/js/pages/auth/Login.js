@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 
 import '@sass/pages/auth.scss';
+
+
+const mapStateToProps = (state) => ({
+    state
+});
 
 class Login extends Component {
     render() {
@@ -9,6 +15,7 @@ class Login extends Component {
                 <h2 className="title">로그인</h2>
 
                 <form>
+                    {JSON.stringify(this.props.state.user)} 
                     <div className="form-group">
                         <input type="text" name="id" placeholder="아이디" />
                     </div>
@@ -26,4 +33,4 @@ class Login extends Component {
     }
 };
 
-export default Login;
+export default connect(mapStateToProps)(Login);
