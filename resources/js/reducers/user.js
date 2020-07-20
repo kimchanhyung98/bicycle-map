@@ -31,7 +31,7 @@ const userReducer = (state = {}, action) => {
             };
         default:
             return {
-                status: 'asdasd'
+                status: 'default'
             };
     }
 };
