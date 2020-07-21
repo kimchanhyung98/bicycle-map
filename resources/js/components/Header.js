@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
-import {Link, withRouter} from 'react-router-dom';
+import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
+
+const mapStateToProps = (state) => ({
+    state
+});
 
 const AuthMenuList = (props) => {
     return [
@@ -21,11 +26,10 @@ class Header extends Component {
         super(props);
 
         this.state = {
-            isMenu: false,
-            user: {},
-            isLogin: false,
+            isMenu: false
         };
 
+        this.user = this.props.state.user;
         this.logout = this.logout.bind(this);
         this.menuClick = this.menuClick.bind(this);
     }
@@ -47,10 +51,9 @@ class Header extends Component {
     }
 
     render() {
-        const isLogin = this.state.isLogin;
         let Menu;
 
-        if (isLogin) {
+        if (this.user.status.isLoggedIn) {
             Menu = <AuthMenuList />;
         } else {
             Menu = <MenuList />;
@@ -80,4 +83,4 @@ class Header extends Component {
     }
 }
 
-export default Header;
+export default connect(mapStateToProps)(Header);
