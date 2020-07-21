@@ -13,7 +13,6 @@ import '@sass/app.scss';
 
 const store = createStore(reducers, applyMiddleware(thunk));
 
-
 class Index extends Component {
     render() {
         return (
