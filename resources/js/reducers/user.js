@@ -8,6 +8,9 @@ const userReducer = (state = {}, action) => {
                 ...state,
                 login: {
                     status: 'WAITING'
+                },
+                status: {
+                    isLoggedIn: false
                 }
             };
         case AUTH_LOGIN_SUCCESS:
@@ -27,11 +30,19 @@ const userReducer = (state = {}, action) => {
                 ...state,
                 login: {
                     status: 'FAILURE'
+                },
+                status: {
+                    isLoggedIn: false
                 }
             };
         default:
             return {
-                status: 'default'
+                login: {
+                    status: 'default'
+                },
+                status: {
+                    isLoggedIn: false
+                }
             };
     }
 };
