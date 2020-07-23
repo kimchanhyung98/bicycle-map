@@ -53,7 +53,7 @@ class Header extends Component {
     render() {
         let Menu;
 
-        if (this.user.status.isLoggedIn) {
+        if (this.user.isLoggedIn) {
             Menu = <AuthMenuList />;
         } else {
             Menu = <MenuList />;
