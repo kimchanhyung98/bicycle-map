@@ -11,12 +11,18 @@ export const login = (email, password) => {
             email,
             password
         }).then(res => {
-            dispatch(loginSuccess(res));
+            dispatch(loginSuccess(res.data));
         }).catch(err => {
             dispatch(loginFailure());
         });
     }
 };
+
+export const saveLoggedInfo = (user) => {
+    return (dispatch) => {
+        dispatch(loginSuccess(user));
+    }
+}
 
 export function loginRequest() {
     return {
