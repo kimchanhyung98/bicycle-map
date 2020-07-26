@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { login } from '@/actions/user.js';
+import storage from '@/lib/storage.js';
 
 import '@sass/pages/auth.scss';
 
@@ -38,6 +39,7 @@ class Login extends Component {
 
             if (user.isLoggedIn) {
                 alert('로그인 성공');
+                storage.set('loggedInfo', user);
                 this.props.history.push('/');
             } else {
                 alert('로그인 실패');
@@ -49,6 +51,9 @@ class Login extends Component {
         const user = this.props.state.user;
 
         return (
+            user.isLoggedIn ?
+            <div>로그인 됨</div>
+            :
             <article className="auth-container">
                 <h2 className="title">로그인</h2>
 

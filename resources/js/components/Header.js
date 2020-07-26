@@ -6,14 +6,14 @@ const mapStateToProps = (state) => ({
     state
 });
 
-const AuthMenuList = (props) => {
+const AuthMenuList = (user) => {
     return [
         <li><Link to="/">메인</Link></li>,
         <li><Link to="/logout">로그아웃</Link></li>
     ]
 };
 
-const MenuList = (props) => {
+const MenuList = (user) => {
     return [
         <li><Link to="/">메인</Link></li>,
         <li><Link to="/login">로그인</Link></li>,
@@ -29,19 +29,20 @@ class Header extends Component {
             isMenu: false
         };
 
-        this.user = this.props.state.user;
         this.logout = this.logout.bind(this);
         this.menuClick = this.menuClick.bind(this);
     }
 
     logout() {
         let state = {
+            isLoggedIn: false,
+            fetchingUpdate: false,
             user: {},
-            isLogin: false
         };
-        localStorage['appState'] = JSON.stringify(state);
+        localStorage['loggedInfo'] = JSON.stringify(state);
         this.setState(state);
-        this.props.history.push('/login');
+        alert('로그아웃 되었습니다.');
+        this.props.history.push('/');
     }
 
     menuClick() {
@@ -53,10 +54,10 @@ class Header extends Component {
     render() {
         let Menu;
 
-        if (this.user.isLoggedIn) {
-            Menu = <AuthMenuList />;
+        if (this.props.state.user.isLoggedIn) {
+            Menu = <AuthMenuList user={this.props.state.user} />;
         } else {
-            Menu = <MenuList />;
+            Menu = <MenuList user={this.props.state.user} />;
         }
 
         return (
