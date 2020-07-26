@@ -11,7 +11,7 @@ export const login = (email, password) => {
             email,
             password
         }).then(res => {
-            dispatch(loginRequest(res));
+            dispatch(loginSuccess(res));
         }).catch(err => {
             dispatch(loginFailure());
         });
