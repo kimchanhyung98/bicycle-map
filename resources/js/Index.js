@@ -1,32 +1,43 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import {BrowserRouter, Route} from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import reducers from '@/reducers/user.js';
-import thunk from 'redux-thunk';
+import { connect } from 'react-redux';
+import { saveLoggedInfo } from '@/actions/user.js';
+import storage from '@/lib/storage.js';
 
 import Main from '@/Router';
 import Header from '@/components/Header';
 
 import '@sass/app.scss';
 
-const store = createStore(reducers, applyMiddleware(thunk));
+const mapStateToProps = (state) => ({
+    state
+});
 
 class Index extends Component {
+    initUserInfo() {
+        const loggedInfo = storage.get('loggedInfo');
+        console.log(loggedInfo)
+        if(!loggedInfo) return;
+
+        const { dispatch } = this.props;
+        dispatch(saveLoggedInfo(loggedInfo));
+    }
+
+    componentDidMount() {
+        this.initUserInfo();
+    }
+
     render() {
         return (
-            <Provider store = {store}>
-                <BrowserRouter>
-                    <Header />
+            <BrowserRouter>
+                <Header />
 
-                    <main className="main">
-                       <Route component={Main}/>
-                    </main>
-                </BrowserRouter>
-            </Provider>
+                <main className="main">
+                   <Route component={Main}/>
+                </main>
+            </BrowserRouter>
         );
     }
 }
 
-ReactDOM.render(<Index />, document.getElementById('app'));
+export default connect(mapStateToProps)(Index);

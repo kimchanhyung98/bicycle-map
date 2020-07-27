@@ -4,8 +4,41 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
 export const login = (email, password) => {
-    return {
-        type: LOGIN,
-        promise: { method: 'post', url: '/api/login', data: { email, password } }
-    };
+    return (dispatch) => {
+        dispatch(loginRequest());
+
+        return axios.post('/api/login', {
+            email,
+            password
+        }).then(res => {
+            dispatch(loginSuccess(res.data));
+        }).catch(err => {
+            dispatch(loginFailure());
+        });
+    }
 };
+
+export const saveLoggedInfo = (user) => {
+    return (dispatch) => {
+        dispatch(loginSuccess(user));
+    }
+}
+
+export function loginRequest() {
+    return {
+        type: LOGIN_REQUEST
+    };
+}
+
+export function loginSuccess(user) {
+    return {
+        type: LOGIN_SUCCESS,
+        user
+    };
+}
+
+export function loginFailure() {
+    return {
+        type: LOGIN_FAILURE
+    };
+}

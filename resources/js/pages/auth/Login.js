@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { login } from '@/actions/user.js';
+import storage from '@/lib/storage.js';
 
 import '@sass/pages/auth.scss';
 
@@ -28,15 +29,31 @@ class Login extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
+
         const { dispatch } = this.props;
         let email = this.state.email;
         let password = this.state.password;
 
-        dispatch(login(email, password));
+        dispatch(login(email, password)).then(() => {
+            const user = this.props.state.user;
+
+            if (user.isLoggedIn) {
+                alert('로그인 성공');
+                storage.set('loggedInfo', user);
+                this.props.history.push('/');
+            } else {
+                alert('로그인 실패');
+            }
+        });
     }
 
     render() {
+        const user = this.props.state.user;
+
         return (
+            user.isLoggedIn ?
+            <div>로그인 됨</div>
+            :
             <article className="auth-container">
                 <h2 className="title">로그인</h2>
 
