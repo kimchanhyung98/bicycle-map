@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { login } from '@/actions/user.js';
+import storage from '@/lib/storage.js';
 
 import '@sass/pages/auth.scss';
 
@@ -34,14 +35,13 @@ class Login extends Component {
         let password = this.state.password;
 
         dispatch(login(email, password)).then(() => {
-            const user = this.props.state.user;
-            console.log(user);
+            const check = storage.get('loggedToken');
 
-            if (user.isLoggedIn) {
+            if (check == '' || check == null || check == undefined) {
+                alert('로그인 실패');
+            } else {
                 alert('로그인 성공');
                 this.props.history.push('/');
-            } else {
-                alert('로그인 실패');
             }
         });
     }

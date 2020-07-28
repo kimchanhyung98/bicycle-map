@@ -24,7 +24,6 @@ export const login = (email, password) => {
 
 export const saveLoggedToken = (user) => {
     return (dispatch) => {
-        dispatch(loginSuccess(user));
         axios.defaults.headers.common.Authorization = `Bearer ${user.access_token}`;
         dispatch(saveLoggedInfo());
     }
