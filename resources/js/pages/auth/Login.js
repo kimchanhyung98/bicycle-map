@@ -50,9 +50,6 @@ class Login extends Component {
         const user = this.props.state.user;
 
         return (
-            user.isLoggedIn ?
-            <div>로그인 됨</div>
-            :
             <article className="auth-container">
                 <h2 className="title">로그인</h2>
 
