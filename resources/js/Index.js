@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Route} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { saveLoggedInfo } from '@/actions/user.js';
+import { saveLoggedToken } from '@/actions/user.js';
 import storage from '@/lib/storage.js';
 
 import Main from '@/Router';
@@ -15,12 +15,11 @@ const mapStateToProps = (state) => ({
 
 class Index extends Component {
     initUserInfo() {
-        const loggedInfo = storage.get('loggedInfo');
-        console.log(loggedInfo)
-        if(!loggedInfo) return;
+        const loggedToken = storage.get('loggedToken');
+        if(!loggedToken) return;
 
         const { dispatch } = this.props;
-        dispatch(saveLoggedInfo(loggedInfo));
+        dispatch(saveLoggedToken(loggedToken));
     }
 
     componentDidMount() {

@@ -39,7 +39,7 @@ class Header extends Component {
             fetchingUpdate: false,
             user: {},
         };
-        localStorage['loggedInfo'] = JSON.stringify(state);
+        localStorage['loggedToken'] = JSON.stringify(state);
         this.setState(state);
         alert('로그아웃 되었습니다.');
         this.props.history.push('/');

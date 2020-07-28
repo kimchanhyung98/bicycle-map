@@ -1,3 +1,5 @@
+import storage from '@/lib/storage.js';
+
 export const LOGIN = 'LOGIN';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -11,16 +13,28 @@ export const login = (email, password) => {
             email,
             password
         }).then(res => {
-            dispatch(loginSuccess(res.data));
+            storage.set('loggedToken', res.data);
+            axios.defaults.headers.common.Authorization = `Bearer ${res.data.access_token}`;
+            dispatch(saveLoggedInfo());
         }).catch(err => {
             dispatch(loginFailure());
         });
     }
 };
 
-export const saveLoggedInfo = (user) => {
+export const saveLoggedToken = (user) => {
     return (dispatch) => {
-        dispatch(loginSuccess(user));
+        axios.defaults.headers.common.Authorization = `Bearer ${user.access_token}`;
+        dispatch(saveLoggedInfo());
+    }
+}
+
+export const saveLoggedInfo = () => {
+    return (dispatch) => {
+        axios.get('/api/user').then(res => {
+            storage.set('loggedInfo', res.data);
+            dispatch(loginSuccess(res.data));
+        });
     }
 }
 

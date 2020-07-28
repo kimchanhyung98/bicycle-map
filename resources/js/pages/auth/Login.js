@@ -35,14 +35,13 @@ class Login extends Component {
         let password = this.state.password;
 
         dispatch(login(email, password)).then(() => {
-            const user = this.props.state.user;
+            const check = storage.get('loggedToken');
 
-            if (user.isLoggedIn) {
-                alert('로그인 성공');
-                storage.set('loggedInfo', user);
-                this.props.history.push('/');
-            } else {
+            if (check == '' || check == null || check == undefined) {
                 alert('로그인 실패');
+            } else {
+                alert('로그인 성공');
+                this.props.history.push('/');
             }
         });
     }
@@ -51,9 +50,6 @@ class Login extends Component {
         const user = this.props.state.user;
 
         return (
-            user.isLoggedIn ?
-            <div>로그인 됨</div>
-            :
             <article className="auth-container">
                 <h2 className="title">로그인</h2>
 
