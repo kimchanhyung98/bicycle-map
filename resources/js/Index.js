@@ -19,7 +19,7 @@ class Index extends Component {
         if(!loggedToken) return;
 
         const { dispatch } = this.props;
-        dispatch(saveloggedToken(loggedToken));
+        dispatch(saveLoggedToken(loggedToken));
     }
 
     componentDidMount() {
