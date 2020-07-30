@@ -14,13 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-// login test
 Route::post('login', 'Auth\AuthController@login');
 
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/test', 'UserController@index');
+Route::middleware('auth:sanctum')->get('user', function (Request $request) {
+    // sanctum user test
+    return $request->user();
 });
