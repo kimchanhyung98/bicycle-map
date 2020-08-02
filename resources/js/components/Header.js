@@ -7,18 +7,22 @@ const mapStateToProps = (state) => ({
 });
 
 const AuthMenuList = (user) => {
-    return [
-        <li><Link to="/">메인</Link></li>,
-        <li><Link to="/logout">로그아웃</Link></li>
-    ]
+    return (
+        <ul className="gnb-menu-list">
+            <li><Link to="/">메인</Link></li>
+            <li><Link to="/logout">로그아웃</Link></li>
+        </ul>
+    )
 };
 
 const MenuList = (user) => {
-    return [
-        <li><Link to="/">메인</Link></li>,
-        <li><Link to="/login">로그인</Link></li>,
-        <li><Link to="/register">회원가입</Link></li>
-    ]
+    return (
+        <ul className="gnb-menu-list">
+            <li><Link to="/">메인</Link></li>
+            <li><Link to="/login">로그인</Link></li>
+            <li><Link to="/register">회원가입</Link></li>
+        </ul>
+    )
 };
 
 class Header extends Component {
@@ -67,7 +71,7 @@ class Header extends Component {
                         <button type="button" className="btn-gnb" onClick={ this.menuClick }></button>
 
                         { this.state.isMenu ?
-                            <ul className="gnb-menu-list">{ Menu }</ul> : ''
+                            Menu : ''
                         }
                     </div>
 
