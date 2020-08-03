@@ -6,11 +6,11 @@ const mapStateToProps = (state) => ({
     state
 });
 
-const AuthMenuList = (user) => {
+const AuthMenuList = (user, logout) => {
     return (
         <ul className="gnb-menu-list">
             <li><Link to="/">메인</Link></li>
-            <li><Link to="/logout">로그아웃</Link></li>
+            <li><Link to="/" onClick={logout}>로그아웃</Link></li>
         </ul>
     )
 };
@@ -37,13 +37,15 @@ class Header extends Component {
         this.menuClick = this.menuClick.bind(this);
     }
 
-    logout() {
+    logout(e) {
+        e.preventDefault();
+
         let state = {
             isLoggedIn: false,
             fetchingUpdate: false,
             user: {},
         };
-        localStorage['loggedToken'] = JSON.stringify(state);
+        localStorage['loggedToken'] = '';
         this.setState(state);
         alert('로그아웃 되었습니다.');
         this.props.history.push('/');
@@ -59,7 +61,7 @@ class Header extends Component {
         let Menu;
 
         if (this.props.state.user.isLoggedIn) {
-            Menu = <AuthMenuList user={this.props.state.user} />;
+            Menu = <AuthMenuList user={this.props.state.user} logout={this.logout} />;
         } else {
             Menu = <MenuList user={this.props.state.user} />;
         }
