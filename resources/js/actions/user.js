@@ -13,9 +13,13 @@ export const login = (email, password) => {
             email,
             password
         }).then(res => {
-            storage.set('loggedToken', res.data);
-            axios.defaults.headers.common.Authorization = `Bearer ${res.data.access_token}`;
-            dispatch(saveLoggedInfo());
+            if (res.data.status_code === 200) {
+                storage.set('loggedToken', res.data);
+                axios.defaults.headers.common.Authorization = `Bearer ${res.data.access_token}`;
+                dispatch(saveLoggedInfo());
+            } else {
+                storage.set('loggedToken', '');
+            }
         }).catch(err => {
             dispatch(loginFailure());
         });

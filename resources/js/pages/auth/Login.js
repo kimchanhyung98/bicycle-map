@@ -37,10 +37,10 @@ class Login extends Component {
         dispatch(login(email, password)).then(() => {
             const check = storage.get('loggedToken');
 
-            if (check.status_code == 200) {
-                alert('로그인 성공');
-            } else {
+            if (check == '' || check == null || check == undefined) {
                 alert('로그인 실패');
+            } else {
+                alert('로그인 성공');
                 this.props.history.push('/');
             }
         });
