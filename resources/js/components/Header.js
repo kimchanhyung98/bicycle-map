@@ -1,29 +1,11 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
+import storage from '@/lib/storage.js';
 
 const mapStateToProps = (state) => ({
     state
 });
-
-const AuthMenuList = (user) => {
-    return (
-        <ul className="gnb-menu-list">
-            <li><Link to="/">메인</Link></li>
-            <li><Link to="/logout">로그아웃</Link></li>
-        </ul>
-    )
-};
-
-const MenuList = (user) => {
-    return (
-        <ul className="gnb-menu-list">
-            <li><Link to="/">메인</Link></li>
-            <li><Link to="/login">로그인</Link></li>
-            <li><Link to="/register">회원가입</Link></li>
-        </ul>
-    )
-};
 
 class Header extends Component {
     constructor(props) {
@@ -37,14 +19,10 @@ class Header extends Component {
         this.menuClick = this.menuClick.bind(this);
     }
 
-    logout() {
-        let state = {
-            isLoggedIn: false,
-            fetchingUpdate: false,
-            user: {},
-        };
-        localStorage['loggedToken'] = JSON.stringify(state);
-        this.setState(state);
+    logout(e) {
+        e.preventDefault();
+
+        storage.set('loggedToken', '');
         alert('로그아웃 되었습니다.');
         this.props.history.push('/');
     }
@@ -59,9 +37,20 @@ class Header extends Component {
         let Menu;
 
         if (this.props.state.user.isLoggedIn) {
-            Menu = <AuthMenuList user={this.props.state.user} />;
+            Menu = (
+                <ul className="gnb-menu-list">
+                    <li><Link to="/">메인</Link></li>
+                    <li><a href="#" onClick={ this.logout }>로그아웃</a></li>
+                </ul>
+            );
         } else {
-            Menu = <MenuList user={this.props.state.user} />;
+            Menu = (
+                <ul className="gnb-menu-list">
+                    <li><Link to="/">메인</Link></li>
+                    <li><Link to="/login">로그인</Link></li>
+                    <li><Link to="/register">회원가입</Link></li>
+                </ul>
+            );
         }
 
         return (
