@@ -29,12 +29,21 @@ class Register extends Component {
         let email = this.state.email;
         let phone = this.state.phone;
         let password = this.state.password;
+        let password_confirmation = this.state.password_confirmation;
+
+        if (password != password_confirmation) {
+            alert('비빌번호가 일치하지 않습니다.');
+            return false;
+        }
+
+        console.log('123123');
 
         axios.post('/register', {
             name: name,
             email: email,
             phone: phone,
-            password: password
+            password: password,
+            password_confirmation: password_confirmation
         }).then(res => {
             alert('회원가입 성공');
             this.props.history.push('/login');
@@ -51,22 +60,27 @@ class Register extends Component {
 
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
-                        <input type="text" name="name" placeholder="이름"
+                        <input type="text" name="name" placeholder="이름" maxLength="255" required
                                onChange={this.handleChange} />
                     </div>
 
                     <div className="form-group">
-                        <input type="email" name="email" placeholder="이메일"
+                        <input type="email" name="email" placeholder="이메일" maxLength="255" required
                                onChange={this.handleChange} />
                     </div>
 
                     <div className="form-group">
-                        <input type="text" name="phone" placeholder="전화번호"
+                        <input type="text" name="phone" placeholder="전화번호" required
                                onChange={this.handleChange} />
                     </div>
 
                     <div className="form-group">
-                        <input type="password" name="password" placeholder="비밀번호"
+                        <input type="password" name="password" placeholder="비밀번호" minLength="8" required
+                               onChange={this.handleChange} />
+                    </div>
+
+                    <div className="form-group">
+                        <input type="password" name="password_confirmation" placeholder="비밀번호 확인" minLength="8" required
                                onChange={this.handleChange} />
                     </div>
 
