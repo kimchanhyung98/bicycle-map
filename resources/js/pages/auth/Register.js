@@ -8,6 +8,7 @@ class Register extends Component {
         this.state = {
             name: '',
             email: '',
+            phone: '',
             password: ''
         }
 
@@ -26,11 +27,13 @@ class Register extends Component {
 
         let name = this.state.name;
         let email = this.state.email;
+        let phone = this.state.phone;
         let password = this.state.password;
 
         axios.post('/register', {
             name: name,
             email: email,
+            phone: phone,
             password: password
         }).then(res => {
             alert('회원가입 성공');
@@ -58,7 +61,12 @@ class Register extends Component {
                     </div>
 
                     <div className="form-group">
-                        <input type="password" name="password" placeholder="패스워드"
+                        <input type="text" name="phone" placeholder="전화번호"
+                               onChange={this.handleChange} />
+                    </div>
+
+                    <div className="form-group">
+                        <input type="password" name="password" placeholder="비밀번호"
                                onChange={this.handleChange} />
                     </div>
 
