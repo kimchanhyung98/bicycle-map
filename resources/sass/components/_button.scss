@@ -13,11 +13,19 @@
     color: $white;
 }
 
+%btn-gray{
+    background: $gray-600;
+    color: $white;
+}
+
 @mixin button($type: null, $border: null, $radius: null) {
     @extend %button-default;
 
     @if $type == green-fill {
         @extend %btn-green;
+    }
+    @else if $type == gray-fill {
+        @extend %btn-gray;
     }
 
     @if $border != null {
