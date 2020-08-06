@@ -11,8 +11,7 @@ class Home extends Component {
     }
 
     render() {
-        let data = this.props.state
-        console.log(data);
+        let data = this.props.state;
 
         return (
             <div>
