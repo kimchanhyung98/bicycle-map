@@ -1,6 +1,6 @@
-@import '../helpers/_variables';
-@import '../helpers/_extends';
-@import '../helpers/_mixins';
+@import '@sass/helpers/_variables';
+@import '@sass/helpers/_extends';
+@import '@sass/helpers/_mixins';
 
 %button-default{
     @include box-sizing(border-box);
