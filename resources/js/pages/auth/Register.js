@@ -36,8 +36,6 @@ class Register extends Component {
             return false;
         }
 
-        console.log('123123');
-
         axios.post('/register', {
             name: name,
             email: email,
@@ -49,7 +47,6 @@ class Register extends Component {
             this.props.history.push('/login');
         }).catch(err => {
             alert('오류');
-            console.log(err);
         })
     }
 

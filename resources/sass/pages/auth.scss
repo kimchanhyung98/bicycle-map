@@ -6,8 +6,6 @@
 @import '@sass/components/_button.scss';
 
 .auth-container{
-    @include padding(0 20px);
-
     .title{
         @include margin(top 30px);
         font-weight: bold;

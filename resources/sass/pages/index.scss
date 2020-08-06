@@ -1,3 +1,74 @@
 @import '@sass/helpers/_variables.scss';
 @import '@sass/helpers/_extends.scss';
 @import '@sass/helpers/_mixins.scss';
+
+@import '@sass/components/_button.scss';
+
+.main{
+    @include padding(20px);
+}
+
+.main-container{
+
+}
+
+.ride-list{
+    @include border(1px solid $border-color-base);
+    @include border-radius(4px);
+    @include box-sizing(border-box);
+    background-color: $light-gray;
+
+    li{
+        @include padding(16px 20px);
+        @include border(1px solid $border-color-base, bottom);
+        @include box-sizing(border-box);
+        overflow: hidden;
+        line-height: 19px;
+
+        &:last-child{
+            @include border(0, bottom);
+        }
+
+        a{
+            @extend %reset-link;
+        }
+
+        .left-area{
+            @include size(63%);
+            float: left;
+        }
+
+        .right-area{
+            @include size(37%);
+            float: right;
+        }
+
+        .ride-title{
+            @include padding(bottom 4px);
+            @include truncate();
+            font-size: $font-size-base;
+            color: $font-color-base;
+        }
+
+        .ride-detail{
+            font-size: $font-size-small;
+            color: $gray-700;
+        }
+
+        .ride-date{
+            float: right;
+            font-size: $font-size-small;
+            color: $gray-700;
+        }
+
+        .ride-attend{
+            @include button(gray-fill, null, 4px);
+            @include size(80px, 30px);
+            @include margin(top 12px);
+            float: right;
+            font-size: 12px;
+            line-height: 30px;
+            text-align: center;
+        }
+    }
+}

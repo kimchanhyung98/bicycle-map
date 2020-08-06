@@ -1,6 +1,6 @@
-@import '../helpers/_variables';
-@import '../helpers/_extends';
-@import '../helpers/_mixins';
+@import '@sass/helpers/_variables';
+@import '@sass/helpers/_extends';
+@import '@sass/helpers/_mixins';
 
 %button-default{
     @include box-sizing(border-box);
@@ -13,11 +13,19 @@
     color: $white;
 }
 
+%btn-gray{
+    background: $gray-600;
+    color: $white;
+}
+
 @mixin button($type: null, $border: null, $radius: null) {
     @extend %button-default;
 
     @if $type == green-fill {
         @extend %btn-green;
+    }
+    @else if $type == gray-fill {
+        @extend %btn-gray;
     }
 
     @if $border != null {
