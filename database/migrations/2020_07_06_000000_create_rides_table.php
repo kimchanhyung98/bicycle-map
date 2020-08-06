@@ -18,16 +18,17 @@ class CreateRidesTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('file_id')->constrained();
 
-            $table->string('name');
-            $table->string('description');
-            $table->dateTime('started_at');
-            $table->dateTime('ended_at')->nullable();
-            $table->string('address');
-            $table->string('address_detail')->nullable();
-            $table->string('difficulty');
-            $table->unsignedInteger('capacity');
-            $table->unsignedInteger('distance')->nullable();
-            $table->unsignedInteger('altitude')->nullable();
+            $table->string('name')->comment('제목');
+            $table->string('description')->comment('설명');
+            $table->dateTime('started_at')->comment('시작 시각');
+            $table->dateTime('ended_at')->nullable()->comment('종료 시각');
+            $table->string('address')->comment('주소');
+            $table->string('address_detail')->nullable()->comment('상세주소');
+            $table->string('difficulty')->comment('난이도');
+            $table->unsignedInteger('capacity')->comment('정원');
+            $table->unsignedInteger('distance')->nullable()->comment('거리 (km)');
+            $table->string('altitude')->nullable()->comment('고도');
+            $table->unsignedInteger('altitude_detail')->nullable()->comment('고도 (m)');
             $table->timestamps();
             $table->softDeletes();
         });
