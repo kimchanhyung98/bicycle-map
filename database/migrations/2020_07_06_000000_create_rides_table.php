@@ -16,7 +16,7 @@ class CreateRidesTable extends Migration
         Schema::create('rides', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('file_id')->constrained();
+            $table->foreignId('file_id')->nullable()->constrained();
 
             $table->string('name')->comment('제목');
             $table->string('description')->comment('설명');
