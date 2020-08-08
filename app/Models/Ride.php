@@ -24,4 +24,12 @@ class Ride extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * Defining Relationships
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
