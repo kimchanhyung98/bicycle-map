@@ -13,6 +13,16 @@
     color: $white;
 }
 
+%btn-blue{
+    background: $blue;
+    color: $white;
+}
+
+%btn-blue-600{
+    background: $blue-600;
+    color: $white;
+}
+
 %btn-gray{
     background: $gray-600;
     color: $white;
@@ -26,6 +36,12 @@
     }
     @else if $type == gray-fill {
         @extend %btn-gray;
+    }
+    @else if $type == blue-fill {
+        @extend %btn-blue;
+    }
+    @else if $type == blue-fill-600 {
+        @extend %btn-blue-600;
     }
 
     @if $border != null {

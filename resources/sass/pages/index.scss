@@ -9,71 +9,92 @@
 }
 
 .ride-list{
-    @include border(1px solid $border-color-base);
-    @include border-radius(4px);
-    @include box-sizing(border-box);
-    background-color: $light-gray;
+    @include margin(top 20px);
+    @include padding(left 14px);
 
     li{
-        @include padding(16px 20px);
-        @include border(1px solid $border-color-base, bottom);
+        @include margin(top 20px);
+        @include padding(16px 0 16px 24px);
+        @include border(1px solid $blue-600);
+        @include border-radius(15px);
         @include box-sizing(border-box);
-        overflow: hidden;
+        position: relative;
         line-height: 19px;
-
-        &:last-child{
-            @include border(0, bottom);
-        }
 
         a{
             @extend %reset-link;
         }
 
-        .left-area{
-            @include size(63%);
-            float: left;
+        .ride-attend{
+            @include button(blue-fill-600, null, 4px);
+            @include size(80px, 28px);
+            position: absolute;
+            top: -14px;
+            left: -14px;
+            font-weight: bold;
+            font-size: 12px;
+            line-height: 28px;
+            text-align: center;
         }
 
-        .right-area{
-            @include size(37%);
-            float: right;
+        .ride-header{
+            overflow: hidden;
         }
 
         .ride-title{
-            @include padding(bottom 4px);
+            @include size(calc(100% - 60px));
+            @include padding(0 20px 4px 0);
+            @include box-sizing(border-box);
             @include truncate();
+            float: left;
+            font-weight: bold;
             font-size: $font-size-base;
-            color: $font-color-base;
+            line-height: 24px;
+            color: $red;
+            text-align: right;
+        }
+
+        .ride-difficulty{
+            @include size(60px, 24px);
+            @include margin(right -1px);
+            @include button(blue-fill);
+            @include border-radius(4px 0 0 4px);
+            float: right;
+            font-size: $font-size-small;
+            line-height: 24px;
+            text-align: center;
         }
 
         .ride-detail{
+            @include margin(top 10px);
+            overflow: hidden;
             font-size: $font-size-small;
-            color: $gray-700;
+            line-height: 19px;
+            color: $font-color-base;
 
             span{
-                @include margin(right 6px);
+                float: left;
             }
 
-            span:last-child{
-                @include margin(right 0);
+            span::after{
+                @include size(1px, 13px);
+                @include margin(2px 6px 0);
+                float: right;
+                background: $gray;
+                content: '';
+            }
+
+            span:last-child::after{
+                display: none;
             }
         }
 
-        .ride-date{
-            float: right;
+        .ride-address{
+            @include margin(top 4px);
+            @include truncate();
             font-size: $font-size-small;
-            color: $gray-700;
-        }
-
-        .ride-attend{
-            @include button(gray-fill, null, 4px);
-            @include size(80px, 30px);
-            @include margin(top 12px);
-            float: right;
-            font-size: 12px;
-            line-height: 30px;
-            text-align: center;
-            clear: both;
+            line-height: 19px;
+            color: $font-color-base;
         }
     }
 }

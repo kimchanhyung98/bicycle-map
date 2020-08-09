@@ -41,22 +41,20 @@ class Home extends Component {
                         return (
                             <li key={ride.id}>
                                 <a href="#">
-                                    <div className="left-area">
+                                    <span className="ride-attend">1명 참석</span>
+
+                                    <div className="ride-header">
                                         <h2 className="ride-title">{ ride.name }</h2>
-                                        <div className="ride-detail">
-                                            <span>{ ride.difficulty }</span>
-                                            <span>거리 { ride.distance }km</span>
-                                            <span>고도 { ride.altitude }km</span>
-                                        </div>
-                                        <div className="ride-detail">
-                                            <span>{ ride.address } { ride.address_detail }</span>
-                                            <span>출발시간: { ride.started_at }</span>
-                                        </div>
+                                        <span className="ride-difficulty">{ ride.difficulty }</span>
                                     </div>
 
-                                    <div className="right-area">
-                                        <time className="ride-date">2020-07-01 10:10</time>
-                                        <span className="ride-attend">1명 참석</span>
+                                    <div className="ride-detail">
+                                        <span>거리 { ride.distance }km</span>
+                                        <span>출발시간 { ride.started_at }</span>
+                                        <span>소요시간 3시간</span>
+                                    </div>
+                                    <div className="ride-address">
+                                        <span>출발장소: { ride.address } { ride.address_detail }</span>
                                     </div>
                                 </a>
                             </li>
