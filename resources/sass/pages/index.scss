@@ -49,6 +49,14 @@
         .ride-detail{
             font-size: $font-size-small;
             color: $gray-700;
+
+            span{
+                @include margin(right 6px);
+            }
+
+            span:last-child{
+                @include margin(right 0);
+            }
         }
 
         .ride-date{
