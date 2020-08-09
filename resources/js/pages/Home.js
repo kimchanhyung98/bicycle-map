@@ -10,56 +10,56 @@ const mapStateToProps = (state) => ({
 class Home extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            rides: {}
+        }
+    }
+
+    getData() {
+        axios.get('/api/rides').then(res => {
+            this.setState({
+                rides: res.data.rides.data
+            });
+            console.log(res);
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
+    componentDidMount() {
+        this.getData();
     }
 
     render() {
-        let data = this.props.state;
+        let rides = Array.from(this.state.rides);
 
         return (
             <article className="main-container">
                 <ul className="ride-list">
-                    <li>
-                        <a href="#">
-                            <div className="left-area">
-                                <h2 className="ride-title">제목 ㅁㄴㅇㅁㄴㅇ</h2>
-                                <div className="ride-detail">
-                                    <span>초급</span>
-                                    <span>거리 100km</span>
-                                    <span>고도 1000m</span>
-                                </div>
-                                <div className="ride-detail">
-                                    <span>봉천로 123-4</span>
-                                    <span>출발시간</span>
-                                </div>
-                            </div>
+                    { rides.map((ride) => {
+                        return (
+                            <li key={ride.id}>
+                                <a href="#">
+                                    <span className="ride-attend">1명 참석</span>
 
-                            <div className="right-area">
-                                <time className="ride-date">2020-07-01 10:10</time>
-                                <span className="ride-attend">1명 참석</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <div className="left-area">
-                                <h2 className="ride-title">제목 ㅁㄴㅇㅁㄴㅇ</h2>
-                                <div className="ride-detail">
-                                    <span>초급</span>
-                                    <span>거리 100km</span>
-                                    <span>고도 1000m</span>
-                                </div>
-                                <div className="ride-detail">
-                                    <span>봉천로 123-4</span>
-                                    <span>출발시간</span>
-                                </div>
-                            </div>
+                                    <div className="ride-header">
+                                        <h2 className="ride-title">{ ride.name }</h2>
+                                        <span className="ride-difficulty">{ ride.difficulty }</span>
+                                    </div>
 
-                            <div className="right-area">
-                                <time className="ride-date">2020-07-01 10:10</time>
-                                <span className="ride-attend">1명 참석</span>
-                            </div>
-                        </a>
-                    </li>
+                                    <div className="ride-detail">
+                                        <span>거리 { ride.distance }km</span>
+                                        <span>출발시간 { ride.started_at }</span>
+                                        <span>소요시간 3시간</span>
+                                    </div>
+                                    <div className="ride-address">
+                                        <span>출발장소: { ride.address } { ride.address_detail }</span>
+                                    </div>
+                                </a>
+                            </li>
+                        )
+                    })}
                 </ul>
             </article>
         );
