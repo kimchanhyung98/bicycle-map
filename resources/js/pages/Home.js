@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
 
 import '@sass/pages/index.scss';
 
@@ -40,7 +41,7 @@ class Home extends Component {
                     { rides.map((ride) => {
                         return (
                             <li key={ride.id}>
-                                <a href="#">
+                                <Link to={`/ride/${ride.id}`}>
                                     <span className="ride-attend">1명 참석</span>
 
                                     <div className="ride-header">
@@ -56,7 +57,7 @@ class Home extends Component {
                                     <div className="ride-address">
                                         <span>출발장소: { ride.address } { ride.address_detail }</span>
                                     </div>
-                                </a>
+                                </Link>
                             </li>
                         )
                     })}
