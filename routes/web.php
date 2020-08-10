@@ -13,8 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.app');
-});
+Auth::routes([
+    'verify' => true,
+    'reset' => false
+]);
 
-Auth::routes();
+Route::view('{path?}', 'layouts.app');
