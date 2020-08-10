@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', 'Auth\AuthController@login');
 
 Route::get('rides', 'RideController@index');
+Route::get('ride/{ride}', 'RideController@show');
 
 Route::middleware('auth:sanctum')->get('user', function (Request $request) {
     // sanctum user test

@@ -45,12 +45,14 @@ class RideController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     * @return Response
+     * @param Ride $ride
+     * @return JsonResponse
      */
-    public function show($id)
+    public function show(Ride $ride)
     {
-        //
+        return response()->json([
+            'ride' => $ride->load('user'),
+        ]);
     }
 
     /**
