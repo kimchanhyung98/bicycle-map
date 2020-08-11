@@ -18,4 +18,7 @@ Auth::routes([
     'reset' => false
 ]);
 
-Route::view('{path?}', 'layouts.app');
+Route::get('{path?}', [
+    'uses' => 'HomeController@show',
+    'where' => ['path' => '.*']
+]);
