@@ -14,18 +14,17 @@ class Home extends Component {
 
         this.state = {
             id: this.props.match.params.id,
-            ride: {}
+            ride: {
+                user: {}
+            }
         }
     }
 
     getData() {
         axios.get(`/api/ride/${this.state.id}`).then(res => {
-            console.log(res);
             this.setState({
                 ride: res.data.ride
             });
-
-            console.log(this.state);
         }).catch(err => {
             console.log(err);
         })
@@ -36,11 +35,10 @@ class Home extends Component {
     }
 
     render() {
-        let ride = JSON.stringify(this.state.ride);
+        let ride = this.state.ride;
 
         return (
             <div>
-                {ride}
                 <section className="map-container"></section>
                 <section className="main-container">
                     <div className="ride-header">
@@ -59,9 +57,9 @@ class Home extends Component {
                             </div>
 
                             <div className="user-info-area">
-                                <span className="user-name">{ ride.user }</span>
-                                <p className="user-summary">
-                                    { ride.user }
+                                <span className="user-name">{ ride.user.name }</span>
+                                <p className="user-description">
+                                    소개글
                                 </p>
                             </div>
                         </div>

@@ -22,7 +22,6 @@ class Home extends Component {
             this.setState({
                 rides: res.data.rides.data
             });
-            console.log(res);
         }).catch(err => {
             console.log(err);
         })
