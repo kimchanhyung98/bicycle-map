@@ -3,3 +3,8 @@
 @import '@sass/helpers/_mixins.scss';
 
 @import '@sass/components/_button.scss';
+
+.main .map-container{
+    @include size(100%, 360px);
+    background: red;
+}

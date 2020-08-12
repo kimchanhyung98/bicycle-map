@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 
-import '@sass/pages/ride.scss';
+import '@sass/pages/ride/ride-detail.scss';
 
 const mapStateToProps = (state) => ({
     state

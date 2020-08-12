@@ -7,10 +7,6 @@ body{
     color: $font-color-base;
 }
 
-.main{
-    @include padding(0 20px);
-}
-
 .hidden{
     display: none;
 }
