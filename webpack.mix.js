@@ -17,5 +17,31 @@ mix.alias({
     '@sass': '/resources/sass'
  });
 
-mix.react('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix.react('resources/js/app.js', 'public/js');
+
+mix.webpackConfig({
+    module: {
+        rules: [
+            {
+              test: /\.(sc|c|sa)ss$/,
+              use: [
+                {
+                  loader: 'style-loader',
+                },
+                {
+                  loader: 'css-loader',
+                  options: {
+                    sourceMap: true,
+                    importLoaders: 2,
+                  },
+                },
+                // You have to put in after `css-loader` and before any `pre-precessing loader`
+                { loader: 'scoped-css-loader' },
+                {
+                  loader: 'sass-loader',
+                },
+              ],
+            },
+        ]
+    }
+}).sourceMaps();
