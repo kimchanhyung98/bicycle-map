@@ -18,7 +18,7 @@ class Home extends Component {
     }
 
     getData() {
-        axios.get('/api/rides').then(res => {
+        axios.get('/api/ride').then(res => {
             this.setState({
                 rides: res.data.rides.data
             });

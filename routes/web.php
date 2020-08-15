@@ -19,6 +19,6 @@ Auth::routes([
 ]);
 
 Route::get('{path?}', [
-    'uses' => 'HomeController@show',
+    'uses' => 'HomeController@index',
     'where' => ['path' => '.*']
 ]);
