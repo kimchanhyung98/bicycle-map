@@ -5,7 +5,11 @@
 @import '@sass/components/_input.scss';
 @import '@sass/components/_button.scss';
 
-.auth-container{
+.main{
+    @include padding(0 20px);
+}
+
+.main .auth-container{
     .title{
         @include margin(top 30px);
         font-weight: bold;
