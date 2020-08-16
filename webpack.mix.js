@@ -17,5 +17,17 @@ mix.alias({
     '@sass': '/resources/sass'
  });
 
-mix.react('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix.react('resources/js/app.js', 'public/js');
+
+mix.webpackConfig({
+    module: {
+        rules: [
+            {
+                test: /\.(sc|c|sa)ss$/,
+                use: [
+                    { loader: 'scoped-css-loader' },
+                ],
+            },
+        ]
+    }
+});

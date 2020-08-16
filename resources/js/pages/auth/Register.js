@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import '@sass/pages/auth.scss';
+import '@sass/pages/auth.scoped.scss';
 
 class Register extends Component {
     constructor(props) {

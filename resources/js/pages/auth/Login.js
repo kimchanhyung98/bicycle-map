@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { login } from '@/actions/user.js';
 import storage from '@/lib/storage.js';
 
-import '@sass/pages/auth.scss';
+import '@sass/pages/auth.scoped.scss';
 
 const mapStateToProps = (state) => ({
     state
