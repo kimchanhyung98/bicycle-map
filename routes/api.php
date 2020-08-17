@@ -17,6 +17,14 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', 'Auth\AuthController@login');
 
 Route::group(['prefix' => 'ride', 'as' => 'ride.'], function () {
+    // 라이드 리스트
     Route::get('/', 'RideController@index')->name('index');
+
+    // 라이드 상세
     Route::get('{ride}', 'RideController@show')->name('show');
+
+    Route::middleware('auth:sanctum')->group(function () {
+        // 라이드 참가
+        Route::post('attend', 'ParticipantController@store')->name('store');
+    });
 });
