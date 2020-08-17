@@ -52,40 +52,42 @@ class Register extends Component {
 
     render() {
         return (
-            <article className="auth-container">
-                <h2 className="title">회원가입</h2>
+            <main className="main">
+                <article className="auth-container">
+                    <h2 className="title">회원가입</h2>
 
-                <form onSubmit={this.handleSubmit}>
-                    <div className="form-group">
-                        <input type="text" name="name" placeholder="이름" maxLength="255" required
-                               onChange={this.handleChange} />
-                    </div>
+                    <form onSubmit={this.handleSubmit}>
+                        <div className="form-group">
+                            <input type="text" name="name" placeholder="이름" maxLength="255" required
+                                   onChange={this.handleChange} />
+                        </div>
 
-                    <div className="form-group">
-                        <input type="email" name="email" placeholder="이메일" maxLength="255" required
-                               onChange={this.handleChange} />
-                    </div>
+                        <div className="form-group">
+                            <input type="email" name="email" placeholder="이메일" maxLength="255" required
+                                   onChange={this.handleChange} />
+                        </div>
 
-                    <div className="form-group">
-                        <input type="text" name="phone" placeholder="전화번호" required
-                               onChange={this.handleChange} />
-                    </div>
+                        <div className="form-group">
+                            <input type="text" name="phone" placeholder="전화번호" required
+                                   onChange={this.handleChange} />
+                        </div>
 
-                    <div className="form-group">
-                        <input type="password" name="password" placeholder="비밀번호" minLength="8" required
-                               onChange={this.handleChange} />
-                    </div>
+                        <div className="form-group">
+                            <input type="password" name="password" placeholder="비밀번호" minLength="8" required
+                                   onChange={this.handleChange} />
+                        </div>
 
-                    <div className="form-group">
-                        <input type="password" name="password_confirmation" placeholder="비밀번호 확인" minLength="8" required
-                               onChange={this.handleChange} />
-                    </div>
+                        <div className="form-group">
+                            <input type="password" name="password_confirmation" placeholder="비밀번호 확인" minLength="8" required
+                                   onChange={this.handleChange} />
+                        </div>
 
-                    <div className="btn-area">
-                        <input type="submit" className="btn-submit" value="회원가입" />
-                    </div>
-                </form>
-            </article>
+                        <div className="btn-area">
+                            <input type="submit" className="btn-submit" value="회원가입" />
+                        </div>
+                    </form>
+                </article>
+            </main>
         );
     }
 };

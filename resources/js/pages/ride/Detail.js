@@ -59,7 +59,7 @@ class Home extends Component {
         let ride = this.state.ride;
 
         return (
-            <form onSubmit={ this.handleSubmit }>
+            <main className="main">
                 <section className="map-container"></section>
                 <section className="main-container">
                     <div className="ride-header">
@@ -119,10 +119,10 @@ class Home extends Component {
                     </div>
 
                     <div className="btn-area">
-                        <button type="submit">참가 하기</button>
+                        <button type="button" onClick={ this.handleSubmit }>참가 하기</button>
                     </div>
                 </section>
-            </form>
+            </main>
         );
     }
 };

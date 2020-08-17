@@ -31,9 +31,7 @@ class Index extends Component {
             <BrowserRouter>
                 <Header />
 
-                <main className="main">
-                   <Route component={Main}/>
-                </main>
+               <Route component={Main}/>
             </BrowserRouter>
         );
     }
