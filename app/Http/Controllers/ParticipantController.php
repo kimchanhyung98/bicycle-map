@@ -18,7 +18,8 @@ class ParticipantController extends Controller
     public function store(Request $request)
     {
         Participant::where([
-            'user_id' => $request->user()->id,
+             //'user_id' => $request->user()->id,
+            'user_id' => $request->user_id,
             'ride_id' => $request->ride_id,
         ])->firstOrCreate();
 

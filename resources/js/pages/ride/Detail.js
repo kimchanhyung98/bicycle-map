@@ -18,6 +18,8 @@ class Home extends Component {
                 user: {}
             }
         }
+
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     getData() {
@@ -30,6 +32,25 @@ class Home extends Component {
         })
     }
 
+    handleSubmit(e) {
+        e.preventDefault();
+        let user = this.props.state.user;
+
+        if (!user.isLoggedIn) {
+            alert('로그인을 해주세요');
+            return false;
+        }
+
+        axios.post('/api/ride/attend', {
+            user_id: user.user.id,
+            ride_id: this.state.id
+        }).then(res => {
+            alert(res.data.message);
+        }).catch(err => {
+            alert('오류');
+        });
+    }
+
     componentDidMount() {
         this.getData();
     }
@@ -38,7 +59,7 @@ class Home extends Component {
         let ride = this.state.ride;
 
         return (
-            <div>
+            <form onSubmit={ this.handleSubmit }>
                 <section className="map-container"></section>
                 <section className="main-container">
                     <div className="ride-header">
@@ -98,10 +119,10 @@ class Home extends Component {
                     </div>
 
                     <div className="btn-area">
-                        <button type="button">참가 하기</button>
+                        <button type="submit">참가 하기</button>
                     </div>
                 </section>
-            </div>
+            </form>
         );
     }
 };
