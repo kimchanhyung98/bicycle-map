@@ -17,11 +17,11 @@ class ParticipantController extends Controller
      */
     public function store(Request $request)
     {
-        Participant::where([
-             //'user_id' => $request->user()->id,
-            'user_id' => $request->user_id,
+        $participant = Participant::firstOrCreate([
+            'user_id' => $request->user()->id,
             'ride_id' => $request->ride_id,
-        ])->firstOrCreate();
+        ]);
+        logger($participant);
 
         return response()->json([
             'message' => '참가 신청되었습니다.',
