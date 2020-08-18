@@ -8,7 +8,7 @@ const mapStateToProps = (state) => ({
     state
 });
 
-class Home extends Component {
+class Detail extends Component {
     constructor(props) {
         super(props);
 
@@ -127,4 +127,4 @@ class Home extends Component {
     }
 };
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(Detail);
