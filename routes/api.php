@@ -26,6 +26,8 @@ Route::group(['prefix' => 'ride', 'as' => 'ride.'], function () {
 
     Route::middleware('auth:sanctum')->group(function () {
         // 라이드 참가
-        Route::post('attend', 'ParticipantController@store')->name('store');
+        Route::post('attend', 'ParticipantController@store')->name('attend');
+        // 라이드 참가 취소
+        Route::post('cancel', 'ParticipantController@destroy')->name('cancel');
     });
 });
