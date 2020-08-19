@@ -10,7 +10,7 @@ use Illuminate\Http\Response;
 class RideController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * 라이드 리스트
      *
      * @return JsonResponse
      */
@@ -22,28 +22,44 @@ class RideController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * 라이드 저장
      *
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'nullable|max:10000',
+            'started_at' => 'required|date|before:today',
+            'ended_at' => 'nullable|date|before:started_at',
+
+            'address' => 'required|max:255',
+            'address_detail' => 'nullable|max:255',
+            'locality' => 'nullable|max:255',
+            'sublocality1' => 'nullable|max:255',
+            'sublocality2' => 'nullable|max:255',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
+
+            'difficulty' => 'required',
+            'capacity' => 'required|numeric',
+            'distance' => 'nullable|numeric',
+            'altitude' => 'required',
+            'altitude_detail' => 'nullable|numeric',
+        ]);
+        $ride = Ride::create($validatedData);
+        logger($ride);
+
+        return response()->json([
+            'ride_id' => $ride->id,
+            'message' => '개설되었습니다.',
+        ]);
     }
 
     /**
-     * Display the specified resource.
+     * 라이드 상세
      *
      * @param Ride $ride
      * @return JsonResponse
@@ -56,26 +72,42 @@ class RideController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * 라이드 업데이트
      *
      * @param Request $request
-     * @param int $id
-     * @return Response
+     * @param Ride $ride
+     * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Ride $ride)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'nullable|max:10000',
+            'started_at' => 'required|date|before:today',
+            'ended_at' => 'nullable|date|before:started_at',
+
+            'address' => 'required|max:255',
+            'address_detail' => 'nullable|max:255',
+            'locality' => 'nullable|max:255',
+            'sublocality1' => 'nullable|max:255',
+            'sublocality2' => 'nullable|max:255',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
+
+            'difficulty' => 'required', // 미정
+            'capacity' => 'required|numeric',
+            'distance' => 'nullable|numeric',
+            'altitude' => 'required', // 미정
+            'altitude_detail' => 'nullable|numeric',
+        ]);
+
+        logger($validatedData);
+        $ride->update($validatedData); // 작업중
+
+        return response()->json([
+            'ride_id' => $ride->id,
+            'message' => '수정되었습니다.',
+        ]);
     }
 
     /**
