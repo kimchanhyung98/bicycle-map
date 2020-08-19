@@ -33,6 +33,9 @@ Route::group(['prefix' => 'ride', 'as' => 'ride.'], function () {
         // 라이드 업데이트
         Route::put('{ride}', 'RideController@update')->name('update');
 
+        // 라이드 삭제
+        Route::delete('{ride}', 'RideController@destroy')->name('destroy');
+
         // 라이드 참가
         Route::post('attend', 'ParticipantController@store')->name('attend');
         // 라이드 참가 취소
