@@ -109,15 +109,16 @@ class RideController extends Controller
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
 
-            'difficulty' => 'required', // 미정
+            'difficulty' => 'required',
             'capacity' => 'required|numeric',
             'distance' => 'nullable|numeric',
-            'altitude' => 'required', // 미정
+            'altitude' => 'required',
             'altitude_detail' => 'nullable|numeric',
         ]);
 
         logger($validatedData);
-        $ride->update($validatedData); // 작업중
+        $ride->update($validatedData);
+        logger($ride);
 
         return response()->json([
             'ride_id' => $ride->id,
@@ -126,13 +127,18 @@ class RideController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 라이드 삭제
      *
-     * @param int $id
-     * @return Response
+     * @param Ride $ride
+     * @return JsonResponse
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Ride $ride)
     {
-        //
+        $ride->delete();
+
+        return response()->json([
+            'message' => '삭제되었습니다.',
+        ]);
     }
 }
