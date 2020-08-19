@@ -5,12 +5,13 @@ import '@sass/pages/auth.scoped.scss';
 class Register extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             name: '',
             email: '',
             phone: '',
             password: ''
-        }
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -47,7 +48,7 @@ class Register extends Component {
             this.props.history.push('/login');
         }).catch(err => {
             alert('오류');
-        })
+        });
     }
 
     render() {

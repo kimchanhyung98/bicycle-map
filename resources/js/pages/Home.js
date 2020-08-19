@@ -14,7 +14,7 @@ class Home extends Component {
 
         this.state = {
             rides: {}
-        }
+        };
     }
 
     getData() {
@@ -24,7 +24,7 @@ class Home extends Component {
             });
         }).catch(err => {
             console.log(err);
-        })
+        });
     }
 
     componentDidMount() {

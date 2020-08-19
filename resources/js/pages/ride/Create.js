@@ -54,10 +54,7 @@ class Create extends Component {
             } else {
                 alert('오류');
             }
-        })
-        alert('asdasd');
-
-        console.log(this.state);
+        });
     }
 
     render() {

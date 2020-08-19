@@ -17,7 +17,7 @@ class Detail extends Component {
             ride: {
                 user: {}
             }
-        }
+        };
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -29,7 +29,7 @@ class Detail extends Component {
             });
         }).catch(err => {
             console.log(err);
-        })
+        });
     }
 
     handleSubmit(e) {
