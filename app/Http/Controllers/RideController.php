@@ -68,6 +68,21 @@ class RideController extends Controller
     {
         return response()->json([
             'ride' => $ride->load('user'),
+            // 'participants' => $ride->participants,
+            // 'comments' => $ride->comments,
+        ]);
+    }
+
+    /**
+     * 라이드 수정
+     *
+     * @param Ride $ride
+     * @return JsonResponse
+     */
+    public function edit(Ride $ride)
+    {
+        return response()->json([
+            'ride' => $ride,
         ]);
     }
 
