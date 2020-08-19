@@ -49,6 +49,7 @@ class RideController extends Controller
             'altitude' => 'required',
             'altitude_detail' => 'nullable|numeric',
         ]);
+        $validatedData['user_id'] = $request->user()->id;
         $ride = Ride::create($validatedData);
         logger($ride);
 

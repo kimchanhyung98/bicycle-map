@@ -15,7 +15,7 @@ class Login extends Component {
         this.state = {
             email: '',
             password: ''
-        }
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -50,25 +50,27 @@ class Login extends Component {
         const user = this.props.state.user;
 
         return (
-            <article className="auth-container">
-                <h2 className="title">로그인</h2>
+            <main className="main">
+                <article className="auth-container">
+                    <h2 className="title">로그인</h2>
 
-                <form onSubmit={this.handleSubmit}>
-                    <div className="form-group">
-                        <input type="email" name="email" placeholder="이메일"
-                               onChange={this.handleChange} />
-                    </div>
+                    <form onSubmit={this.handleSubmit}>
+                        <div className="form-group">
+                            <input type="email" name="email" placeholder="이메일"
+                                   onChange={this.handleChange} />
+                        </div>
 
-                    <div className="form-group">
-                        <input type="password" name="password" placeholder="패스워드"
-                               onChange={this.handleChange} />
-                    </div>
+                        <div className="form-group">
+                            <input type="password" name="password" placeholder="패스워드"
+                                   onChange={this.handleChange} />
+                        </div>
 
-                    <div className="btn-area">
-                        <input type="submit" className="btn-submit" value="로그인" />
-                    </div>
-                </form>
-            </article>
+                        <div className="btn-area">
+                            <input type="submit" className="btn-submit" value="로그인" />
+                        </div>
+                    </form>
+                </article>
+            </main>
         );
     }
 };

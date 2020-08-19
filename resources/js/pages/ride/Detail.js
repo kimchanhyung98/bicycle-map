@@ -8,7 +8,7 @@ const mapStateToProps = (state) => ({
     state
 });
 
-class Home extends Component {
+class Detail extends Component {
     constructor(props) {
         super(props);
 
@@ -17,7 +17,7 @@ class Home extends Component {
             ride: {
                 user: {}
             }
-        }
+        };
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -29,7 +29,7 @@ class Home extends Component {
             });
         }).catch(err => {
             console.log(err);
-        })
+        });
     }
 
     handleSubmit(e) {
@@ -59,7 +59,7 @@ class Home extends Component {
         let ride = this.state.ride;
 
         return (
-            <form onSubmit={ this.handleSubmit }>
+            <main className="main">
                 <section className="map-container"></section>
                 <section className="main-container">
                     <div className="ride-header">
@@ -119,12 +119,12 @@ class Home extends Component {
                     </div>
 
                     <div className="btn-area">
-                        <button type="submit">참가 하기</button>
+                        <button type="button" onClick={ this.handleSubmit }>참가 하기</button>
                     </div>
                 </section>
-            </form>
+            </main>
         );
     }
 };
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(Detail);
