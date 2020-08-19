@@ -25,6 +25,14 @@ Route::group(['prefix' => 'ride', 'as' => 'ride.'], function () {
     Route::get('{ride}', 'RideController@show')->name('show');
 
     Route::middleware('auth:sanctum')->group(function () {
+        // 라이드 수정
+        Route::get('edit/{ride}', 'RideController@edit')->name('edit');
+
+        // 라이드 저장
+        Route::post('store', 'RideController@store')->name('store');
+        // 라이드 업데이트
+        Route::put('{ride}', 'RideController@update')->name('update');
+
         // 라이드 참가
         Route::post('attend', 'ParticipantController@store')->name('attend');
         // 라이드 참가 취소
