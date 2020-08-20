@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
+import Map from '@/components/Map';
+
 const mapStateToProps = (state) => ({
     state
 });
@@ -96,6 +98,8 @@ class Create extends Component {
 
                             <input type="text" name="address" placeholder="장소를 입력해주세요"
                                    onChange={this.handleChange} />
+
+                               <Map />
                         </div>
 
                         <div className="ride-course">
