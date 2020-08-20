@@ -15,7 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', 'Auth\AuthController@login');
-Route::get('user', 'Auth\AuthController@user')->middleware('auth:sanctum');
+
+Route::middleware('auth:sanctum')->group(function () {
+    // 유저
+    Route::get('user', 'Auth\AuthController@user')->name('user');
+
+    // 파일 업로드
+    Route::post('upload', 'FileController@store')->name('upload');
+});
 
 Route::group(['prefix' => 'ride', 'as' => 'ride.'], function () {
     // 라이드 리스트
