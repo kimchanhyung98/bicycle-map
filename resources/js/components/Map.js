@@ -22,5 +22,6 @@ export const Map = (props) => {
       </NaverMap>
     </RenderAfterNavermapsLoaded>
   );
+};
 
 export default Map;
