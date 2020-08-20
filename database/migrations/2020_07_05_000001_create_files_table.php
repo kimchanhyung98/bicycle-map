@@ -17,8 +17,11 @@ class CreateFilesTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
 
-            $table->string('name');
-            $table->string('path');
+            $table->string('name')->comment('파일명');
+            $table->string('path')->comment('파일 경로');
+            $table->string('extension')->comment('파일 확장자');
+            $table->unsignedInteger('size')->default(0)->comment('파일 크기');
+            $table->unsignedInteger('download')->default(0)->comment('다운로드 횟수');
             $table->timestamps();
             $table->softDeletes();
         });
