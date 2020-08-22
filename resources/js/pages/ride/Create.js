@@ -22,8 +22,8 @@ class Create extends Component {
             locality: '',
             sublocality1: '',
             sublocality2: '',
-            latitude: '',
-            longitude: '',
+            latitude: '37.554722',
+            longitude: '126.970833',
 
             course: '',
             difficulty: 'advanced',
@@ -33,8 +33,16 @@ class Create extends Component {
             altitude_detail: ''
         };
 
+        this.handleChangeMarker = this.handleChangeMarker.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChangeMarker(latitude, longitude) {
+        this.setState({
+            latitude: latitude,
+            longitude: longitude
+        });
     }
 
     handleChange(e) {
@@ -99,7 +107,13 @@ class Create extends Component {
                             <input type="text" name="address" placeholder="장소를 입력해주세요"
                                    onChange={this.handleChange} />
 
-                               <Map width={'100%'} height={'300px'} lat={37.554722} lng={126.970833} />
+                               <Map
+                                    width={'100%'}
+                                    height={'300px'}
+                                    lat={this.state.latitude}
+                                    lng={this.state.longitude}
+                                    zoom={12}
+                                    handleChangeMarker={this.handleChangeMarker} />
                         </div>
 
                         <div className="ride-course">
