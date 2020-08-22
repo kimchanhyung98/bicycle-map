@@ -99,7 +99,7 @@ class Create extends Component {
                             <input type="text" name="address" placeholder="장소를 입력해주세요"
                                    onChange={this.handleChange} />
 
-                               <Map />
+                               <Map width={'100%'} height={'300px'} lat={37.554722} lng={126.970833} />
                         </div>
 
                         <div className="ride-course">
