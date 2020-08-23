@@ -34,7 +34,7 @@ class Create extends Component {
         };
 
         this.handleSetMarker = this.handleSetMarker.bind(this);
-        this.handdleSetAddress = this.handdleSetAddress.bind(this);
+        this.handleSetAddress = this.handleSetAddress.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -45,10 +45,10 @@ class Create extends Component {
             longitude: longitude
         });
 
-        this.handdleSetAddress(latitude, longitude);
+        this.handleSetAddress(latitude, longitude);
     }
 
-    handdleSetAddress(latitude, longitude) {
+    handleSetAddress(latitude, longitude) {
         let lnglat = `${longitude},${latitude}`;
 
         axios.get(`/api/geocode/reverse?lnglat=${lnglat}`).then(res => {
