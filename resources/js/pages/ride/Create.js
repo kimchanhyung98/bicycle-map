@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
 import Map from '@/components/Map';
+import File from '@/components/common/File';
 
 const mapStateToProps = (state) => ({
     state
@@ -12,6 +13,7 @@ class Create extends Component {
         super(props);
 
         this.state = {
+            file_id: '',
             name: 'asdasd',
             description: 'asdasd',
             started_at: '2020-06-25 20:17:25',
@@ -25,7 +27,6 @@ class Create extends Component {
             latitude: '37.554722',
             longitude: '126.970833',
 
-            course: '',
             difficulty: 'advanced',
             capacity: '123123',
             distance: '',
@@ -34,6 +35,7 @@ class Create extends Component {
         };
 
         this.handleSetMarker = this.handleSetMarker.bind(this);
+        this.handleSetFile = this.handleSetFile.bind(this);
         this.handleSetAddress = this.handleSetAddress.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -46,6 +48,12 @@ class Create extends Component {
         });
 
         this.handleSetAddress(latitude, longitude);
+    }
+
+    handleSetFile(file) {
+        this.setState({
+            file_id: file.id
+        });
     }
 
     handleSetAddress(latitude, longitude) {
@@ -142,8 +150,8 @@ class Create extends Component {
                         <div className="ride-course">
                             <label className="form-label">코스</label>
 
-                            <input type="file" name="course" placeholder="GPX 파일을 업로드해주세요"
-                                   onChange={this.handleChange} />
+                            <File placeholder={'GPX 파일을 업로드해주세요'}
+                                handleSetFile={this.handleSetFile} />
                         </div>
 
                         <div className="ride-difficulty">
