@@ -39,3 +39,5 @@ Route::group(['prefix' => 'ride', 'as' => 'ride.'], function () {
         Route::post('cancel', 'ParticipantController@destroy')->name('cancel');
     });
 });
+
+Route::get('geocode/reverse', 'Api\MapController@reverse_geocode');
