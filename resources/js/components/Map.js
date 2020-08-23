@@ -30,16 +30,11 @@ class Map extends Component {
                     }}
                     zoom={ this.props.zoom }
                     onClick={(e) => {
-                        this.props.handleChangeMarker(e.coord.y, e.coord.x);
+                        this.props.handleSetMarker(e.coord.y, e.coord.x);
                     }}>
 
                     <Marker
-                        position={{ lat: this.props.lat, lng: this.props.lng }}
-                        onClick={(e) => {
-                            this.se
-                            console.log(e);
-                            alert('여기는 네이버 입니다.')
-                        }} />
+                        position={{ lat: this.props.lat, lng: this.props.lng }} />
                 </NaverMap>
             </RenderAfterNavermapsLoaded>
         );

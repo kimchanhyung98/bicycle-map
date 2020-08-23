@@ -33,12 +33,12 @@ class Create extends Component {
             altitude_detail: ''
         };
 
-        this.handleChangeMarker = this.handleChangeMarker.bind(this);
+        this.handleSetMarker = this.handleSetMarker.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChangeMarker(latitude, longitude) {
+    handleSetMarker(latitude, longitude) {
         this.setState({
             latitude: latitude,
             longitude: longitude
@@ -113,7 +113,7 @@ class Create extends Component {
                                     lat={this.state.latitude}
                                     lng={this.state.longitude}
                                     zoom={12}
-                                    handleChangeMarker={this.handleChangeMarker} />
+                                    handleSetMarker={this.handleSetMarker} />
                         </div>
 
                         <div className="ride-course">
