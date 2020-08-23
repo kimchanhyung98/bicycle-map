@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
+import Map from '@/components/Map';
+import File from '@/components/common/File';
+
 const mapStateToProps = (state) => ({
     state
 });
@@ -10,6 +13,7 @@ class Create extends Component {
         super(props);
 
         this.state = {
+            file_id: '',
             name: 'asdasd',
             description: 'asdasd',
             started_at: '2020-06-25 20:17:25',
@@ -20,10 +24,9 @@ class Create extends Component {
             locality: '',
             sublocality1: '',
             sublocality2: '',
-            latitude: '',
-            longitude: '',
+            latitude: '37.554722',
+            longitude: '126.970833',
 
-            course: '',
             difficulty: 'advanced',
             capacity: '123123',
             distance: '',
@@ -31,8 +34,43 @@ class Create extends Component {
             altitude_detail: ''
         };
 
+        this.handleSetMarker = this.handleSetMarker.bind(this);
+        this.handleSetFile = this.handleSetFile.bind(this);
+        this.handleSetAddress = this.handleSetAddress.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSetMarker(latitude, longitude) {
+        this.setState({
+            latitude: latitude,
+            longitude: longitude
+        });
+
+        this.handleSetAddress(latitude, longitude);
+    }
+
+    handleSetFile(file) {
+        this.setState({
+            file_id: file.id
+        });
+    }
+
+    handleSetAddress(latitude, longitude) {
+        let lnglat = `${longitude},${latitude}`;
+
+        axios.get(`/api/geocode/reverse?lnglat=${lnglat}`).then(res => {
+            let data = res.data.results[0].region;
+
+            this.setState({
+                address: `${data.area1.name} ${data.area2.name} ${data.area3.name}`,
+                locality: data.area1.name,
+                sublocality1: data.area2.name,
+                sublocality2: data.area3.name
+            });
+        }).catch(err => {
+            console.log(err);
+        });
     }
 
     handleChange(e) {
@@ -94,15 +132,26 @@ class Create extends Component {
                         <div className="ride-address">
                             <label className="form-label">장소</label>
 
-                            <input type="text" name="address" placeholder="장소를 입력해주세요"
+                            <input type="text" name="address" value={this.state.address} placeholder="장소를 지도에 표시해주세요" readOnly
                                    onChange={this.handleChange} />
+
+                               <Map
+                                    width={'100%'}
+                                    height={'300px'}
+                                    lat={this.state.latitude}
+                                    lng={this.state.longitude}
+                                    zoom={12}
+                                    handleSetMarker={this.handleSetMarker} />
+
+                                <input type="text" name="address_detail" placeholder="상세 장소를 입력해주세요"
+                                       onChange={this.handleChange} />
                         </div>
 
                         <div className="ride-course">
                             <label className="form-label">코스</label>
 
-                            <input type="file" name="course" placeholder="GPX 파일을 업로드해주세요"
-                                   onChange={this.handleChange} />
+                            <File placeholder={'GPX 파일을 업로드해주세요'}
+                                handleSetFile={this.handleSetFile} />
                         </div>
 
                         <div className="ride-difficulty">
