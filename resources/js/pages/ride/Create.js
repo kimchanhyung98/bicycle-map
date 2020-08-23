@@ -34,6 +34,7 @@ class Create extends Component {
         };
 
         this.handleSetMarker = this.handleSetMarker.bind(this);
+        this.handdleSetAddress = this.handdleSetAddress.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -42,6 +43,25 @@ class Create extends Component {
         this.setState({
             latitude: latitude,
             longitude: longitude
+        });
+
+        this.handdleSetAddress(latitude, longitude);
+    }
+
+    handdleSetAddress(latitude, longitude) {
+        let lnglat = `${longitude},${latitude}`;
+
+        axios.get(`/api/geocode/reverse?lnglat=${lnglat}`).then(res => {
+            let data = res.data.results[0].region;
+
+            this.setState({
+                address: `${data.area1.name} ${data.area2.name} ${data.area3.name}`,
+                locality: data.area1.name,
+                sublocality1: data.area2.name,
+                sublocality2: data.area3.name
+            });
+        }).catch(err => {
+            console.log(err);
         });
     }
 
@@ -104,7 +124,7 @@ class Create extends Component {
                         <div className="ride-address">
                             <label className="form-label">장소</label>
 
-                            <input type="text" name="address" placeholder="장소를 입력해주세요"
+                            <input type="text" name="address" value={this.state.address} placeholder="장소를 지도에 표시해주세요" readOnly
                                    onChange={this.handleChange} />
 
                                <Map
@@ -114,6 +134,9 @@ class Create extends Component {
                                     lng={this.state.longitude}
                                     zoom={12}
                                     handleSetMarker={this.handleSetMarker} />
+
+                                <input type="text" name="address_detail" placeholder="상세 장소를 입력해주세요"
+                                       onChange={this.handleChange} />
                         </div>
 
                         <div className="ride-course">
