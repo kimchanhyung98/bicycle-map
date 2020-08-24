@@ -59,7 +59,7 @@ class Create extends Component {
     handleSetAddress(latitude, longitude) {
         let lnglat = `${longitude},${latitude}`;
 
-        axios.get(`/api/geocode/reverse?lnglat=${lnglat}`).then(res => {
+        axios.get(`/api/reverse-geocode?lnglat=${lnglat}`).then(res => {
             let data = res.data.results[0].region;
 
             this.setState({
