@@ -105,10 +105,6 @@ class Create extends Component {
         let started_at = this.formatDate(this.state.started_date_time);
         let ended_at = this.formatDate(this.state.ended_date_time);
 
-        console.log('123');
-        console.log(started_at);
-        console.log(ended_at);
-
         this.setState({
             started_at: started_at,
             ended_at: ended_at
