@@ -32,8 +32,8 @@ class RideController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'nullable|max:10000',
-            'started_at' => 'required|date|before:today',
-            'ended_at' => 'nullable|date|before:started_at',
+            'started_at' => 'required|date|after:today',
+            'ended_at' => 'nullable|date|after:started_at',
 
             'address' => 'required|max:255',
             'address_detail' => 'nullable|max:255',
