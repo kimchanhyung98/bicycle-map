@@ -16,6 +16,7 @@ $factory->define(Ride::class, function (Faker $faker) {
         'description' => $faker->realText(),
         'started_at' => $started_at = $faker->dateTime(),
         'ended_at' => $faker->dateTimeBetween($started_at, '2 days'),
+
         'address' => $faker->address,
         'address_detail' => $faker->realText(20),
         'locality' => $faker->metropolitanCity,
@@ -23,10 +24,11 @@ $factory->define(Ride::class, function (Faker $faker) {
         'sublocality2' => $faker->streetName(),
         'latitude' => $faker->latitude($min = 33.1, $max = 38.45),
         'longitude' => $faker->longitude($min = 125.06, $max = 131.87),
+
         'difficulty' => $faker->randomElement(array('beginner', 'intermediate', 'advanced')),
-        'capacity' => $faker->numberBetween(3, 100),
-        'distance' => $faker->numberBetween(0, 300),
+        'capacity' => $faker->numberBetween(3, 50),
+        'distance' => $faker->numberBetween(0, 5000),
         'altitude' => $faker->randomElement(array('flat', 'uphill', 'mountain')),
-        'altitude_detail' => $faker->randomNumber(4),
+        'altitude_detail' => $faker->numberBetween(0, 5000),
     ];
 });
