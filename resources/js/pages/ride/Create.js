@@ -1,8 +1,10 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import { connect } from 'react-redux';
+import DateTimePicker from 'react-datetime-picker';
 
 import Map from '@/components/Map';
 import File from '@/components/common/File';
+
 
 const mapStateToProps = (state) => ({
     state
@@ -16,7 +18,9 @@ class Create extends Component {
             file_id: '',
             name: 'asdasd',
             description: 'asdasd',
-            started_at: '2020-06-25 20:17:25',
+            started_date_time: new Date(),
+            started_at: '',
+            ended_date_time: new Date(),
             ended_at: '',
 
             address: 'asdasd',
@@ -38,6 +42,8 @@ class Create extends Component {
         this.handleSetFile = this.handleSetFile.bind(this);
         this.handleSetAddress = this.handleSetAddress.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.formatDate = this.formatDate.bind(this);
+        this.formatDigit = this.formatDigit.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -79,20 +85,47 @@ class Create extends Component {
         this.setState(nextState);
     }
 
+    formatDate(date) {
+        let year = date.getFullYear();
+        let month = this.formatDigit(date.getMonth() + 1);
+        let day = this.formatDigit(date.getDate());
+        let hour = this.formatDigit(date.getHours());
+        let minute = this.formatDigit(date.getMinutes());
+
+        return `${year}-${month}-${day} ${hour}:${minute}:00`;
+    }
+
+    formatDigit(date) {
+        return date < 10 ? `0${date}` : date;
+    }
+
     handleSubmit(e) {
         e.preventDefault();
 
-        axios.post('/api/ride/store', this.state).then(res => {
-            alert(res.data.message);
-            this.props.history.push(`/ride/${res.data.ride_id}`);
-        }).catch(err => {
-            if (err.response.status == 422) {
-                const messages = err.response.data.errors;
-                alert(messages[Object.keys(messages)[0]]);
-            } else {
-                alert('오류');
-            }
+        let started_at = this.formatDate(this.state.started_date_time);
+        let ended_at = this.formatDate(this.state.ended_date_time);
+
+        console.log('123');
+        console.log(started_at);
+        console.log(ended_at);
+
+        this.setState({
+            started_at: started_at,
+            ended_at: ended_at
+        }, () => {
+            axios.post('/api/ride/store', this.state).then(res => {
+                alert(res.data.message);
+                this.props.history.push(`/ride/${res.data.ride_id}`);
+            }).catch(err => {
+                if (err.response.status == 422) {
+                    const messages = err.response.data.errors;
+                    alert(messages[Object.keys(messages)[0]]);
+                } else {
+                    alert('오류');
+                }
+            });
         });
+
     }
 
     render() {
@@ -117,16 +150,23 @@ class Create extends Component {
                         <div className="ride-date">
                             <label className="form-label">시간</label>
 
-                            <select name="started_at"
-                                    onChange={this.handleChange}>
-                                <option>11</option>
-                                <option>22</option>
-                            </select>
-                            <select name="ended_at"
-                                    onChange={this.handleChange}>
-                                <option>11</option>
-                                <option>22</option>
-                            </select>
+                            <DateTimePicker
+                                format={'y-MM-dd HH:mm'}
+                                value={this.state.started_date_time}
+                                onChange={(value) => {
+                                    this.setState({
+                                        started_date_time: value
+                                    })
+                                }} />
+
+                            <DateTimePicker
+                                format={'y-MM-dd HH:mm'}
+                                value={this.state.ended_date_time}
+                                onChange={(value) => {
+                                    this.setState({
+                                        ended_date_time: value
+                                    })
+                                }} />
                         </div>
 
                         <div className="ride-address">
@@ -135,16 +175,16 @@ class Create extends Component {
                             <input type="text" name="address" value={this.state.address} placeholder="장소를 지도에 표시해주세요" readOnly
                                    onChange={this.handleChange} />
 
-                               <Map
-                                    width={'100%'}
-                                    height={'300px'}
-                                    lat={this.state.latitude}
-                                    lng={this.state.longitude}
-                                    zoom={12}
-                                    handleSetMarker={this.handleSetMarker} />
+                           <Map
+                                width={'100%'}
+                                height={'300px'}
+                                lat={this.state.latitude}
+                                lng={this.state.longitude}
+                                zoom={12}
+                                handleSetMarker={this.handleSetMarker} />
 
-                                <input type="text" name="address_detail" placeholder="상세 장소를 입력해주세요"
-                                       onChange={this.handleChange} />
+                            <input type="text" name="address_detail" placeholder="상세 장소를 입력해주세요"
+                                   onChange={this.handleChange} />
                         </div>
 
                         <div className="ride-course">
