@@ -43,10 +43,10 @@ class RideController extends Controller
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
 
-            'difficulty' => 'required',
+            'difficulty' => 'required|in:beginner,intermediate,advanced',
             'capacity' => 'required|numeric',
             'distance' => 'nullable|numeric',
-            'altitude' => 'required',
+            'altitude' => 'required|in:flat,uphill,mountain',
             'altitude_detail' => 'nullable|numeric',
         ]);
         $validatedData['user_id'] = $request->user()->id;
