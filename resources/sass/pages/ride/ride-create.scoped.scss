@@ -1,0 +1,100 @@
+@import '@sass/helpers/_variables.scss';
+@import '@sass/helpers/_extends.scss';
+@import '@sass/helpers/_mixins.scss';
+
+@import '@sass/components/_input.scss';
+@import '@sass/components/_textarea.scss';
+@import '@sass/components/_selectbox.scss';
+@import '@sass/components/_button.scss';
+
+.main .create-container{
+    @include padding(10px 16px);
+    overflow: hidden;
+
+    .form-group{
+        @include margin(top 24px);
+        overflow: hidden;
+
+        .form-label{
+            display: block;
+            font-size: $font-size-large;
+            line-height: 18px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="tel"]{
+            @include input();
+            @include size(100%, 45px);
+            @include margin(top 8px);
+        }
+
+        textarea{
+            @include textarea();
+            @include size(100%, 80px);
+            @include margin(top 8px);
+        }
+
+        select{
+            @include selectbox();
+            @include margin(top 8px);
+        }
+
+        input[type="file"]{
+            @include margin(top 8px);
+        }
+    }
+
+    .ride-date .react-datetime-picker{
+        @include margin(8px 12px 0 0);
+
+        .react-datetime-picker__wrapper{
+            @include padding(0 10px);
+            @include border(1px solid $border-color-base);
+            @include border-radius(4px);
+            font-size: $font-size-base !important;
+            line-height: 40px;
+            color: $font-color-base !important;
+        }
+    }
+
+    .ride-address{
+        #react-naver-map{
+            @include margin(top 12px);
+            @include border-radius(4px);
+        }
+    }
+
+    .ride-difficulty{
+        select{
+            @include size(100%, 45px);
+        }
+    }
+
+    .ride-altitude{
+        select{
+            @include size(20%, 45px);
+            @include margin(right 2%);
+            float: left;
+        }
+
+        input[type="text"]{
+            @include size(78%);
+            float: left;
+        }
+    }
+
+    .btn-area{
+        @include margin(top 24px);
+
+        .btn-submit{
+            @include button(green-fill, 0);
+            @include size(auto, 40px);
+            @include margin(0 auto);
+            @include padding(0 20px);
+            font-size: $font-size-base;
+            line-height: 40px;
+        }
+    }
+}

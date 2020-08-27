@@ -5,6 +5,7 @@ import DateTimePicker from 'react-datetime-picker';
 import Map from '@/components/Map';
 import File from '@/components/common/File';
 
+import '@sass/pages/ride/ride-create.scoped.scss';
 
 const mapStateToProps = (state) => ({
     state
@@ -129,21 +130,21 @@ class Create extends Component {
             <main className="main">
                 <section className="create-container">
                     <form onSubmit={ this.handleSubmit}>
-                        <div className="ride-name">
+                        <div className="form-group ride-name">
                             <label className="form-label">제목</label>
 
                             <input type="text" name="name" placeholder="내용을 입력해주세요"
                                    onChange={this.handleChange} />
                         </div>
 
-                        <div className="ride-description">
+                        <div className="form-group ride-description">
                             <label className="form-label">설명</label>
 
                             <textarea name="description" placeholder="내용을 입력해주세요"
                                       onChange={this.handleChange}></textarea>
                         </div>
 
-                        <div className="ride-date">
+                        <div className="form-group ride-date">
                             <label className="form-label">시간</label>
 
                             <DateTimePicker
@@ -165,7 +166,7 @@ class Create extends Component {
                                 }} />
                         </div>
 
-                        <div className="ride-address">
+                        <div className="form-group ride-address">
                             <label className="form-label">장소</label>
 
                             <input type="text" name="address" value={this.state.address} placeholder="장소를 지도에 표시해주세요" readOnly
@@ -183,14 +184,14 @@ class Create extends Component {
                                    onChange={this.handleChange} />
                         </div>
 
-                        <div className="ride-course">
+                        <div className="form-group ride-course">
                             <label className="form-label">코스</label>
 
                             <File placeholder={'GPX 파일을 업로드해주세요'}
                                 handleSetFile={this.handleSetFile} />
                         </div>
 
-                        <div className="ride-difficulty">
+                        <div className="form-group ride-difficulty">
                             <label className="form-label">난이도</label>
 
                             <select name="difficulty" defaultValue={'beginner'}
@@ -201,21 +202,21 @@ class Create extends Component {
                             </select>
                         </div>
 
-                        <div className="ride-capacity">
+                        <div className="form-group ride-capacity">
                             <label className="form-label">정원</label>
 
                             <input type="text" name="capacity"
                                     onChange={this.handleChange} />
                         </div>
 
-                        <div className="ride-distance">
+                        <div className="form-group ride-distance">
                             <label className="form-label">거리</label>
 
                             <input type="text" name="distance"
                                     onChange={this.handleChange} />
                         </div>
 
-                        <div className="ride-altitude">
+                        <div className="form-group ride-altitude">
                             <label className="form-label">고도</label>
 
                             <select name="altitude" defaultValue={'flat'}
@@ -225,7 +226,7 @@ class Create extends Component {
                                 <option value="mountain">mountain</option>
                             </select>
 
-                            <input type="text" name="altitude_detail"
+                            <input type="text" name="altitude_detail" placeholder="고도 (m)"
                                     onChange={this.handleChange} />
                         </div>
 
