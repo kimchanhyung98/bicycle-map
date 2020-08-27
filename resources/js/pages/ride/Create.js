@@ -16,14 +16,14 @@ class Create extends Component {
 
         this.state = {
             file_id: '',
-            name: 'asdasd',
-            description: 'asdasd',
+            name: '',
+            description: '',
             started_date_time: new Date(),
             started_at: '',
             ended_date_time: new Date(),
             ended_at: '',
 
-            address: 'asdasd',
+            address: '',
             address_detail: '',
             locality: '',
             sublocality1: '',
@@ -31,10 +31,10 @@ class Create extends Component {
             latitude: '37.554722',
             longitude: '126.970833',
 
-            difficulty: 'advanced',
-            capacity: '123123',
+            difficulty: 'beginner',
+            capacity: '',
             distance: '',
-            altitude: '123123',
+            altitude: 'flat',
             altitude_detail: ''
         };
 
@@ -193,41 +193,40 @@ class Create extends Component {
                         <div className="ride-difficulty">
                             <label className="form-label">난이도</label>
 
-                            <select name="difficulty"
+                            <select name="difficulty" defaultValue={'beginner'}
                                     onChange={this.handleChange}>
-                                <option>11</option>
-                                <option>22</option>
+                                <option value="beginner">beginner</option>
+                                <option value="intermediate">intermediate</option>
+                                <option value="advanced">advanced</option>
                             </select>
                         </div>
 
                         <div className="ride-capacity">
                             <label className="form-label">정원</label>
 
-                            <select name="capacity"
-                                    onChange={this.handleChange}>
-                                <option>11</option>
-                                <option>22</option>
-                            </select>
+                            <input type="text" name="capacity"
+                                    onChange={this.handleChange} />
                         </div>
 
                         <div className="ride-distance">
                             <label className="form-label">거리</label>
 
-                            <select name="distance"
-                                    onChange={this.handleChange}>
-                                <option>11</option>
-                                <option>22</option>
-                            </select>
+                            <input type="text" name="distance"
+                                    onChange={this.handleChange} />
                         </div>
 
                         <div className="ride-altitude">
                             <label className="form-label">고도</label>
 
-                            <select name="altitude"
+                            <select name="altitude" defaultValue={'flat'}
                                     onChange={this.handleChange}>
-                                <option>11</option>
-                                <option>22</option>
+                                <option value="flat">flat</option>
+                                <option value="uphill">uphill</option>
+                                <option value="mountain">mountain</option>
                             </select>
+
+                            <input type="text" name="altitude_detail"
+                                    onChange={this.handleChange} />
                         </div>
 
                         <div className="btn-area">
