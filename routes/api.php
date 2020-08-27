@@ -23,8 +23,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // 파일 업로드
     Route::post('upload', 'FileController@store')->name('upload');
 
-    // 네이버 지오코드
-    Route::get('reverse-geocode', 'MapController@geocode');
+    // 네이버 지도 리버스 지오코드
+    Route::get('reverse-geocode', 'MapController@reverse_geocode');
 });
 
 Route::group(['prefix' => 'ride', 'as' => 'ride.'], function () {
@@ -52,5 +52,3 @@ Route::group(['prefix' => 'ride', 'as' => 'ride.'], function () {
         Route::post('cancel', 'ParticipantController@destroy')->name('cancel');
     });
 });
-
-

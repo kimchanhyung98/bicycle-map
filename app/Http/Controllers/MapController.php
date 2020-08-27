@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 class MapController extends Controller
 {
     /**
-     * 네이버 리버스 지오코딩
+     * 네이버 지도 리버스 지오코드
      *
      * @param Request $request
      * @return bool|string
