@@ -5,6 +5,7 @@ import DateTimePicker from 'react-datetime-picker';
 import Map from '@/components/Map';
 import File from '@/components/common/File';
 
+import '@sass/pages/ride/ride-create.scoped.scss';
 
 const mapStateToProps = (state) => ({
     state
@@ -16,14 +17,14 @@ class Create extends Component {
 
         this.state = {
             file_id: '',
-            name: 'asdasd',
-            description: 'asdasd',
+            name: '',
+            description: '',
             started_date_time: new Date(),
             started_at: '',
             ended_date_time: new Date(),
             ended_at: '',
 
-            address: 'asdasd',
+            address: '',
             address_detail: '',
             locality: '',
             sublocality1: '',
@@ -31,10 +32,10 @@ class Create extends Component {
             latitude: '37.554722',
             longitude: '126.970833',
 
-            difficulty: 'advanced',
-            capacity: '123123',
+            difficulty: 'beginner',
+            capacity: '',
             distance: '',
-            altitude: '123123',
+            altitude: 'flat',
             altitude_detail: ''
         };
 
@@ -129,21 +130,21 @@ class Create extends Component {
             <main className="main">
                 <section className="create-container">
                     <form onSubmit={ this.handleSubmit}>
-                        <div className="ride-name">
+                        <div className="form-group ride-name">
                             <label className="form-label">제목</label>
 
                             <input type="text" name="name" placeholder="내용을 입력해주세요"
                                    onChange={this.handleChange} />
                         </div>
 
-                        <div className="ride-description">
+                        <div className="form-group ride-description">
                             <label className="form-label">설명</label>
 
                             <textarea name="description" placeholder="내용을 입력해주세요"
                                       onChange={this.handleChange}></textarea>
                         </div>
 
-                        <div className="ride-date">
+                        <div className="form-group ride-date">
                             <label className="form-label">시간</label>
 
                             <DateTimePicker
@@ -165,7 +166,7 @@ class Create extends Component {
                                 }} />
                         </div>
 
-                        <div className="ride-address">
+                        <div className="form-group ride-address">
                             <label className="form-label">장소</label>
 
                             <input type="text" name="address" value={this.state.address} placeholder="장소를 지도에 표시해주세요" readOnly
@@ -183,51 +184,50 @@ class Create extends Component {
                                    onChange={this.handleChange} />
                         </div>
 
-                        <div className="ride-course">
+                        <div className="form-group ride-course">
                             <label className="form-label">코스</label>
 
                             <File placeholder={'GPX 파일을 업로드해주세요'}
                                 handleSetFile={this.handleSetFile} />
                         </div>
 
-                        <div className="ride-difficulty">
+                        <div className="form-group ride-difficulty">
                             <label className="form-label">난이도</label>
 
-                            <select name="difficulty"
+                            <select name="difficulty" defaultValue={'beginner'}
                                     onChange={this.handleChange}>
-                                <option>11</option>
-                                <option>22</option>
+                                <option value="beginner">beginner</option>
+                                <option value="intermediate">intermediate</option>
+                                <option value="advanced">advanced</option>
                             </select>
                         </div>
 
-                        <div className="ride-capacity">
+                        <div className="form-group ride-capacity">
                             <label className="form-label">정원</label>
 
-                            <select name="capacity"
-                                    onChange={this.handleChange}>
-                                <option>11</option>
-                                <option>22</option>
-                            </select>
+                            <input type="text" name="capacity"
+                                    onChange={this.handleChange} />
                         </div>
 
-                        <div className="ride-distance">
+                        <div className="form-group ride-distance">
                             <label className="form-label">거리</label>
 
-                            <select name="distance"
-                                    onChange={this.handleChange}>
-                                <option>11</option>
-                                <option>22</option>
-                            </select>
+                            <input type="text" name="distance"
+                                    onChange={this.handleChange} />
                         </div>
 
-                        <div className="ride-altitude">
+                        <div className="form-group ride-altitude">
                             <label className="form-label">고도</label>
 
-                            <select name="altitude"
+                            <select name="altitude" defaultValue={'flat'}
                                     onChange={this.handleChange}>
-                                <option>11</option>
-                                <option>22</option>
+                                <option value="flat">flat</option>
+                                <option value="uphill">uphill</option>
+                                <option value="mountain">mountain</option>
                             </select>
+
+                            <input type="text" name="altitude_detail" placeholder="고도 (m)"
+                                    onChange={this.handleChange} />
                         </div>
 
                         <div className="btn-area">

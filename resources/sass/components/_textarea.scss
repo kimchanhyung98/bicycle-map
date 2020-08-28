@@ -1,11 +1,9 @@
 %textarea-default{
     @include padding(12px 20px);
-    @include border(0);
     @include box-sizing(border-box);
     display: block;
-    background: $light-gray;
     font-size: $font-size-base;
-    color: $gray-600;
+    color: $font-color-base;
     outline: none;
     resize: none;
 
@@ -15,6 +13,20 @@
 }
 
 
-@mixin textarea(){
+@mixin textarea($border: null, $radius: null){
     @extend %textarea-default;
+
+    @if $border != null {
+        @include border($border);
+    }
+    @else {
+        @include border(1px solid $border-color-base);
+    }
+
+    @if $radius != null {
+        @include border-radius($radius);
+    }
+    @else {
+        @include border-radius(4px);
+    }
 }
