@@ -7,7 +7,7 @@ class Map extends Component {
     }
 
     render() {
-        const NAVER_API_KEY = 'pcpokmfv1u';
+        const NAVER_API_KEY = env.CLIENT_ID;
 
         return (
             <RenderAfterNavermapsLoaded
