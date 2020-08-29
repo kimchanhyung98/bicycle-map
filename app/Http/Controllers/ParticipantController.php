@@ -24,7 +24,7 @@ class ParticipantController extends Controller
         logger($participant);
 
         return response()->json([
-            'message' => '참가 신청되었습니다.',
+            'message' => $participant->wasRecentlyCreated ? '참가 신청되었습니다.' : '이미 참가 신청한 라이드입니다.',
         ]);
     }
 
