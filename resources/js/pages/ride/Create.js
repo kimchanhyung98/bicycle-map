@@ -2,7 +2,7 @@ import React, {Component, useState} from 'react';
 import { connect } from 'react-redux';
 import DateTimePicker from 'react-datetime-picker';
 
-import Map from '@/components/map/Map';
+import Map from '@/components/map/SetMarker';
 import File from '@/components/common/File';
 
 import '@sass/pages/ride/ride-create.scoped.scss';
@@ -226,6 +226,7 @@ class Create extends Component {
 
                             <input type="text"
                                 name="distance"
+                                placeholder="거리 (km)"
                                 onChange={this.handleChange} />
                         </div>
 

@@ -2,7 +2,7 @@ import React, {Component, useState} from 'react';
 import { connect } from 'react-redux';
 import DateTimePicker from 'react-datetime-picker';
 
-import Map from '@/components/map/Map';
+import Map from '@/components/map/SetMarker';
 import File from '@/components/common/File';
 
 import '@sass/pages/ride/ride-create.scoped.scss';
@@ -255,6 +255,7 @@ class Edit extends Component {
 
                             <input type="text"
                                 name="distance"
+                                placeholder="거리 (km)"
                                 value={this.state.distance || ''}
                                 onChange={this.handleChange} />
                         </div>
@@ -280,7 +281,7 @@ class Edit extends Component {
                         <div className="btn-area">
                             <input type="submit"
                                 className="btn-submit"
-                                value="코스 만들기" />
+                                value="코스 수정하기" />
                         </div>
                     </form>
                 </section>
