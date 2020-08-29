@@ -13,7 +13,7 @@ const Main = props => (
         <Route path='/login' component={Login}/>
         <Route path='/register' component={Register}/>
         <Route path='/ride/create' component={RideCreate}/>
-        <Route path='/ride/edit' component={RideEdit}/>
+        <Route path='/ride/edit/:id' component={RideEdit}/>
         <Route path='/ride/:id' component={RideDetail}/>
     </Switch>
 );
