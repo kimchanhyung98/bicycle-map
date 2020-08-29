@@ -4,6 +4,14 @@ import { RenderAfterNavermapsLoaded, NaverMap, Marker } from "react-naver-maps";
 class Map extends Component {
     constructor(props) {
         super(props);
+
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick(e) {
+        if (!this.props.disabled) {
+            this.props.handleSetMarker(e.coord.y, e.coord.x);
+        }
     }
 
     render() {
@@ -29,9 +37,7 @@ class Map extends Component {
                         lng: this.props.lng
                     }}
                     zoom={ this.props.zoom }
-                    onClick={(e) => {
-                        this.props.handleSetMarker(e.coord.y, e.coord.x);
-                    }}>
+                    onClick={this.handleClick}>
 
                     <Marker
                         position={{ lat: this.props.lat, lng: this.props.lng }} />

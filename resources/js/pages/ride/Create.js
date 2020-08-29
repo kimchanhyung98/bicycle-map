@@ -2,7 +2,7 @@ import React, {Component, useState} from 'react';
 import { connect } from 'react-redux';
 import DateTimePicker from 'react-datetime-picker';
 
-import Map from '@/components/Map';
+import Map from '@/components/map/Map';
 import File from '@/components/common/File';
 
 import '@sass/pages/ride/ride-create.scoped.scss';
@@ -185,6 +185,7 @@ class Create extends Component {
                                lat={this.state.latitude}
                                lng={this.state.longitude}
                                zoom={12}
+                               disabled={false}
                                handleSetMarker={this.handleSetMarker} />
 
                             <input type="text"
