@@ -2,7 +2,7 @@ import React, {Component, useState} from 'react';
 import { connect } from 'react-redux';
 import DateTimePicker from 'react-datetime-picker';
 
-import Map from '@/components/Map';
+import Map from '@/components/map/Map';
 import File from '@/components/common/File';
 
 import '@sass/pages/ride/ride-create.scoped.scss';
@@ -129,19 +129,23 @@ class Create extends Component {
         return (
             <main className="main">
                 <section className="create-container">
-                    <form onSubmit={ this.handleSubmit}>
+                    <form onSubmit={this.handleSubmit}>
                         <div className="form-group ride-name">
                             <label className="form-label">제목</label>
 
-                            <input type="text" name="name" placeholder="내용을 입력해주세요"
-                                   onChange={this.handleChange} />
+                            <input type="text"
+                                name="name"
+                                placeholder="내용을 입력해주세요"
+                                value={this.state.name}
+                                onChange={this.handleChange} />
                         </div>
 
                         <div className="form-group ride-description">
                             <label className="form-label">설명</label>
 
-                            <textarea name="description" placeholder="내용을 입력해주세요"
-                                      onChange={this.handleChange}></textarea>
+                            <textarea name="description"
+                                placeholder="내용을 입력해주세요"
+                                onChange={this.handleChange}></textarea>
                         </div>
 
                         <div className="form-group ride-date">
@@ -169,19 +173,25 @@ class Create extends Component {
                         <div className="form-group ride-address">
                             <label className="form-label">장소</label>
 
-                            <input type="text" name="address" value={this.state.address} placeholder="장소를 지도에 표시해주세요" readOnly
-                                   onChange={this.handleChange} />
+                            <input type="text"
+                                name="address"
+                                value={this.state.address}
+                                placeholder="장소를 지도에 표시해주세요"
+                                readOnly
+                                onChange={this.handleChange} />
 
-                           <Map
-                                width={'100%'}
-                                height={'300px'}
-                                lat={this.state.latitude}
-                                lng={this.state.longitude}
-                                zoom={12}
-                                handleSetMarker={this.handleSetMarker} />
+                           <Map width={'100%'}
+                               height={'300px'}
+                               lat={this.state.latitude}
+                               lng={this.state.longitude}
+                               zoom={12}
+                               disabled={false}
+                               handleSetMarker={this.handleSetMarker} />
 
-                            <input type="text" name="address_detail" placeholder="상세 장소를 입력해주세요"
-                                   onChange={this.handleChange} />
+                            <input type="text"
+                                name="address_detail"
+                                placeholder="상세 장소를 입력해주세요"
+                                onChange={this.handleChange} />
                         </div>
 
                         <div className="form-group ride-course">
@@ -194,8 +204,9 @@ class Create extends Component {
                         <div className="form-group ride-difficulty">
                             <label className="form-label">난이도</label>
 
-                            <select name="difficulty" defaultValue={'beginner'}
-                                    onChange={this.handleChange}>
+                            <select name="difficulty"
+                                defaultValue={'beginner'}
+                                onChange={this.handleChange}>
                                 <option value="beginner">beginner</option>
                                 <option value="intermediate">intermediate</option>
                                 <option value="advanced">advanced</option>
@@ -205,33 +216,40 @@ class Create extends Component {
                         <div className="form-group ride-capacity">
                             <label className="form-label">정원</label>
 
-                            <input type="text" name="capacity"
-                                    onChange={this.handleChange} />
+                            <input type="text"
+                                name="capacity"
+                                onChange={this.handleChange} />
                         </div>
 
                         <div className="form-group ride-distance">
                             <label className="form-label">거리</label>
 
-                            <input type="text" name="distance"
-                                    onChange={this.handleChange} />
+                            <input type="text"
+                                name="distance"
+                                onChange={this.handleChange} />
                         </div>
 
                         <div className="form-group ride-altitude">
                             <label className="form-label">고도</label>
 
-                            <select name="altitude" defaultValue={'flat'}
-                                    onChange={this.handleChange}>
+                            <select name="altitude"
+                                defaultValue={'flat'}
+                                onChange={this.handleChange}>
                                 <option value="flat">flat</option>
                                 <option value="uphill">uphill</option>
                                 <option value="mountain">mountain</option>
                             </select>
 
-                            <input type="text" name="altitude_detail" placeholder="고도 (m)"
-                                    onChange={this.handleChange} />
+                            <input type="text"
+                                name="altitude_detail"
+                                placeholder="고도 (m)"
+                                onChange={this.handleChange} />
                         </div>
 
                         <div className="btn-area">
-                            <input type="submit" className="btn-submit" value="코스 만들기" />
+                            <input type="submit"
+                                className="btn-submit"
+                                value="코스 만들기" />
                         </div>
                     </form>
                 </section>

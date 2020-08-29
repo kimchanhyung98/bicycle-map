@@ -12,8 +12,8 @@
     overflow: hidden;
 
     .form-group{
+        @extend %reset-box-height;
         @include margin(top 24px);
-        overflow: hidden;
 
         .form-label{
             display: block;

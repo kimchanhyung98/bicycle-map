@@ -1,6 +1,9 @@
 const mix = require('laravel-mix');
 require('laravel-mix-alias');
 
+const webpack = require('webpack');
+const dotenv = require('dotenv');
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -29,5 +32,12 @@ mix.webpackConfig({
                 ],
             },
         ]
-    }
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            env: {
+                CLIENT_ID: JSON.stringify(process.env.CLIENT_ID)
+            }
+        })
+    ]
 });
