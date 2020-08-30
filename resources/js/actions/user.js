@@ -35,7 +35,7 @@ export const saveLoggedToken = (user) => {
 
 export const saveLoggedInfo = () => {
     return (dispatch) => {
-        axios.get('/api/user').then(res => {
+        axios.get('/api/status/user').then(res => {
             storage.set('loggedInfo', res.data);
             dispatch(loginSuccess(res.data));
         });
