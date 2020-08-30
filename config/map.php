@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'client_id' => env('CLIENT_ID'),
-    'client_secret' => env('CLIENT_SECRET'),
+    'client_id' => env('NCLOUD_CLIENT_ID'),
+    'client_secret' => env('NCLOUD_CLIENT_SECRET'),
 ];

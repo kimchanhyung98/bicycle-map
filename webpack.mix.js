@@ -36,7 +36,7 @@ mix.webpackConfig({
     plugins: [
         new webpack.DefinePlugin({
             env: {
-                CLIENT_ID: JSON.stringify(process.env.CLIENT_ID)
+                NCLOUD_CLIENT_ID: JSON.stringify(process.env.NCLOUD_CLIENT_ID)
             }
         })
     ]

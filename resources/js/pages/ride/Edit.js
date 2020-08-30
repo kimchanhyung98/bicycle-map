@@ -152,7 +152,7 @@ class Edit extends Component {
     }
 
     render() {
-        const NAVER_API_KEY = env.CLIENT_ID;
+        const NAVER_API_KEY = env.NCLOUD_CLIENT_ID;
 
         return (
             <main className="main">
