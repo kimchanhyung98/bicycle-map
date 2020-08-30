@@ -29,6 +29,8 @@ class RideController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'file_id' => 'nullable|numeric',
+
             'name' => 'required|max:255',
             'description' => 'nullable|max:10000',
             'started_at' => 'required|date|after:today',
