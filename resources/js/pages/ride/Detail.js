@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 
+import storage from '@/lib/storage.js';
+
 import '@sass/pages/ride/ride-detail.scoped.scss';
 
 const mapStateToProps = (state) => ({
@@ -14,22 +16,35 @@ class Detail extends Component {
 
         this.state = {
             id: this.props.match.params.id,
+            user: {},
             ride: {
                 user: {}
-            }
+            },
+            participant_count: 0,
         };
 
+        this.getData = this.getData.bind(this);
+        this.getAttendStatus = this.getAttendStatus.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     getData() {
         axios.get(`/api/ride/${this.state.id}`).then(res => {
             this.setState({
-                ride: res.data.ride
+                ride: res.data.ride,
+                participant_count: res.data.participant_count
             });
         }).catch(err => {
             console.log(err);
         });
+    }
+
+    getAttendStatus() {
+        axios.get(`/api/status/participation?user_id=${this.state.user.id}&ride_id=${this.state.id}`).then(res => {
+            console.log(res);
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
     handleSubmit(e) {
@@ -45,6 +60,9 @@ class Detail extends Component {
             user_id: user.user.id,
             ride_id: this.state.id
         }).then(res => {
+            this.setState({
+                participant_count: this.state.participant_count++
+            })
             alert(res.data.message);
         }).catch(err => {
             alert('오류');
@@ -130,7 +148,7 @@ class Detail extends Component {
 
                         <div className="content-group ride-capacity">
                             <div>정원 { ride.capacity }명</div>
-                            <div>현재 5명 참석</div>
+                            <div>현재 { this.state.participant_count }명 참석</div>
                         </div>
                     </div>
 
