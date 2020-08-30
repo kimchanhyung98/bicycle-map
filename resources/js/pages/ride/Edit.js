@@ -2,7 +2,7 @@ import React, {Component, useState} from 'react';
 import { connect } from 'react-redux';
 import DateTimePicker from 'react-datetime-picker';
 
-import Map from '@/components/map/SetMarker';
+import Map from '@/components/map/Map';
 import File from '@/components/common/File';
 
 import '@sass/pages/ride/ride-create.scoped.scss';
@@ -208,10 +208,19 @@ class Edit extends Component {
 
                            <Map width={'100%'}
                                height={'300px'}
-                               lat={this.state.latitude}
-                               lng={this.state.longitude}
-                               zoom={12}
                                disabled={false}
+                               zoom={12}
+                               center={{
+                                   lat: this.state.latitude,
+                                   lng: this.state.longitude
+
+                               }}
+                               markers={[
+                                   {
+                                       lat: this.state.latitude,
+                                       lng: this.state.longitude
+                                   }
+                               ]}
                                handleSetMarker={this.handleSetMarker} />
 
                             <input type="text"

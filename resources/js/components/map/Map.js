@@ -5,11 +5,14 @@ class Map extends Component {
     constructor(props) {
         super(props);
 
+        console.log(this.props);
+
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick(e) {
         if (!this.props.disabled) {
+            console.log(e.coord.y);
             this.props.handleSetMarker(e.coord.y, e.coord.x);
         }
     }
@@ -28,19 +31,18 @@ class Map extends Component {
                       width: this.props.width,
                       height: this.props.height
                     }}
-                    defaultCenter={{
-                        lat: this.props.lat,
-                        lng: this.props.lng
-                    }}
-                    center={{
-                        lat: this.props.lat,
-                        lng: this.props.lng
-                    }}
+                    defaultCenter={this.props.center}
+                    center={this.props.center}
                     zoom={ this.props.zoom }
                     onClick={this.handleClick}>
 
-                    <Marker
-                        position={{ lat: this.props.lat, lng: this.props.lng }} />
+                    { this.props.markers.map((marker, index) => {
+                        return (
+                            <Marker
+                                key={`marker${index}`}
+                                position={marker} />
+                        )
+                    })}
                 </NaverMap>
             </RenderAfterNavermapsLoaded>
         );
