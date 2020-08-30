@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
-
 import storage from '@/lib/storage.js';
+import { RenderAfterNavermapsLoaded } from "react-naver-maps";
+
+import Map from '@/components/map/Map';
 
 import '@sass/pages/ride/ride-detail.scoped.scss';
 
@@ -74,11 +76,33 @@ class Detail extends Component {
     }
 
     render() {
+        const NAVER_API_KEY = env.CLIENT_ID;
         let ride = this.state.ride;
 
         return (
             <main className="main">
-                <section className="map-container"></section>
+                <section className="map-container">
+                    <RenderAfterNavermapsLoaded
+                        ncpClientId={NAVER_API_KEY}
+                        error={<p>Maps Load Error</p>}
+                        loading={<p>Maps Loading...</p>}>
+                        <Map width={'100%'}
+                           height={'360px'}
+                           disabled={true}
+                           zoom={14}
+                           center={{
+                               lat: ride.latitude,
+                               lng: ride.longitude
+
+                           }}
+                           markers={[
+                               {
+                                   lat: ride.latitude,
+                                   lng: ride.longitude
+                               }
+                           ]} />
+                   </RenderAfterNavermapsLoaded>
+                </section>
 
                 <section className="main-container">
                     <div className="ride-header">
