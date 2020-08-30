@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Ride;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class RideController extends Controller
 {
@@ -68,8 +67,9 @@ class RideController extends Controller
     public function show(Ride $ride)
     {
         return response()->json([
-            'ride' => $ride->load('user'),
-            'participant_count' => $ride->participants->count(),
+            'ride' => $ride->load('user', 'participants'),
+            'participant_count' => $ride->participants()->count(),
+
             // TODO : 추후 댓글 기능 추가
             // 'comments' => $ride->comments,
         ]);
