@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
-import { RenderAfterNavermapsLoaded, NaverMap, Marker } from "react-naver-maps";
+import { NaverMap, Marker } from "react-naver-maps";
 
 class Map extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            navermaps: window.naver.maps
+        }
 
         this.handleClick = this.handleClick.bind(this);
     }
@@ -14,35 +18,52 @@ class Map extends Component {
         }
     }
 
+    componentDidMount() {
+    /*
+        $.ajax({
+            url: '/storage/bAxtlNW6hCQ7LlRxG1inoBHO8qB95p2lNi3bFbsc.xml',
+            dataType: 'xml',
+            success: (res) => {
+                console.log('asd');
+                console.log(res);
+                this.mapRef.instance.data(res);
+            }
+        });
+        axios.get().then(res => {
+            console.log('테스트');
+            console.log(this.mapRef.instance.data);
+            // this.state.navermaps.Data.addGpx(res.data)
+            // this.mapRef.instance.data.addGpx(res.data);
+            this.mapRef.instance.data('asdasd ');
+        }).catch(err => {
+            console.log(err);
+        })
+        */
+    }
+
     render() {
-        const NAVER_API_KEY = env.CLIENT_ID;
-
         return (
-            <RenderAfterNavermapsLoaded
-                ncpClientId={NAVER_API_KEY}
-                error={<p>Maps Load Error</p>}
-                loading={<p>Maps Loading...</p>}>
-                <NaverMap
-                    mapDivId={'map'} // default: react-naver-map
-                    style={{
-                      width: this.props.width,
-                      height: this.props.height
-                    }}
-                    defaultCenter={{
-                        lat: this.props.lat,
-                        lng: this.props.lng
-                    }}
-                    center={{
-                        lat: this.props.lat,
-                        lng: this.props.lng
-                    }}
-                    zoom={ this.props.zoom }
-                    onClick={this.handleClick}>
-
-                    <Marker
-                        position={{ lat: this.props.lat, lng: this.props.lng }} />
-                </NaverMap>
-            </RenderAfterNavermapsLoaded>
+            <NaverMap
+                mapDivId={'map'} // default: react-naver-map
+                style={{
+                  width: this.props.width,
+                  height: this.props.height
+                }}
+                defaultCenter={this.props.center}
+                center={this.props.center}
+                zoom={ this.props.zoom }
+                onClick={this.handleClick}
+                naverRef={ref => {
+                    this.mapRef = ref;
+                }}>
+                { this.props.markers.map((marker, index) => {
+                    return (
+                        <Marker
+                            key={`marker${index}`}
+                            position={marker} />
+                    )
+                })}
+            </NaverMap>
         );
     }
 };

@@ -1,6 +1,7 @@
 import React, {Component, useState} from 'react';
 import { connect } from 'react-redux';
 import DateTimePicker from 'react-datetime-picker';
+import { RenderAfterNavermapsLoaded } from "react-naver-maps";
 
 import Map from '@/components/map/Map';
 import File from '@/components/common/File';
@@ -126,6 +127,8 @@ class Create extends Component {
     }
 
     render() {
+        const NAVER_API_KEY = env.CLIENT_ID;
+
         return (
             <main className="main">
                 <section className="create-container">
@@ -180,13 +183,27 @@ class Create extends Component {
                                 readOnly
                                 onChange={this.handleChange} />
 
-                           <Map width={'100%'}
-                               height={'300px'}
-                               lat={this.state.latitude}
-                               lng={this.state.longitude}
-                               zoom={12}
-                               disabled={false}
-                               handleSetMarker={this.handleSetMarker} />
+                            <RenderAfterNavermapsLoaded
+                                ncpClientId={NAVER_API_KEY}
+                                error={<p>Maps Load Error</p>}
+                                loading={<p>Maps Loading...</p>}>
+                                <Map width={'100%'}
+                                   height={'300px'}
+                                   disabled={false}
+                                   zoom={12}
+                                   center={{
+                                       lat: this.state.latitude,
+                                       lng: this.state.longitude
+
+                                   }}
+                                   markers={[
+                                       {
+                                           lat: this.state.latitude,
+                                           lng: this.state.longitude
+                                       }
+                                   ]}
+                                   handleSetMarker={this.handleSetMarker} />
+                               </RenderAfterNavermapsLoaded>
 
                             <input type="text"
                                 name="address_detail"
@@ -226,6 +243,7 @@ class Create extends Component {
 
                             <input type="text"
                                 name="distance"
+                                placeholder="거리 (km)"
                                 onChange={this.handleChange} />
                         </div>
 
