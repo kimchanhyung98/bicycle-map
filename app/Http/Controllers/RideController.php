@@ -69,7 +69,7 @@ class RideController extends Controller
     public function show(Ride $ride)
     {
         return response()->json([
-            'ride' => $ride->load('user', 'participants'),
+            'ride' => $ride->load('user', 'file', 'participants'),
             'participant_count' => $ride->participants()->count(),
 
             // TODO : 추후 댓글 기능 추가
