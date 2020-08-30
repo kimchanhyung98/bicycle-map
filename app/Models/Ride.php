@@ -33,6 +33,11 @@ class Ride extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function file()
+    {
+        return $this->belongsTo(File::class);
+    }
+
     public function participants()
     {
         return $this->hasMany(Participant::class);
