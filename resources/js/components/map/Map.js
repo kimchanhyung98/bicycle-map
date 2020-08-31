@@ -6,10 +6,15 @@ class Map extends Component {
         super(props);
 
         this.state = {
-            navermaps: window.naver.maps
+            navermaps: window.naver.maps,
+            location: {
+                latitude: '37.554722',
+                longitude: '126.970833'
+            }
         }
 
         this.handleClick = this.handleClick.bind(this);
+        this.startDataLayer = this.startDataLayer.bind(this)
     }
 
     handleClick(e) {
@@ -18,51 +23,50 @@ class Map extends Component {
         }
     }
 
+    startDataLayer(xmlDoc) {
+        this.mapRef.instance.data.addGpx(xmlDoc);
+    }
+
     componentDidMount() {
-    /*
-        $.ajax({
-            url: '/storage/bAxtlNW6hCQ7LlRxG1inoBHO8qB95p2lNi3bFbsc.xml',
-            dataType: 'xml',
-            success: (res) => {
-                console.log('asd');
-                console.log(res);
-                this.mapRef.instance.data(res);
-            }
-        });
-        axios.get().then(res => {
-            console.log('테스트');
-            console.log(this.mapRef.instance.data);
-            // this.state.navermaps.Data.addGpx(res.data)
-            // this.mapRef.instance.data.addGpx(res.data);
-            this.mapRef.instance.data('asdasd ');
-        }).catch(err => {
-            console.log(err);
-        })
-        */
+        let self = this;
+
+        if (this.props.gpx) {
+            window.naver.maps.Event.once(this.mapRef.instance, 'init_stylemap', function () {
+                $.ajax({
+                    url: self.props.gpx.path,
+                    dataType: 'xml',
+                    success: (res) => {
+                        self.startDataLayer(res);
+                    }
+                });
+            });
+        }
     }
 
     render() {
         return (
             <NaverMap
-                mapDivId={'map'} // default: react-naver-map
+                id={ this.props.id || 'map' }
                 style={{
-                  width: this.props.width,
-                  height: this.props.height
+                    width: this.props.width || '100%',
+                    height: this.props.height || '300px'
                 }}
-                defaultCenter={this.props.center}
-                center={this.props.center}
-                zoom={ this.props.zoom }
+                defaultCenter={ this.props.center || this.state.location }
+                center={ this.props.center || this.state.location }
+                zoom={ this.props.zoom || 12 }
                 onClick={this.handleClick}
                 naverRef={ref => {
                     this.mapRef = ref;
                 }}>
-                { this.props.markers.map((marker, index) => {
-                    return (
-                        <Marker
-                            key={`marker${index}`}
-                            position={marker} />
-                    )
-                })}
+                { this.props.markers &&
+                    this.props.markers.map((marker, index) => {
+                        return (
+                            <Marker
+                                key={`marker${index}`}
+                                position={marker} />
+                        )
+                    })
+                }
             </NaverMap>
         );
     }
