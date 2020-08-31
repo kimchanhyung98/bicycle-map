@@ -10,6 +10,7 @@ class Map extends Component {
         }
 
         this.handleClick = this.handleClick.bind(this);
+        this.startDataLayer = this.startDataLayer.bind(this)
     }
 
     handleClick(e) {
@@ -18,27 +19,24 @@ class Map extends Component {
         }
     }
 
+    startDataLayer(xmlDoc) {
+        this.mapRef.instance.data.addGpx(xmlDoc);
+    }
+
     componentDidMount() {
-    /*
-        $.ajax({
-            url: '/storage/bAxtlNW6hCQ7LlRxG1inoBHO8qB95p2lNi3bFbsc.xml',
-            dataType: 'xml',
-            success: (res) => {
-                console.log('asd');
-                console.log(res);
-                this.mapRef.instance.data(res);
-            }
-        });
-        axios.get().then(res => {
-            console.log('테스트');
-            console.log(this.mapRef.instance.data);
-            // this.state.navermaps.Data.addGpx(res.data)
-            // this.mapRef.instance.data.addGpx(res.data);
-            this.mapRef.instance.data('asdasd ');
-        }).catch(err => {
-            console.log(err);
-        })
-        */
+        let self = this;
+
+        if (this.props.gpx) {
+            window.naver.maps.Event.once(this.mapRef.instance, 'init_stylemap', function () {
+                $.ajax({
+                    url: self.props.gpx.path,
+                    dataType: 'xml',
+                    success: (res) => {
+                        self.startDataLayer(res);
+                    }
+                });
+            });
+        }
     }
 
     render() {
