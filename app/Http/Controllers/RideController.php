@@ -100,6 +100,8 @@ class RideController extends Controller
     public function update(Request $request, Ride $ride)
     {
         $validatedData = $request->validate([
+            'file_id' => 'nullable|numeric',
+
             'name' => 'required|max:255',
             'description' => 'nullable|max:10000',
             'started_at' => 'required|date|after:today',
