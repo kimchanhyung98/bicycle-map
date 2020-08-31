@@ -6,7 +6,11 @@ class Map extends Component {
         super(props);
 
         this.state = {
-            navermaps: window.naver.maps
+            navermaps: window.naver.maps,
+            location: {
+                latitude: '37.554722',
+                longitude: '126.970833'
+            }
         }
 
         this.handleClick = this.handleClick.bind(this);
@@ -42,25 +46,27 @@ class Map extends Component {
     render() {
         return (
             <NaverMap
-                mapDivId={'map'} // default: react-naver-map
+                id={ this.props.id || 'map' }
                 style={{
-                  width: this.props.width,
-                  height: this.props.height
+                    width: this.props.width || '100%',
+                    height: this.props.height || '300px'
                 }}
-                defaultCenter={this.props.center}
-                center={this.props.center}
-                zoom={ this.props.zoom }
+                defaultCenter={ this.props.center || this.state.location }
+                center={ this.props.center || this.state.location }
+                zoom={ this.props.zoom || 12 }
                 onClick={this.handleClick}
                 naverRef={ref => {
                     this.mapRef = ref;
                 }}>
-                { this.props.markers.map((marker, index) => {
-                    return (
-                        <Marker
-                            key={`marker${index}`}
-                            position={marker} />
-                    )
-                })}
+                { this.props.markers &&
+                    this.props.markers.map((marker, index) => {
+                        return (
+                            <Marker
+                                key={`marker${index}`}
+                                position={marker} />
+                        )
+                    })
+                }
             </NaverMap>
         );
     }
