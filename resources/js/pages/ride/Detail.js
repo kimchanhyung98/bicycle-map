@@ -63,7 +63,7 @@ class Detail extends Component {
             ride_id: this.state.id
         }).then(res => {
             this.setState({
-                participant_count: this.state.participant_count++
+                participant_count: ++this.state.participant_count
             })
             alert(res.data.message);
         }).catch(err => {
