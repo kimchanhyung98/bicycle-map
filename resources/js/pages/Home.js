@@ -13,22 +13,55 @@ class Home extends Component {
         super(props);
 
         this.state = {
-            rides: {}
+            rides: [],
+            page: 0,
+            isEnd: false
         };
+
+        this.handleScroll = this.handleScroll.bind(this);
+        this.getData = this.getData.bind(this);
+    }
+
+    handleScroll(e) {
+        if (this.state.isEnd) {
+            let scrollPosition = e.srcElement.scrollingElement.scrollTop + window.innerHeight;
+
+            if (scrollPosition >= document.body.offsetHeight) {
+                this.getData();
+            }
+        }
     }
 
     getData() {
-        axios.get('/api/ride').then(res => {
-            this.setState({
-                rides: res.data.rides.data
+        this.setState({
+            page: ++this.state.page,
+            isEnd: false
+        }, () => {
+            axios.get(`/api/ride?page=${this.state.page}`).then(res => {
+                let resData = res.data.rides.data;
+                let data = this.state.rides.concat(resData);
+
+                if (resData.length < 10) {
+                    window.removeEventListener('scroll', this.handleScroll);
+                }
+
+                this.setState({
+                    rides: data,
+                    isEnd: true
+                });
+            }).catch(err => {
+                console.log(err);
             });
-        }).catch(err => {
-            console.log(err);
         });
     }
 
     componentDidMount() {
         this.getData();
+        window.addEventListener('scroll', this.handleScroll);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
     }
 
     render() {

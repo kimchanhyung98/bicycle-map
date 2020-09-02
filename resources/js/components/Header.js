@@ -40,6 +40,7 @@ class Header extends Component {
             Menu = (
                 <ul className="gnb-menu-list">
                     <li><Link to="/">메인</Link></li>
+                    <li><Link to="/ride/create">라이드 개설</Link></li>
                     <li><a href="#" onClick={ this.logout }>로그아웃</a></li>
                 </ul>
             );
