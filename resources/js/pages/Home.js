@@ -82,14 +82,35 @@ class Home extends Component {
                                             <span className="ride-difficulty">{ ride.difficulty }</span>
                                         </div>
 
-                                        <div className="ride-detail">
-                                            <span>거리 { ride.distance }km</span>
-                                            <span>출발시간 { ride.started_at }</span>
-                                            <span>소요시간 3시간</span>
-                                        </div>
-                                        <div className="ride-address">
-                                            <span>출발장소: { ride.address } { ride.address_detail }</span>
-                                        </div>
+                                        <ul className="ride-detail">
+                                            <li>
+                                                <span>거리</span>
+                                                <p>
+                                                    { ride.distance ?
+                                                        `${ride.distance}km` : '미정'
+                                                    }
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span>출발시간</span>
+                                                <p>
+                                                    { ride.started_at }
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span>종료시간</span>
+                                                <p>
+                                                    { ride.ended_at || '미정' }
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span>장소</span>
+                                                <p>
+                                                    { ride.address } { ride.address_detail }
+                                                </p>
+                                            </li>
+
+                                        </ul>
                                     </Link>
                                 </li>
                             )
