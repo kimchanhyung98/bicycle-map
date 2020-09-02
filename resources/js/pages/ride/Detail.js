@@ -18,7 +18,6 @@ class Detail extends Component {
 
         this.state = {
             id: this.props.match.params.id,
-            user: {},
             ride: {
                 user: {}
             },
@@ -73,6 +72,13 @@ class Detail extends Component {
 
     componentDidMount() {
         this.getData();
+    }
+
+    componentWillUnmount(nextProps, prevState) {
+        console.log(nextProps);
+        console.log(prevState);
+        console.log('123');
+
     }
 
     render() {
