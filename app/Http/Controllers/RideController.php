@@ -16,7 +16,7 @@ class RideController extends Controller
     public function index()
     {
         return response()->json([
-            'rides' => Ride::orderByDesc('started_at')->paginate(10),
+            'rides' => Ride::withCount('participants')->orderByDesc('started_at')->paginate(10),
         ]);
     }
 
@@ -70,9 +70,8 @@ class RideController extends Controller
     {
         return response()->json([
             'ride' => $ride->load('user', 'file', 'participants'),
-            'participant_count' => $ride->participants()->count(),
+            'participants_count' => $ride->participants()->count(),
 
-            // TODO : 추후 댓글 기능 추가
             // 'comments' => $ride->comments,
         ]);
     }
