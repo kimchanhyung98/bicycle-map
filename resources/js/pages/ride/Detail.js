@@ -18,11 +18,10 @@ class Detail extends Component {
 
         this.state = {
             id: this.props.match.params.id,
-            user: {},
             ride: {
                 user: {}
             },
-            participant_count: 0,
+            participants_count: 0,
         };
 
         this.getData = this.getData.bind(this);
@@ -34,7 +33,7 @@ class Detail extends Component {
         axios.get(`/api/ride/${this.state.id}`).then(res => {
             this.setState({
                 ride: res.data.ride,
-                participant_count: res.data.participant_count
+                participants_count: res.data.participants_count
             });
         }).catch(err => {
             console.log(err);
@@ -63,7 +62,7 @@ class Detail extends Component {
             ride_id: this.state.id
         }).then(res => {
             this.setState({
-                participant_count: ++this.state.participant_count
+                participants_count: ++this.state.participants_count
             })
             alert(res.data.message);
         }).catch(err => {
@@ -73,6 +72,13 @@ class Detail extends Component {
 
     componentDidMount() {
         this.getData();
+    }
+
+    componentWillUnmount(nextProps, prevState) {
+        console.log(nextProps);
+        console.log(prevState);
+        console.log('123');
+
     }
 
     render() {
@@ -131,13 +137,17 @@ class Detail extends Component {
                             <ul className="content-group ride-detail">
                                 <li>
                                     <span>거리</span>
-                                    <p>{ ride.distance }km</p>
+                                    <p>
+                                        { ride.distance ?
+                                            `${ride.distance}km` : '미정'
+                                        }
+                                    </p>
                                 </li>
                                 <li>
                                     <span>고도</span>
                                     <p>
                                         { ride.altitude }
-                                        { ride.altitude_detail != '' &&
+                                        { ride.altitude_detail &&
                                             <span> {ride.altitude_detail}m</span>
                                         }
                                     </p>
@@ -148,7 +158,9 @@ class Detail extends Component {
                                 </li>
                                 <li>
                                     <span>종료시간</span>
-                                    <p>{ ride.ended_at }</p>
+                                    <p>
+                                        { ride.ended_at || '미정' }
+                                    </p>
                                 </li>
                                 <li>
                                     <span>장소</span>
@@ -182,7 +194,7 @@ class Detail extends Component {
 
                             <div className="content-group ride-capacity">
                                 <div>정원 { ride.capacity }명</div>
-                                <div>현재 { this.state.participant_count }명 참석</div>
+                                <div>현재 { this.state.participants_count }명 참석</div>
                             </div>
                         </div>
 

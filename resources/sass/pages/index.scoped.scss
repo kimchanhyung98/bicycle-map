@@ -12,9 +12,9 @@
     @include margin(top 20px);
     @include padding(left 14px);
 
-    li{
-        @include margin(top 20px);
-        @include padding(16px 0 16px 24px);
+    > li{
+        @include margin(top 30px);
+        @include padding(20px 0 20px 24px);
         @include border(1px solid $blue-600);
         @include border-radius(15px);
         @include box-sizing(border-box);
@@ -26,75 +26,73 @@
         }
 
         .ride-attend{
-            @include button(blue-fill-600, null, 4px);
-            @include size(80px, 28px);
+            @include button(blue-fill-600, null, 6px);
+            @include size(85px, 35px);
             position: absolute;
-            top: -14px;
-            left: -14px;
+            top: -18px;
+            left: -18px;
             font-weight: bold;
             font-size: 12px;
-            line-height: 28px;
+            line-height: 35px;
             text-align: center;
         }
 
         .ride-header{
+            @include margin(top 5px);
             overflow: hidden;
         }
 
         .ride-title{
-            @include size(calc(100% - 60px));
-            @include padding(0 20px 4px 0);
+            @include size(calc(100% - 100px));
+            @include padding(0 20px 0 0);
             @include box-sizing(border-box);
             @include truncate();
             float: left;
             font-weight: bold;
-            font-size: $font-size-base;
-            line-height: 24px;
+            font-size: $font-size-large;
+            line-height: 30px;
             color: $red;
-            text-align: right;
+            text-align: left;
         }
 
         .ride-difficulty{
-            @include size(60px, 24px);
-            @include margin(right -1px);
             @include button(blue-fill);
-            @include border-radius(4px 0 0 4px);
+            @include size(auto, 30px);
+            @include margin(right -1px);
+            @include padding(0 10px);
+            @include border-radius(5px 0 0 5px);
             float: right;
             font-size: $font-size-small;
-            line-height: 24px;
+            line-height: 30px;
             text-align: center;
         }
 
         .ride-detail{
-            @include margin(top 10px);
-            overflow: hidden;
-            font-size: $font-size-small;
-            line-height: 19px;
-            color: $font-color-base;
-
-            span{
-                float: left;
-            }
-
-            span::after{
-                @include size(1px, 13px);
-                @include margin(2px 6px 0);
-                float: right;
-                background: $gray;
-                content: '';
-            }
-
-            span:last-child::after{
-                display: none;
-            }
+            @include margin(top 12px);
         }
 
-        .ride-address{
-            @include margin(top 4px);
-            @include truncate();
+        .ride-detail li{
+            @include margin(top 8px);
+            overflow: hidden;
             font-size: $font-size-small;
-            line-height: 19px;
-            color: $font-color-base;
+            line-height: 20px;
+
+            &:first-child{
+                @include margin(top 0);
+            }
+
+            > span{
+                @include size(72px);
+                float: left;
+                color: $gray-600;
+            }
+
+            p{
+                @include size(calc(100% - 72px));
+                float: left;
+                color: $font-color-base;
+                word-break: keep-all;
+            }
         }
     }
 }
