@@ -75,7 +75,9 @@ class Home extends Component {
                             return (
                                 <li key={ride.id}>
                                     <Link to={`/ride/${ride.id}`}>
-                                        <span className="ride-attend">1명 참석</span>
+                                        <span className="ride-attend">
+                                            { ride.participants_count }명 참석
+                                        </span>
 
                                         <div className="ride-header">
                                             <h2 className="ride-title">{ ride.name }</h2>

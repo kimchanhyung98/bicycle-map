@@ -21,7 +21,7 @@ class Detail extends Component {
             ride: {
                 user: {}
             },
-            participant_count: 0,
+            participants_count: 0,
         };
 
         this.getData = this.getData.bind(this);
@@ -33,7 +33,7 @@ class Detail extends Component {
         axios.get(`/api/ride/${this.state.id}`).then(res => {
             this.setState({
                 ride: res.data.ride,
-                participant_count: res.data.participant_count
+                participants_count: res.data.participants_count
             });
         }).catch(err => {
             console.log(err);
@@ -62,7 +62,7 @@ class Detail extends Component {
             ride_id: this.state.id
         }).then(res => {
             this.setState({
-                participant_count: ++this.state.participant_count
+                participants_count: ++this.state.participants_count
             })
             alert(res.data.message);
         }).catch(err => {
@@ -194,7 +194,7 @@ class Detail extends Component {
 
                             <div className="content-group ride-capacity">
                                 <div>정원 { ride.capacity }명</div>
-                                <div>현재 { this.state.participant_count }명 참석</div>
+                                <div>현재 { this.state.participants_count }명 참석</div>
                             </div>
                         </div>
 
