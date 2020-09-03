@@ -6,6 +6,7 @@ import Register from '@/pages/auth/Register';
 import RideCreate from '@/pages/ride/Create';
 import RideEdit from '@/pages/ride/Edit';
 import RideDetail from '@/pages/ride/Detail';
+import AccountAttend from '@/pages/account/Attend';
 
 const Main = props => (
     <Switch>
@@ -15,6 +16,7 @@ const Main = props => (
         <Route path='/ride/create' component={RideCreate}/>
         <Route path='/ride/edit/:id' component={RideEdit}/>
         <Route path='/ride/:id' component={RideDetail}/>
+        <Route path='/account/attend' component={AccountAttend}/>
     </Switch>
 );
 
