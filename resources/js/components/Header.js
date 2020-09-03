@@ -59,10 +59,6 @@ class Header extends Component {
                 <div className="header-wrap">
                     <div className="gnb-area">
                         <button type="button" className="btn-gnb" onClick={ this.menuClick }></button>
-
-                        { this.state.isMenu ?
-                            Menu : ''
-                        }
                     </div>
 
                     <h1 className="header-logo">
