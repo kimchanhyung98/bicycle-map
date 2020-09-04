@@ -8,7 +8,7 @@
     text-decoration: none;
 }
 
-%btn-green{
+%btn-page{
     background: $page-color;
     color: $white;
 }
@@ -31,8 +31,8 @@
 @mixin button($type: null, $border: null, $radius: null) {
     @extend %button-default;
 
-    @if $type == green-fill {
-        @extend %btn-green;
+    @if $type == page-fill {
+        @extend %btn-page;
     }
     @else if $type == gray-fill {
         @extend %btn-gray;
