@@ -1,0 +1,78 @@
+@import '@sass/components/_button';
+
+.aside{
+    @include size(100%, 100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 300;
+    background: $white;
+}
+
+.top-area{
+    @include size(100%, 80px);
+    @include padding(5px 5px 0);
+    @include box-sizing(border-box);
+    overflow: hidden;
+    background: $page-color;
+
+    .btn-home{
+        @include size(25px, 25px);
+        float: left;
+        background: $white;
+    }
+
+    .btn-aside-close{
+        @include size(25px, 25px);
+        @include padding(0);
+        @include border(0);
+        float: right;
+        background: $white;
+    }
+}
+
+.user-info-area{
+    @include margin(top -30px);
+    overflow: hidden;
+    text-align: center;
+
+    .user-profile{
+        @include size(75px, 75px);
+        @include margin(0 auto);
+    }
+
+    .user-name{
+        @include margin(top 10px);
+        font-weight: bold;
+        font-size: $font-size-large;
+    }
+}
+
+.nav-area{
+    @include margin(top 30px);
+    @include padding(0 15px);
+
+    .nav-list{
+        @include padding(bottom 12px);
+        @include border(1px solid $border-color-base, bottom);
+    }
+
+    .nav-list li a{
+        @extend %reset-link;
+        @include padding(6px 0 6px 8px);
+        display: block;
+        color: $font-color-base;
+    }
+}
+
+.btn-area{
+    @include margin(top 30px);
+    @include padding(0 15px);
+
+    .btn-logout{
+        @include button(page-fill, null, 4px);
+        @include size(100%, 45px);
+        @include padding(0);
+        line-height: 45px;
+    }
+}

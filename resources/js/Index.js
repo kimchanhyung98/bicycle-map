@@ -6,6 +6,7 @@ import storage from '@/lib/storage.js';
 
 import Main from '@/Router';
 import Header from '@/components/Header';
+import Aside from '@/components/Aside';
 
 import '@sass/app.scss';
 
@@ -30,6 +31,7 @@ class Index extends Component {
         return (
             <BrowserRouter>
                 <Header />
+                <Aside />
 
                <Route component={Main}/>
             </BrowserRouter>
