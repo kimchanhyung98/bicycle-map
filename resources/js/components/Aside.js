@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { logout } from '@/actions/user.js';
 import storage from '@/lib/storage.js';
 
 const mapStateToProps = (state) => ({
@@ -14,12 +15,15 @@ class Aside extends Component {
         this.state = {
             isMenu: false
         };
+
+        this.handleLogout = this.handleLogout.bind(this);
     }
 
     handleLogout(e) {
         e.preventDefault();
+        const { dispatch } = this.props;
 
-        storage.set('loggedToken', '');
+        dispatch(logout());
         alert('로그아웃 되었습니다.');
         this.props.history.push('/');
     }
@@ -72,4 +76,4 @@ class Aside extends Component {
     }
 }
 
-export default connect(mapStateToProps)(Aside);
+export default withRouter(connect(mapStateToProps)(Aside));

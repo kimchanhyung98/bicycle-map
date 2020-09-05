@@ -1,6 +1,6 @@
 import storage from '@/lib/storage.js';
 
-export const LOGIN = 'LOGIN';
+export const LOGIN_NON = 'LOGIN_NON';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
@@ -40,6 +40,19 @@ export const saveLoggedInfo = () => {
             dispatch(loginSuccess(res.data));
         });
     }
+}
+
+export const logout = () => {
+    return (dispatch) => {
+        storage.set('loggedToken', '');
+        dispatch(loginNon());
+    }
+}
+
+export function loginNon() {
+    return {
+        type: LOGIN_NON
+    };
 }
 
 export function loginRequest() {

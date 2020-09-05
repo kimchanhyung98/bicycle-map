@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Route} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { saveLoggedToken } from '@/actions/user.js';
+import { loginSuccess } from '@/actions/user.js';
 import storage from '@/lib/storage.js';
 
 import Main from '@/Router';
@@ -28,9 +28,10 @@ class Index extends Component {
     initUserInfo() {
         const loggedToken = storage.get('loggedToken');
         if(!loggedToken) return;
-
+        const loggedInfo = storage.get('loggedInfo');
         const { dispatch } = this.props;
-        dispatch(saveLoggedToken(loggedToken));
+
+        dispatch(loginSuccess(loggedInfo));
     }
 
     handleAside() {
