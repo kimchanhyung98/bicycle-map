@@ -2,16 +2,21 @@
 
 .aside{
     @include size(100%, 100%);
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 300;
     background: $white;
+
+    &.show{
+        display: block;
+    }
 }
 
 .top-area{
     @include size(100%, 80px);
-    @include padding(5px 5px 0);
+    @include padding(12px);
     @include box-sizing(border-box);
     overflow: hidden;
     background: $page-color;
@@ -23,11 +28,15 @@
     }
 
     .btn-aside-close{
-        @include size(25px, 25px);
+        @include size(22px, 22px);
+        @include margin(5px 0 0);
         @include padding(0);
         @include border(0);
+        @include background('/public/images/global/close_white_icon.png', no-repeat, center center, transparent);
+        overflow: hidden;
         float: right;
-        background: $white;
+        background-size: 22px 22px;
+        text-indent: -9999px;
     }
 }
 
@@ -69,10 +78,11 @@
     @include margin(top 30px);
     @include padding(0 15px);
 
-    .btn-logout{
+    *[class^="btn-"]{
         @include button(page-fill, null, 4px);
         @include size(100%, 45px);
         @include padding(0);
         line-height: 45px;
+        text-align: center;
     }
 }
