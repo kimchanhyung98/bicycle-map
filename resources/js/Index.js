@@ -34,9 +34,9 @@ class Index extends Component {
         dispatch(loginSuccess(loggedInfo));
     }
 
-    handleAside() {
+    handleAside(isShow) {
         this.setState((state) => ({
-            showAside: !state.showAside
+            showAside: isShow || !state.showAside
         }));
     }
 

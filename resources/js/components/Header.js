@@ -21,7 +21,8 @@ class Header extends Component {
             <header className="header">
                 <div className="header-wrap">
                     <div className="gnb-area">
-                        <button type="button" className="btn-gnb" onClick={ this.props.handleAside }></button>
+                        <button type="button" className="btn-gnb"
+                            onClick={ this.props.handleAside }></button>
                     </div>
 
                     <h1 className="header-logo">

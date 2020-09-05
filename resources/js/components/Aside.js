@@ -17,6 +17,11 @@ class Aside extends Component {
         };
 
         this.handleLogout = this.handleLogout.bind(this);
+        this.handleMenuClick = this.handleMenuClick.bind(this);
+    }
+
+    handleMenuClick() {
+        this.props.handleAside(false);
     }
 
     handleLogout(e) {
@@ -25,6 +30,7 @@ class Aside extends Component {
 
         dispatch(logout());
         alert('로그아웃 되었습니다.');
+        this.handleMenuClick();
         this.props.history.push('/');
     }
 
@@ -36,7 +42,7 @@ class Aside extends Component {
             <aside className={`aside ${this.props.showAside ? 'show' : ''}`}>
                 <div className="top-area">
                     <button type="button" className="btn-aside-close"
-                        onClick={this.props.handleAside}>닫기</button>
+                        onClick={this.handleMenuClick}>닫기</button>
                 </div>
 
                 <div className="user-info-area">
@@ -49,16 +55,16 @@ class Aside extends Component {
                 <nav className="nav-area">
                     { isLoggedIn ?
                         <ul className="nav-list">
-                            <li><Link to="/">메인</Link></li>
-                            <li><Link to="/ride/create">라이드 개설</Link></li>
-                            <li><Link to="/account/attend">신청내역</Link></li>
-                            <li><Link to="/account/create">개설내역</Link></li>
+                            <li><Link to="/" onClick={this.handleMenuClick}>메인</Link></li>
+                            <li><Link to="/ride/create" onClick={this.handleMenuClick}>라이드 개설</Link></li>
+                            <li><Link to="/account/attend" onClick={this.handleMenuClick}>신청내역</Link></li>
+                            <li><Link to="/account/create" onClick={this.handleMenuClick}>개설내역</Link></li>
                         </ul>
                         :
                         <ul className="nav-list">
-                            <li><Link to="/">메인</Link></li>
-                            <li><Link to="/login">로그인</Link></li>
-                            <li><Link to="/register">회원가입</Link></li>
+                            <li><Link to="/" onClick={this.handleMenuClick}>메인</Link></li>
+                            <li><Link to="/login" onClick={this.handleMenuClick}>로그인</Link></li>
+                            <li><Link to="/register" onClick={this.handleMenuClick}>회원가입</Link></li>
                         </ul>
                     }
                 </nav>
@@ -68,7 +74,8 @@ class Aside extends Component {
                         <button type="button" className="btn-logout"
                             onClick={this.handleLogout}>로그아웃</button>
                         :
-                        <Link to="/login" className="btn-login">로그인</Link>
+                        <Link to="/login" className="btn-login"
+                            onClick={this.handleMenuClick}>로그인</Link>
                     }
                 </div>
             </aside>
