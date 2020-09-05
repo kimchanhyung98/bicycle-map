@@ -15,12 +15,28 @@ const mapStateToProps = (state) => ({
 });
 
 class Index extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showAside: false
+        };
+
+        this.handleAside = this.handleAside.bind(this);
+    }
+
     initUserInfo() {
         const loggedToken = storage.get('loggedToken');
         if(!loggedToken) return;
 
         const { dispatch } = this.props;
         dispatch(saveLoggedToken(loggedToken));
+    }
+
+    handleAside() {
+        this.setState((state) => ({
+            showAside: !state.showAside
+        }));
     }
 
     componentDidMount() {
@@ -30,8 +46,10 @@ class Index extends Component {
     render() {
         return (
             <BrowserRouter>
-                <Header />
-                <Aside />
+                <Header handleAside={ this.handleAside } />
+
+                <Aside handleAside={ this.handleAside }
+                    showAside={ this.state.showAside } />
 
                <Route component={Main}/>
             </BrowserRouter>
