@@ -1,4 +1,5 @@
 @import '@sass/components/_button';
+@import '@sass/components/_icon';
 
 .aside{
     @include size(100%, 100%);
@@ -28,15 +29,9 @@
     }
 
     .btn-aside-close{
-        @include size(22px, 22px);
-        @include margin(5px 0 0);
-        @include padding(0);
-        @include border(0);
-        @include background('/public/images/global/close_white_icon.png', no-repeat, center center, transparent);
-        overflow: hidden;
+        @include icon(white-close);
         float: right;
-        background-size: 22px 22px;
-        text-indent: -9999px;
+        background-size: 26px 26px;
     }
 }
 
