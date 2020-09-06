@@ -31,6 +31,7 @@ class Index extends Component {
         const loggedInfo = storage.get('loggedInfo');
         const { dispatch } = this.props;
 
+        axios.defaults.headers.common.Authorization = `Bearer ${loggedToken.access_token}`;
         dispatch(loginSuccess(loggedInfo));
     }
 
