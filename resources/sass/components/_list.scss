@@ -96,6 +96,7 @@
             button{
                 @include button(page-border, 1px solid);
                 @include size(auto, 28px);
+                @include margin(right 8px);
                 @include padding(0 8px);
                 float: left;
                 line-height: 28px;

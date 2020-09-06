@@ -19,6 +19,7 @@ class Attend extends Component {
         }
 
         this.handleScroll = this.handleScroll.bind(this);
+        this.handleRideCancel = this.handleRideCancel.bind(this);
         this.getData = this.getData.bind(this);
     }
 
@@ -30,6 +31,25 @@ class Attend extends Component {
                 this.getData();
             }
         }
+    }
+
+    handleRideCancel(e, ride_id) {
+        e.preventDefault();
+
+        axios.post('/api/ride/cancel', {
+            ride_id: ride_id
+        }).then(res => {
+            this.setState((state) => ({
+                rides: state.rides.filter(ride => {
+                    return ride.id !== ride_id
+                })
+            }));
+
+            alert(res.data.message);
+        }).catch(err => {
+            alert('오류');
+            console.log(err);
+        })
     }
 
     getData() {
@@ -76,31 +96,33 @@ class Attend extends Component {
                         { rides.map((ride) => {
                             return (
                                 <li key={ride.id}>
-                                    <Link to={`/ride/${ride.id}`}>
-                                        <div className="ride-header">
-                                            <h2 className="ride-title">{ ride.name }</h2>
-                                            <span className="ride-difficulty">{ ride.difficulty }</span>
-                                        </div>
+                                    <div className="ride-header">
+                                        <h2 className="ride-title">{ ride.name }</h2>
+                                        <span className="ride-difficulty">{ ride.difficulty }</span>
+                                    </div>
 
-                                        <ul className="ride-detail">
-                                            <li>
-                                                <span>출발시간</span>
-                                                <p>
-                                                    { ride.started_at }
-                                                </p>
-                                            </li>
-                                            <li>
-                                                <span>종료시간</span>
-                                                <p>
-                                                    { ride.ended_at || '미정' }
-                                                </p>
-                                            </li>
-                                        </ul>
+                                    <ul className="ride-detail">
+                                        <li>
+                                            <span>출발시간</span>
+                                            <p>
+                                                { ride.started_at }
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <span>종료시간</span>
+                                            <p>
+                                                { ride.ended_at || '미정' }
+                                            </p>
+                                        </li>
+                                    </ul>
 
-                                        <div className="btn-area">
-                                            <button type="button">취소하기</button>
-                                        </div>
-                                    </Link>
+                                    <div className="btn-area">
+                                        <Link to={`/ride/${ride.id}`}>바로가기</Link>
+                                        <button type="button"
+                                            onClick={e => {
+                                                this.handleRideCancel(e, ride.id);
+                                            }}>취소하기</button>
+                                    </div>
                                 </li>
                             )
                         })}
