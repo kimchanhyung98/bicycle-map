@@ -111,7 +111,6 @@ class Home extends Component {
                                                     { ride.address } { ride.address_detail }
                                                 </p>
                                             </li>
-
                                         </ul>
                                     </Link>
                                 </li>

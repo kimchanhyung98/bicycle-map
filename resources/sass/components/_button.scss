@@ -13,6 +13,12 @@
     color: $white;
 }
 
+%btn-page-border{
+    border-color: $page-color;
+    background: $white;
+    color: $page-color;
+}
+
 %btn-blue{
     background: $blue;
     color: $white;
@@ -34,6 +40,9 @@
     @if $type == page-fill {
         @extend %btn-page;
     }
+    @if $type == page-border {
+        @extend %btn-page-border;
+    }
     @else if $type == gray-fill {
         @extend %btn-gray;
     }
@@ -48,7 +57,7 @@
         @include border($border);
     }
     @else {
-        @include border(1px solid $border-color-base);
+        @include border(0);
     }
 
     @if $radius != null {

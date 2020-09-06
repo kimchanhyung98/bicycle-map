@@ -1,0 +1,110 @@
+@import '@sass/components/_button.scss';
+
+%list-default{
+    > li{
+        @include margin(top 30px);
+        @include padding(20px 0 20px 24px);
+        @include border(1px solid $blue-600);
+        @include border-radius(15px);
+        @include box-sizing(border-box);
+        position: relative;
+        line-height: 19px;
+
+        &:first-child{
+            @include margin(top 0);
+        }
+
+        a{
+            @extend %reset-link;
+        }
+
+        .ride-attend{
+            @include button(blue-fill-600, null, 6px);
+            @include size(85px, 35px);
+            position: absolute;
+            top: -18px;
+            left: -18px;
+            font-weight: bold;
+            font-size: 12px;
+            line-height: 35px;
+            text-align: center;
+        }
+
+        .ride-header{
+            @include margin(top 5px);
+            overflow: hidden;
+        }
+
+        .ride-title{
+            @include size(calc(100% - 100px));
+            @include padding(0 20px 0 0);
+            @include box-sizing(border-box);
+            @include truncate();
+            float: left;
+            font-weight: bold;
+            font-size: $font-size-large;
+            line-height: 30px;
+            color: $red;
+            text-align: left;
+        }
+
+        .ride-difficulty{
+            @include button(blue-fill);
+            @include size(auto, 30px);
+            @include margin(right -1px);
+            @include padding(0 10px);
+            @include border-radius(5px 0 0 5px);
+            float: right;
+            font-size: $font-size-small;
+            line-height: 30px;
+            text-align: center;
+        }
+
+        .ride-detail{
+            @include margin(top 12px);
+        }
+
+        .ride-detail li{
+            @include margin(top 8px);
+            overflow: hidden;
+            font-size: $font-size-small;
+            line-height: 20px;
+
+            &:first-child{
+                @include margin(top 0);
+            }
+
+            > span{
+                @include size(72px);
+                float: left;
+                color: $gray-600;
+            }
+
+            p{
+                @include size(calc(100% - 72px));
+                float: left;
+                color: $font-color-base;
+                word-break: keep-all;
+            }
+        }
+
+        .btn-area{
+            @include margin(top 15px);
+            overflow: hidden;
+
+            a,
+            button{
+                @include button(page-border, 1px solid);
+                @include size(auto, 28px);
+                @include padding(0 8px);
+                float: left;
+                line-height: 28px;
+            }
+        }
+    }
+}
+
+
+@mixin list(){
+    @extend %list-default;
+}
