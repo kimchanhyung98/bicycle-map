@@ -98,52 +98,61 @@ class RideController extends Controller
      */
     public function update(Request $request, Ride $ride)
     {
-        $validatedData = $request->validate([
-            'file_id' => 'nullable|numeric',
+        if ($ride->user_id == $request->user()->id) {
+            $validatedData = $request->validate([
+                'file_id' => 'nullable|numeric',
 
-            'name' => 'required|max:255',
-            'description' => 'nullable|max:10000',
-            'started_at' => 'required|date|after:today',
-            'ended_at' => 'nullable|date|after:started_at',
+                'name' => 'required|max:255',
+                'description' => 'nullable|max:10000',
+                'started_at' => 'required|date|after:today',
+                'ended_at' => 'nullable|date|after:started_at',
 
-            'address' => 'required|max:255',
-            'address_detail' => 'nullable|max:255',
-            'locality' => 'nullable|max:255',
-            'sublocality1' => 'nullable|max:255',
-            'sublocality2' => 'nullable|max:255',
-            'latitude' => 'nullable|numeric',
-            'longitude' => 'nullable|numeric',
+                'address' => 'required|max:255',
+                'address_detail' => 'nullable|max:255',
+                'locality' => 'nullable|max:255',
+                'sublocality1' => 'nullable|max:255',
+                'sublocality2' => 'nullable|max:255',
+                'latitude' => 'nullable|numeric',
+                'longitude' => 'nullable|numeric',
 
-            'difficulty' => 'required|in:beginner,intermediate,advanced',
-            'capacity' => 'required|numeric',
-            'distance' => 'nullable|numeric',
-            'altitude' => 'required|in:flat,uphill,mountain',
-            'altitude_detail' => 'nullable|numeric',
-        ]);
+                'difficulty' => 'required|in:beginner,intermediate,advanced',
+                'capacity' => 'required|numeric',
+                'distance' => 'nullable|numeric',
+                'altitude' => 'required|in:flat,uphill,mountain',
+                'altitude_detail' => 'nullable|numeric',
+            ]);
 
-        logger($validatedData);
-        $ride->update($validatedData);
-        logger($ride);
+            $ride->update($validatedData);
+            $message = '수정되었습니다.';
+        } else {
+            $message = '본인이 개설한 라이드만 수정할 수 있습니다.';
+        }
 
         return response()->json([
             'ride_id' => $ride->id,
-            'message' => '수정되었습니다.',
+            'message' => $message,
         ]);
     }
 
     /**
      * 라이드 삭제
      *
+     * @param Request $request
      * @param Ride $ride
      * @return JsonResponse
      * @throws \Exception
      */
-    public function destroy(Ride $ride)
+    public function destroy(Request $request, Ride $ride)
     {
-        $ride->delete();
+        if ($ride->user_id == $request->user()->id) {
+            $ride->delete();
+            $message = '삭제되었습니다.';
+        } else {
+            $message = '본인이 개설한 라이드만 삭제할 수 있습니다.';
+        }
 
         return response()->json([
-            'message' => '삭제되었습니다.',
+            'message' => $message,
         ]);
     }
 }
