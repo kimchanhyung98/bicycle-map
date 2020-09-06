@@ -57,3 +57,11 @@ Route::group(['prefix' => 'ride', 'as' => 'ride.'], function () {
         Route::post('cancel', 'ParticipantController@destroy')->name('cancel');
     });
 });
+
+// 마이 페이지
+Route::group(['prefix' => 'account', 'as' => 'account.', 'middleware' => 'auth:sanctum'], function () {
+    // 개설 내역
+    Route::get('manage', 'AccountController@manage')->name('manage');
+    // 참가 내역
+    Route::get('attend', 'AccountController@attend')->name('attend');
+});
