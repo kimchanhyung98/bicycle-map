@@ -34,7 +34,7 @@
         line-height: 40px;
 
         .btn-submit{
-            @include button(green-fill, 0);
+            @include button(page-fill, 0);
             @include size(auto, 40px);
             @include margin(0 auto);
             @include padding(0 20px);

@@ -74,13 +74,6 @@ class Detail extends Component {
         this.getData();
     }
 
-    componentWillUnmount(nextProps, prevState) {
-        console.log(nextProps);
-        console.log(prevState);
-        console.log('123');
-
-    }
-
     render() {
         const NAVER_API_KEY = env.NCLOUD_CLIENT_ID;
         let ride = this.state.ride;

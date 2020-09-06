@@ -1,0 +1,23 @@
+@import '@sass/helpers/_variables';
+@import '@sass/helpers/_extends';
+@import '@sass/helpers/_mixins';
+
+%icon-default{
+    @include size(32px, 32px);
+    @include padding(0);
+    @include border(0);
+    @include background(null, no-repeat, center center, transparent);
+    overflow: hidden;
+    text-indent: -9999px;
+}
+
+@mixin icon($type: null) {
+    @extend %icon-default;
+
+    @if $type == white-menu {
+        @include background('/public/images/global/menu_white_icon.png');
+    }
+    @else if $type == white-close {
+        @include background('/public/images/global/close_white_icon.png');
+    }
+}
