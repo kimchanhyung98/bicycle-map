@@ -101,6 +101,8 @@ class Edit extends Component {
     }
 
     formatNaturalDate(date) {
+        if (!date) return new Date();
+
         date = date.split(' ');
         let splitDate = date[0].split('-');
         let splitTime = date[1].split(':');
@@ -147,7 +149,7 @@ class Edit extends Component {
         });
     }
 
-    componentWillReceiveProps() {
+    componentDidMount() {
         this.getData();
     }
 
