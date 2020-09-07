@@ -149,7 +149,7 @@ class Edit extends Component {
         });
     }
 
-    componentWillReceiveProps() {
+    componentDidMount() {
         this.getData();
     }
 
