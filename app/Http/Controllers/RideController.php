@@ -79,13 +79,18 @@ class RideController extends Controller
     /**
      * 라이드 수정
      *
+     * @param Request $request
      * @param Ride $ride
      * @return JsonResponse
      */
-    public function edit(Ride $ride)
+    public function edit(Request $request, Ride $ride)
     {
+        if ($ride->user_id != $request->user()->id) {
+            abort(403, 'Unauthorized action.');
+        }
+
         return response()->json([
-            'ride' => $ride,
+            'ride' => $ride->load('file'),
         ]);
     }
 
@@ -98,39 +103,38 @@ class RideController extends Controller
      */
     public function update(Request $request, Ride $ride)
     {
-        if ($ride->user_id == $request->user()->id) {
-            $validatedData = $request->validate([
-                'file_id' => 'nullable|numeric',
-
-                'name' => 'required|max:255',
-                'description' => 'nullable|max:10000',
-                'started_at' => 'required|date|after:today',
-                'ended_at' => 'nullable|date|after:started_at',
-
-                'address' => 'required|max:255',
-                'address_detail' => 'nullable|max:255',
-                'locality' => 'nullable|max:255',
-                'sublocality1' => 'nullable|max:255',
-                'sublocality2' => 'nullable|max:255',
-                'latitude' => 'nullable|numeric',
-                'longitude' => 'nullable|numeric',
-
-                'difficulty' => 'required|in:beginner,intermediate,advanced',
-                'capacity' => 'required|numeric',
-                'distance' => 'nullable|numeric',
-                'altitude' => 'required|in:flat,uphill,mountain',
-                'altitude_detail' => 'nullable|numeric',
-            ]);
-
-            $ride->update($validatedData);
-            $message = '수정되었습니다.';
-        } else {
-            $message = '본인이 개설한 라이드만 수정할 수 있습니다.';
+        if ($ride->user_id != $request->user()->id) {
+            abort(403, 'Unauthorized action.');
         }
+
+        $validatedData = $request->validate([
+            'file_id' => 'nullable|numeric',
+
+            'name' => 'required|max:255',
+            'description' => 'nullable|max:10000',
+            'started_at' => 'required|date|after:today',
+            'ended_at' => 'nullable|date|after:started_at',
+
+            'address' => 'required|max:255',
+            'address_detail' => 'nullable|max:255',
+            'locality' => 'nullable|max:255',
+            'sublocality1' => 'nullable|max:255',
+            'sublocality2' => 'nullable|max:255',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
+
+            'difficulty' => 'required|in:beginner,intermediate,advanced',
+            'capacity' => 'required|numeric',
+            'distance' => 'nullable|numeric',
+            'altitude' => 'required|in:flat,uphill,mountain',
+            'altitude_detail' => 'nullable|numeric',
+        ]);
+
+        $ride->update($validatedData);
 
         return response()->json([
             'ride_id' => $ride->id,
-            'message' => $message,
+            'message' => '수정되었습니다.',
         ]);
     }
 
@@ -144,15 +148,14 @@ class RideController extends Controller
      */
     public function destroy(Request $request, Ride $ride)
     {
-        if ($ride->user_id == $request->user()->id) {
-            $ride->delete();
-            $message = '삭제되었습니다.';
-        } else {
-            $message = '본인이 개설한 라이드만 삭제할 수 있습니다.';
+        if ($ride->user_id != $request->user()->id) {
+            abort(403, 'Unauthorized action.');
         }
 
+        $ride->delete();
+
         return response()->json([
-            'message' => $message,
+            'message' => '삭제되었습니다.',
         ]);
     }
 }
