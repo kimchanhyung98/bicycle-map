@@ -58,7 +58,7 @@ class Aside extends Component {
                             <li><Link to="/" onClick={this.handleMenuClick}>메인</Link></li>
                             <li><Link to="/ride/create" onClick={this.handleMenuClick}>라이드 개설</Link></li>
                             <li><Link to="/account/attend" onClick={this.handleMenuClick}>신청내역</Link></li>
-                            <li><Link to="/account/create" onClick={this.handleMenuClick}>개설내역</Link></li>
+                            <li><Link to="/account/manage" onClick={this.handleMenuClick}>개설내역</Link></li>
                         </ul>
                         :
                         <ul className="nav-list">
