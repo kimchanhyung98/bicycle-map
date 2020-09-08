@@ -150,7 +150,8 @@ class Edit extends Component {
     }
 
     componentDidMount() {
-        this.getData();
+        //  TODO: 추후 getdata 오류 수정
+        setTimeout(this.getData, 0);
     }
 
     render() {
