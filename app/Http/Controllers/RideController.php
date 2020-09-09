@@ -79,13 +79,18 @@ class RideController extends Controller
     /**
      * 라이드 수정
      *
+     * @param Request $request
      * @param Ride $ride
      * @return JsonResponse
      */
-    public function edit(Ride $ride)
+    public function edit(Request $request, Ride $ride)
     {
+        if ($ride->user_id != $request->user()->id) {
+            abort(403, 'Unauthorized action.');
+        }
+
         return response()->json([
-            'ride' => $ride,
+            'ride' => $ride->load('file'),
         ]);
     }
 
@@ -98,6 +103,10 @@ class RideController extends Controller
      */
     public function update(Request $request, Ride $ride)
     {
+        if ($ride->user_id != $request->user()->id) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $validatedData = $request->validate([
             'file_id' => 'nullable|numeric',
 
@@ -121,9 +130,7 @@ class RideController extends Controller
             'altitude_detail' => 'nullable|numeric',
         ]);
 
-        logger($validatedData);
         $ride->update($validatedData);
-        logger($ride);
 
         return response()->json([
             'ride_id' => $ride->id,
@@ -134,12 +141,17 @@ class RideController extends Controller
     /**
      * 라이드 삭제
      *
+     * @param Request $request
      * @param Ride $ride
      * @return JsonResponse
      * @throws \Exception
      */
-    public function destroy(Ride $ride)
+    public function destroy(Request $request, Ride $ride)
     {
+        if ($ride->user_id != $request->user()->id) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $ride->delete();
 
         return response()->json([
