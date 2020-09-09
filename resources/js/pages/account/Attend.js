@@ -93,39 +93,43 @@ class Attend extends Component {
                     <h2 className="title">신청내역</h2>
 
                     <ul className="ride-list">
-                        { rides.map((ride) => {
-                            return (
-                                <li key={ride.id}>
-                                    <div className="ride-header">
-                                        <h2 className="ride-title">{ ride.name }</h2>
-                                        <span className="ride-difficulty">{ ride.difficulty }</span>
-                                    </div>
+                        { rides.length > 0 ?
+                            rides.map((ride) => {
+                                return (
+                                    <li key={ride.id}>
+                                        <div className="ride-header">
+                                            <h2 className="ride-title">{ ride.name }</h2>
+                                            <span className="ride-difficulty">{ ride.difficulty }</span>
+                                        </div>
 
-                                    <ul className="ride-detail">
-                                        <li>
-                                            <span>출발시간</span>
-                                            <p>
-                                                { ride.started_at }
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <span>종료시간</span>
-                                            <p>
-                                                { ride.ended_at || '미정' }
-                                            </p>
-                                        </li>
-                                    </ul>
+                                        <ul className="ride-detail">
+                                            <li>
+                                                <span>출발시간</span>
+                                                <p>
+                                                    { ride.started_at }
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span>종료시간</span>
+                                                <p>
+                                                    { ride.ended_at || '미정' }
+                                                </p>
+                                            </li>
+                                        </ul>
 
-                                    <div className="btn-area">
-                                        <Link to={`/ride/${ride.id}`}>바로가기</Link>
-                                        <button type="button"
-                                            onClick={e => {
-                                                this.handleRideCancel(e, ride.id);
-                                            }}>취소하기</button>
-                                    </div>
-                                </li>
-                            )
-                        })}
+                                        <div className="btn-area">
+                                            <Link to={`/ride/${ride.id}`}>바로가기</Link>
+                                            <button type="button"
+                                                onClick={e => {
+                                                    this.handleRideCancel(e, ride.id);
+                                                }}>취소하기</button>
+                                        </div>
+                                    </li>
+                                )
+                            })
+                            :
+                            <li className="empty-list">신청한 라이드가 없습니다.</li>
+                        }
                     </ul>
                 </section>
             </main>
