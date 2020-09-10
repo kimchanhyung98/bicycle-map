@@ -15,7 +15,8 @@ class Manage extends Component {
         this.state = {
             rides: [],
             page: 0,
-            isEnd: false
+            isEnd: false,
+            isDeleteLoading: false
         }
 
         this.handleScroll = this.handleScroll.bind(this);
@@ -36,20 +37,28 @@ class Manage extends Component {
     handleRideDelete(e, ride_id) {
         e.preventDefault();
 
-        axios.delete(`/api/ride/${ride_id}`, {
-            ride_id: ride_id
-        }).then(res => {
-            this.setState((state) => ({
-                rides: state.rides.filter(ride => {
-                    return ride.id !== ride_id
-                })
-            }));
+        if (this.state.isDeleteLoading) {
+            return false;
+        }
 
-            alert(res.data.message);
-        }).catch(err => {
-            alert('오류');
-            console.log(err);
-        })
+        this.setState({
+            isDeleteLoading: true
+        }, () => {
+            axios.delete(`/api/ride/${ride_id}`, {
+                ride_id: ride_id
+            }).then(res => {
+                this.setState((state) => ({
+                    rides: state.rides.filter(ride => {
+                        return ride.id !== ride_id
+                    })
+                }));
+
+                alert(res.data.message);
+            }).catch(err => {
+                alert('오류');
+                console.log(err);
+            });
+        });
     }
 
     getData() {

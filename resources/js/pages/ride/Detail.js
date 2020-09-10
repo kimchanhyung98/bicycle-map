@@ -22,6 +22,7 @@ class Detail extends Component {
                 user: {}
             },
             participants_count: 0,
+            isLoading: false
         };
 
         this.getData = this.getData.bind(this);
@@ -52,21 +53,29 @@ class Detail extends Component {
         e.preventDefault();
         let user = this.props.state.user;
 
+        if (this.state.isLoading) {
+            return false;
+        }
+
         if (!user.isLoggedIn) {
             alert('로그인을 해주세요');
             return false;
         }
 
-        axios.post('/api/ride/attend', {
-            user_id: user.user.id,
-            ride_id: this.state.id
-        }).then(res => {
-            this.setState({
-                participants_count: ++this.state.participants_count
-            })
-            alert(res.data.message);
-        }).catch(err => {
-            alert('오류');
+        this.setState({
+            isLoading: true
+        }, () => {
+            axios.post('/api/ride/attend', {
+                user_id: user.user.id,
+                ride_id: this.state.id
+            }).then(res => {
+                this.setState({
+                    participants_count: ++this.state.participants_count
+                })
+                alert(res.data.message);
+            }).catch(err => {
+                alert('오류');
+            });
         });
     }
 

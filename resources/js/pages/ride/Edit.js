@@ -38,7 +38,9 @@ class Edit extends Component {
             capacity: '',
             distance: '',
             altitude: 'flat',
-            altitude_detail: ''
+            altitude_detail: '',
+
+            isLoading: false
         };
 
         this.handleSetMarker = this.handleSetMarker.bind(this);
@@ -117,12 +119,17 @@ class Edit extends Component {
     handleSubmit(e) {
         e.preventDefault();
 
+        if (this.state.isLoading) {
+            return false;
+        }
+
         let started_at = this.formatDate(this.state.started_date_time);
         let ended_at = this.formatDate(this.state.ended_date_time);
 
         this.setState({
             started_at: started_at,
-            ended_at: ended_at
+            ended_at: ended_at,
+            isLoading: true
         }, () => {
             axios.put(`/api/ride/${this.state.id}`, this.state).then(res => {
                 alert(res.data.message);
