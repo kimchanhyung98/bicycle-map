@@ -11,6 +11,8 @@ export function formatKR(date) {
 }
 
 export function formatDate(date) {
+    if (!date) return null;
+
     let year = date.getFullYear();
     let month = formatDigit(date.getMonth() + 1);
     let day = formatDigit(date.getDate());

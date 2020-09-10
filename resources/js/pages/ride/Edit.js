@@ -2,6 +2,7 @@ import React, {Component, useState} from 'react';
 import { connect } from 'react-redux';
 import DateTimePicker from 'react-datetime-picker';
 import { RenderAfterNavermapsLoaded } from "react-naver-maps";
+import { formatDate, formatNaturalDate } from '@/common/dateFormat';
 
 import Map from '@/components/map/Map';
 import File from '@/components/common/File';
@@ -47,9 +48,6 @@ class Edit extends Component {
         this.handleSetFile = this.handleSetFile.bind(this);
         this.handleSetAddress = this.handleSetAddress.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.formatDate = this.formatDate.bind(this);
-        this.formatNaturalDate = this.formatNaturalDate.bind(this);
-        this.formatDigit = this.formatDigit.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getData = this.getData.bind(this);
     }
@@ -92,30 +90,6 @@ class Edit extends Component {
         this.setState(nextState);
     }
 
-    formatDate(date) {
-        let year = date.getFullYear();
-        let month = this.formatDigit(date.getMonth() + 1);
-        let day = this.formatDigit(date.getDate());
-        let hour = this.formatDigit(date.getHours());
-        let minute = this.formatDigit(date.getMinutes());
-
-        return `${year}-${month}-${day} ${hour}:${minute}:00`;
-    }
-
-    formatNaturalDate(date) {
-        if (!date) return new Date();
-
-        date = date.split(' ');
-        let splitDate = date[0].split('-');
-        let splitTime = date[1].split(':');
-
-        return new Date(splitDate[0], splitDate[1] - 1, splitDate[2], splitTime[0], splitTime[1], 0);
-    }
-
-    formatDigit(date) {
-        return date < 10 ? `0${date}` : date;
-    }
-
     handleSubmit(e) {
         e.preventDefault();
 
@@ -123,8 +97,8 @@ class Edit extends Component {
             return false;
         }
 
-        let started_at = this.formatDate(this.state.started_date_time);
-        let ended_at = this.formatDate(this.state.ended_date_time);
+        let started_at = formatDate(this.state.started_date_time);
+        let ended_at = formatDate(this.state.ended_date_time);
 
         this.setState({
             started_at: started_at,
@@ -148,8 +122,8 @@ class Edit extends Component {
     getData() {
         axios.get(`/api/ride/edit/${this.state.id}`).then(res => {
             let data = res.data.ride;
-            data.started_date_time = this.formatNaturalDate(data.started_at);
-            data.ended_date_time = this.formatNaturalDate(data.ended_at);
+            data.started_date_time = formatNaturalDate(data.started_at);
+            data.ended_date_time = formatNaturalDate(data.ended_at);
             this.setState(res.data.ride);
         }).catch(err => {
             console.log(err);
