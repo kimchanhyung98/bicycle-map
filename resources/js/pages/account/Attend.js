@@ -15,7 +15,8 @@ class Attend extends Component {
         this.state = {
             rides: [],
             page: 0,
-            isEnd: false
+            isEnd: false,
+            isCancelLoading: false
         }
 
         this.handleScroll = this.handleScroll.bind(this);
@@ -36,20 +37,28 @@ class Attend extends Component {
     handleRideCancel(e, ride_id) {
         e.preventDefault();
 
-        axios.post('/api/ride/cancel', {
-            ride_id: ride_id
-        }).then(res => {
-            this.setState((state) => ({
-                rides: state.rides.filter(ride => {
-                    return ride.id !== ride_id
-                })
-            }));
+        if (this.state.isCancelLoading) {
+            return false;
+        }
 
-            alert(res.data.message);
-        }).catch(err => {
-            alert('오류');
-            console.log(err);
-        })
+        this.setState({
+            isCancelLoading: true
+        }, () => {
+            axios.post('/api/ride/cancel', {
+                ride_id: ride_id
+            }).then(res => {
+                this.setState((state) => ({
+                    rides: state.rides.filter(ride => {
+                        return ride.id !== ride_id
+                    })
+                }));
+
+                alert(res.data.message);
+            }).catch(err => {
+                alert('오류');
+                console.log(err);
+            });
+        });
     }
 
     getData() {

@@ -2,6 +2,7 @@ import React, {Component, useState} from 'react';
 import { connect } from 'react-redux';
 import DateTimePicker from 'react-datetime-picker';
 import { RenderAfterNavermapsLoaded } from "react-naver-maps";
+import { formatDate } from '@/common/dateFormat';
 
 import Map from '@/components/map/Map';
 import File from '@/components/common/File';
@@ -37,15 +38,15 @@ class Create extends Component {
             capacity: '',
             distance: '',
             altitude: 'flat',
-            altitude_detail: ''
+            altitude_detail: '',
+
+            isLoading: false
         };
 
         this.handleSetMarker = this.handleSetMarker.bind(this);
         this.handleSetFile = this.handleSetFile.bind(this);
         this.handleSetAddress = this.handleSetAddress.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.formatDate = this.formatDate.bind(this);
-        this.formatDigit = this.formatDigit.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -87,29 +88,20 @@ class Create extends Component {
         this.setState(nextState);
     }
 
-    formatDate(date) {
-        let year = date.getFullYear();
-        let month = this.formatDigit(date.getMonth() + 1);
-        let day = this.formatDigit(date.getDate());
-        let hour = this.formatDigit(date.getHours());
-        let minute = this.formatDigit(date.getMinutes());
-
-        return `${year}-${month}-${day} ${hour}:${minute}:00`;
-    }
-
-    formatDigit(date) {
-        return date < 10 ? `0${date}` : date;
-    }
-
     handleSubmit(e) {
         e.preventDefault();
 
-        let started_at = this.formatDate(this.state.started_date_time);
-        let ended_at = this.formatDate(this.state.ended_date_time);
+        if (this.state.isLoading) {
+            return false;
+        }
+
+        let started_at = formatDate(this.state.started_date_time);
+        let ended_at = formatDate(this.state.ended_date_time);
 
         this.setState({
             started_at: started_at,
-            ended_at: ended_at
+            ended_at: ended_at,
+            isLoading: true
         }, () => {
             axios.post('/api/ride/store', this.state).then(res => {
                 alert(res.data.message);

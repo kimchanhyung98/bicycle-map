@@ -10,7 +10,8 @@ class Register extends Component {
             name: '',
             email: '',
             phone: '',
-            password: ''
+            password: '',
+            isLoading: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -26,6 +27,10 @@ class Register extends Component {
     handleSubmit(e) {
         e.preventDefault();
 
+        if (this.state.isLoading) {
+            return false;
+        }
+
         let name = this.state.name;
         let email = this.state.email;
         let phone = this.state.phone;
@@ -37,18 +42,23 @@ class Register extends Component {
             return false;
         }
 
-        axios.post('/register', {
-            name: name,
-            email: email,
-            phone: phone,
-            password: password,
-            password_confirmation: password_confirmation
-        }).then(res => {
-            alert('회원가입 성공');
-            this.props.history.push('/login');
-        }).catch(err => {
-            alert('오류');
+        this.setState({
+            isLoading: true
+        }, () => {
+            axios.post('/register', {
+                name: name,
+                email: email,
+                phone: phone,
+                password: password,
+                password_confirmation: password_confirmation
+            }).then(res => {
+                alert('회원가입 성공');
+                this.props.history.push('/login');
+            }).catch(err => {
+                alert('오류');
+            });
         });
+
     }
 
     render() {
