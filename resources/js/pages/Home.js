@@ -71,51 +71,55 @@ class Home extends Component {
             <main className="main">
                 <article className="main-container">
                     <ul className="ride-list">
-                        { rides.map((ride) => {
-                            return (
-                                <li key={ride.id}>
-                                    <Link to={`/ride/${ride.id}`}>
-                                        <span className="ride-attend">
-                                            { ride.participants_count }명 참석
-                                        </span>
+                        { rides.length > 0 ?
+                            rides.map((ride) => {
+                                return (
+                                    <li key={ride.id}>
+                                        <Link to={`/ride/${ride.id}`}>
+                                            <span className="ride-attend">
+                                                { ride.participants_count }명 참석
+                                            </span>
 
-                                        <div className="ride-header">
-                                            <h2 className="ride-title">{ ride.name }</h2>
-                                            <span className="ride-difficulty">{ ride.difficulty }</span>
-                                        </div>
+                                            <div className="ride-header">
+                                                <h2 className="ride-title">{ ride.name }</h2>
+                                                <span className="ride-difficulty">{ ride.difficulty }</span>
+                                            </div>
 
-                                        <ul className="ride-detail">
-                                            <li>
-                                                <span>거리</span>
-                                                <p>
-                                                    { ride.distance ?
-                                                        `${ride.distance}km` : '미정'
-                                                    }
-                                                </p>
-                                            </li>
-                                            <li>
-                                                <span>출발시간</span>
-                                                <p>
-                                                    { ride.started_at }
-                                                </p>
-                                            </li>
-                                            <li>
-                                                <span>종료시간</span>
-                                                <p>
-                                                    { ride.ended_at || '미정' }
-                                                </p>
-                                            </li>
-                                            <li>
-                                                <span>장소</span>
-                                                <p>
-                                                    { ride.address } { ride.address_detail }
-                                                </p>
-                                            </li>
-                                        </ul>
-                                    </Link>
-                                </li>
-                            )
-                        })}
+                                            <ul className="ride-detail">
+                                                <li>
+                                                    <span>거리</span>
+                                                    <p>
+                                                        { ride.distance ?
+                                                            `${ride.distance}km` : '미정'
+                                                        }
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span>출발시간</span>
+                                                    <p>
+                                                        { ride.started_at }
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span>종료시간</span>
+                                                    <p>
+                                                        { ride.ended_at || '미정' }
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span>장소</span>
+                                                    <p>
+                                                        { ride.address } { ride.address_detail }
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                        </Link>
+                                    </li>
+                                )
+                            })
+                            :
+                            <li className="empty-list">개설된 라이드가 없습니다.</li>
+                        }
                     </ul>
                 </article>
             </main>
