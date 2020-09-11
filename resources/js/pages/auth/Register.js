@@ -69,22 +69,22 @@ class Register extends Component {
 
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
-                            <input type="text" name="name" placeholder="이름" maxLength="255" required
+                            <input type="text" name="name" placeholder="이름 (한글만)" maxLength="20" required
                                    onChange={this.handleChange} />
                         </div>
 
                         <div className="form-group">
-                            <input type="email" name="email" placeholder="이메일" maxLength="255" required
+                            <input type="email" name="email" placeholder="이메일" maxLength="100" required
                                    onChange={this.handleChange} />
                         </div>
 
                         <div className="form-group">
-                            <input type="text" name="phone" placeholder="전화번호" required
+                            <input type="text" name="phone" placeholder="전화번호 (숫자만)" required
                                    onChange={this.handleChange} />
                         </div>
 
                         <div className="form-group">
-                            <input type="password" name="password" placeholder="비밀번호" minLength="8" required
+                            <input type="password" name="password" placeholder="비밀번호 (8자 이상)" minLength="8" required
                                    onChange={this.handleChange} />
                         </div>
 
