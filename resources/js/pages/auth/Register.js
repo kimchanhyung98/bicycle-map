@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { handleChange } from '@/common/form';
 
 import '@sass/pages/auth.scoped.scss';
 
@@ -14,14 +15,7 @@ class Register extends Component {
             isLoading: false
         };
 
-        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleChange(e) {
-        let nextState = {};
-        nextState[e.target.name] = e.target.value;
-        this.setState(nextState);
     }
 
     handleSubmit(e) {
@@ -70,27 +64,37 @@ class Register extends Component {
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <input type="text" name="name" placeholder="이름" maxLength="255" required
-                                   onChange={this.handleChange} />
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }} />
                         </div>
 
                         <div className="form-group">
                             <input type="email" name="email" placeholder="이메일" maxLength="255" required
-                                   onChange={this.handleChange} />
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }} />
                         </div>
 
                         <div className="form-group">
                             <input type="text" name="phone" placeholder="전화번호" required
-                                   onChange={this.handleChange} />
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }} />
                         </div>
 
                         <div className="form-group">
                             <input type="password" name="password" placeholder="비밀번호" minLength="8" required
-                                   onChange={this.handleChange} />
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }} />
                         </div>
 
                         <div className="form-group">
                             <input type="password" name="password_confirmation" placeholder="비밀번호 확인" minLength="8" required
-                                   onChange={this.handleChange} />
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }} />
                         </div>
 
                         <div className="btn-area">

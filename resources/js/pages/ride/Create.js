@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import DateTimePicker from 'react-datetime-picker';
 import { RenderAfterNavermapsLoaded } from "react-naver-maps";
 import { formatDate } from '@/common/dateFormat';
+import { handleChange } from '@/common/form';
 
 import Map from '@/components/map/Map';
 import File from '@/components/common/File';
@@ -46,7 +47,6 @@ class Create extends Component {
         this.handleSetMarker = this.handleSetMarker.bind(this);
         this.handleSetFile = this.handleSetFile.bind(this);
         this.handleSetAddress = this.handleSetAddress.bind(this);
-        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -80,12 +80,6 @@ class Create extends Component {
         }).catch(err => {
             console.log(err);
         });
-    }
-
-    handleChange(e) {
-        let nextState = {};
-        nextState[e.target.name] = e.target.value;
-        this.setState(nextState);
     }
 
     handleSubmit(e) {
@@ -132,7 +126,9 @@ class Create extends Component {
                                 name="name"
                                 placeholder="내용을 입력해주세요"
                                 value={this.state.name}
-                                onChange={this.handleChange} />
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }} />
                         </div>
 
                         <div className="form-group ride-description">
@@ -140,7 +136,9 @@ class Create extends Component {
 
                             <textarea name="description"
                                 placeholder="내용을 입력해주세요"
-                                onChange={this.handleChange}></textarea>
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }}></textarea>
                         </div>
 
                         <div className="form-group ride-date">
@@ -173,7 +171,9 @@ class Create extends Component {
                                 value={this.state.address}
                                 placeholder="장소를 지도에 표시해주세요"
                                 readOnly
-                                onChange={this.handleChange} />
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }} />
 
                             <RenderAfterNavermapsLoaded
                                 ncpClientId={NAVER_API_KEY}
@@ -200,7 +200,9 @@ class Create extends Component {
                             <input type="text"
                                 name="address_detail"
                                 placeholder="상세 장소를 입력해주세요"
-                                onChange={this.handleChange} />
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }} />
                         </div>
 
                         <div className="form-group ride-course">
@@ -215,7 +217,9 @@ class Create extends Component {
 
                             <select name="difficulty"
                                 defaultValue={'beginner'}
-                                onChange={this.handleChange}>
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }}>
                                 <option value="beginner">beginner</option>
                                 <option value="intermediate">intermediate</option>
                                 <option value="advanced">advanced</option>
@@ -227,7 +231,9 @@ class Create extends Component {
 
                             <input type="text"
                                 name="capacity"
-                                onChange={this.handleChange} />
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }} />
                         </div>
 
                         <div className="form-group ride-distance">
@@ -236,7 +242,9 @@ class Create extends Component {
                             <input type="text"
                                 name="distance"
                                 placeholder="거리 (km)"
-                                onChange={this.handleChange} />
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }} />
                         </div>
 
                         <div className="form-group ride-altitude">
@@ -244,7 +252,9 @@ class Create extends Component {
 
                             <select name="altitude"
                                 defaultValue={'flat'}
-                                onChange={this.handleChange}>
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }}>
                                 <option value="flat">flat</option>
                                 <option value="uphill">uphill</option>
                                 <option value="mountain">mountain</option>
@@ -253,7 +263,9 @@ class Create extends Component {
                             <input type="text"
                                 name="altitude_detail"
                                 placeholder="고도 (m)"
-                                onChange={this.handleChange} />
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }} />
                         </div>
 
                         <div className="btn-area">
