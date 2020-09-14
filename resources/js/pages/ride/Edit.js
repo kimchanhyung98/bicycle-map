@@ -2,8 +2,8 @@ import React, {Component, useState} from 'react';
 import { connect } from 'react-redux';
 import DateTimePicker from 'react-datetime-picker';
 import { RenderAfterNavermapsLoaded } from "react-naver-maps";
-import { formatDate, formatNaturalDate } from '@/common/dateFormat';
-import { handleChange } from '@/common/form';
+import { formatDate, formatNaturalDate } from '@/helpers/dateFormat';
+import { handleChange } from '@/helpers/form';
 
 import Map from '@/components/map/Map';
 import File from '@/components/common/File';

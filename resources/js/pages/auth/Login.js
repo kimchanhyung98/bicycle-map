@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { login } from '@/actions/user.js';
 import storage from '@/lib/storage.js';
-import { handleChange } from '@/common/form';
+import { handleChange } from '@/helpers/form';
 
 import '@sass/pages/auth.scoped.scss';
 

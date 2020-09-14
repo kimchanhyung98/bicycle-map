@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { handleChange } from '@/common/form';
+import { handleChange } from '@/helpers/form';
 
 import '@sass/pages/auth.scoped.scss';
 
