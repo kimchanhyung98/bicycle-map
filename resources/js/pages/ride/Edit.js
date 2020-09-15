@@ -240,9 +240,9 @@ class Edit extends Component {
                                 onChange={ e => {
                                     handleChange(e, this)
                                 }}>
-                                <option value="beginner">beginner</option>
-                                <option value="intermediate">intermediate</option>
-                                <option value="advanced">advanced</option>
+                                <option value="beginner">초보자</option>
+                                <option value="intermediate">중급자</option>
+                                <option value="advanced">숙련자</option>
                             </select>
                         </div>
 

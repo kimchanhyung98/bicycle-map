@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import storage from '@/lib/storage.js';
 import { RenderAfterNavermapsLoaded } from "react-naver-maps";
+import { formatDifficulty } from '@/helpers/ride';
 
 import Map from '@/components/map/Map';
 
@@ -113,7 +114,7 @@ class Detail extends Component {
 
                     <section className="main-container">
                         <div className="ride-header">
-                            <div className="ride-difficulty">{ ride.difficulty }</div>
+                            <div className="ride-difficulty">{ formatDifficulty(ride.difficulty) }</div>
                         </div>
 
                         <div className="ride-content">
