@@ -2,7 +2,8 @@ import React, {Component, useState} from 'react';
 import { connect } from 'react-redux';
 import DateTimePicker from 'react-datetime-picker';
 import { RenderAfterNavermapsLoaded } from "react-naver-maps";
-import { formatDate, formatNaturalDate } from '@/common/dateFormat';
+import { formatDate, formatNaturalDate } from '@/helpers/dateFormat';
+import { handleChange } from '@/helpers/form';
 
 import Map from '@/components/map/Map';
 import File from '@/components/common/File';
@@ -47,7 +48,6 @@ class Edit extends Component {
         this.handleSetMarker = this.handleSetMarker.bind(this);
         this.handleSetFile = this.handleSetFile.bind(this);
         this.handleSetAddress = this.handleSetAddress.bind(this);
-        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getData = this.getData.bind(this);
     }
@@ -82,12 +82,6 @@ class Edit extends Component {
         }).catch(err => {
             console.log(err);
         });
-    }
-
-    handleChange(e) {
-        let nextState = {};
-        nextState[e.target.name] = e.target.value;
-        this.setState(nextState);
     }
 
     handleSubmit(e) {
@@ -149,7 +143,9 @@ class Edit extends Component {
                                 name="name"
                                 value={this.state.name || ''}
                                 placeholder="내용을 입력해주세요"
-                                onChange={this.handleChange} />
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }} />
                         </div>
 
                         <div className="form-group ride-description">
@@ -158,7 +154,9 @@ class Edit extends Component {
                             <textarea name="description"
                                 value={this.state.description || ''}
                                 placeholder="내용을 입력해주세요"
-                                onChange={this.handleChange}></textarea>
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }}></textarea>
                         </div>
 
                         <div className="form-group ride-date">
@@ -191,7 +189,9 @@ class Edit extends Component {
                                 value={this.state.address || ''}
                                 placeholder="장소를 지도에 표시해주세요"
                                 readOnly
-                                onChange={this.handleChange} />
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }} />
 
                             <RenderAfterNavermapsLoaded
                                 ncpClientId={NAVER_API_KEY}
@@ -219,7 +219,9 @@ class Edit extends Component {
                                 name="address_detail"
                                 value={this.state.address_detail || ''}
                                 placeholder="상세 장소를 입력해주세요"
-                                onChange={this.handleChange} />
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }} />
                         </div>
 
                         <div className="form-group ride-course">
@@ -235,7 +237,9 @@ class Edit extends Component {
 
                             <select name="difficulty"
                                 value={this.state.difficulty || ''}
-                                onChange={this.handleChange}>
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }}>
                                 <option value="beginner">beginner</option>
                                 <option value="intermediate">intermediate</option>
                                 <option value="advanced">advanced</option>
@@ -248,7 +252,9 @@ class Edit extends Component {
                             <input type="text"
                                 name="capacity"
                                 value={this.state.capacity || ''}
-                                onChange={this.handleChange} />
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }} />
                         </div>
 
                         <div className="form-group ride-distance">
@@ -258,7 +264,9 @@ class Edit extends Component {
                                 name="distance"
                                 placeholder="거리 (km)"
                                 value={this.state.distance || ''}
-                                onChange={this.handleChange} />
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }} />
                         </div>
 
                         <div className="form-group ride-altitude">
@@ -266,7 +274,9 @@ class Edit extends Component {
 
                             <select name="altitude"
                                 value={this.state.altitude || ''}
-                                onChange={this.handleChange}>
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }}>
                                 <option value="flat">flat</option>
                                 <option value="uphill">uphill</option>
                                 <option value="mountain">mountain</option>
@@ -276,7 +286,9 @@ class Edit extends Component {
                                 name="altitude_detail"
                                 value={this.state.altitude_detail || ''}
                                 placeholder="고도 (m)"
-                                onChange={this.handleChange} />
+                                onChange={ e => {
+                                    handleChange(e, this)
+                                }} />
                         </div>
 
                         <div className="btn-area">

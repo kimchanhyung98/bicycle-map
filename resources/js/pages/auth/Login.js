@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { login } from '@/actions/user.js';
 import storage from '@/lib/storage.js';
+import { handleChange } from '@/helpers/form';
 
 import '@sass/pages/auth.scoped.scss';
 
@@ -18,14 +19,7 @@ class Login extends Component {
             password: ''
         };
 
-        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleChange(e) {
-        let nextState = {};
-        nextState[e.target.name] = e.target.value;
-        this.setState(nextState);
     }
 
     handleSubmit(e) {
@@ -58,12 +52,16 @@ class Login extends Component {
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <input type="email" name="email" placeholder="이메일"
-                                   onChange={this.handleChange} />
+                                onChange={ e=> {
+                                    handleChange(e, this)
+                                }} />
                         </div>
 
                         <div className="form-group">
                             <input type="password" name="password" placeholder="패스워드"
-                                   onChange={this.handleChange} />
+                                onChange={ e=> {
+                                    handleChange(e, this)
+                                }} />
                         </div>
 
                         <div className="btn-area">
