@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
+import { formatDifficulty } from '@/helpers/ride';
 
 import '@sass/pages/index.scoped.scss';
 
@@ -82,7 +83,7 @@ class Home extends Component {
 
                                             <div className="ride-header">
                                                 <h2 className="ride-title">{ ride.name }</h2>
-                                                <span className="ride-difficulty">{ ride.difficulty }</span>
+                                                <span className="ride-difficulty">{ formatDifficulty(ride.difficulty) }</span>
                                             </div>
 
                                             <ul className="ride-detail">

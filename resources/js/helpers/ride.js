@@ -7,6 +7,6 @@ export function formatDifficulty(difficulty) {
         case 'advanced':
             return '숙련자'
         default:
-            return '미정'
+            return ''
     }
 }
