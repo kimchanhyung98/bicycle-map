@@ -1,13 +1,25 @@
 import React, {Component, useState} from 'react';
 import { connect } from 'react-redux';
-import DateTimePicker from 'react-datetime-picker';
 import { RenderAfterNavermapsLoaded } from "react-naver-maps";
+
+// test
+import DateFnsUtils from '@date-io/date-fns';
+import {
+    DatePicker,
+    TimePicker,
+    DateTimePicker,
+    MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
+
+// helper
 import { formatDate } from '@/helpers/dateFormat';
 import { handleChange } from '@/helpers/form';
 
+// component
 import Map from '@/components/map/Map';
 import File from '@/components/common/File';
 
+// scss
 import '@sass/pages/ride/ride-create.scoped.scss';
 
 const mapStateToProps = (state) => ({
@@ -144,23 +156,9 @@ class Create extends Component {
                         <div className="form-group ride-date">
                             <label className="form-label">시간</label>
 
-                            <DateTimePicker
-                                format={'y-MM-dd HH:mm'}
-                                value={this.state.started_date_time}
-                                onChange={(value) => {
-                                    this.setState({
-                                        started_date_time: value
-                                    })
-                                }} />
-
-                            <DateTimePicker
-                                format={'y-MM-dd HH:mm'}
-                                value={this.state.ended_date_time}
-                                onChange={(value) => {
-                                    this.setState({
-                                        ended_date_time: value
-                                    })
-                                }} />
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <DateTimePicker />
+                            </MuiPickersUtilsProvider>
                         </div>
 
                         <div className="form-group ride-address">
