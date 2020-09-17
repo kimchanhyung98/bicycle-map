@@ -4,6 +4,7 @@ import { RenderAfterNavermapsLoaded } from "react-naver-maps";
 
 // test
 import DateFnsUtils from '@date-io/date-fns';
+import locale from "date-fns/locale/ko";
 import {
     DatePicker,
     TimePicker,
@@ -34,9 +35,11 @@ class Create extends Component {
             file_id: '',
             name: '',
             description: '',
-            started_date_time: new Date(),
+            started_date: new Date(),
+            started_time: new Date(),
+            ended_date: new Date(),
+            ended_time: new Date(),
             started_at: '',
-            ended_date_time: new Date(),
             ended_at: '',
 
             address: '',
@@ -153,13 +156,56 @@ class Create extends Component {
                                 }}></textarea>
                         </div>
 
-                        <div className="form-group ride-date">
-                            <label className="form-label">시간</label>
+                        {/* 시작 종료 시간 설정 */}
+                        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={locale}>
+                            <div className="form-group ride-date">
+                                <label className="form-label">시작 시간</label>
 
-                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <DateTimePicker />
-                            </MuiPickersUtilsProvider>
-                        </div>
+                                <DatePicker
+                                    name="started_date"
+                                    variant="dialog"
+                                    format="yyyy-MM-dd"
+                                    value={this.state.started_date}
+                                    onChange={ value => {
+                                        this.setState({
+                                            started_date: value
+                                        })
+                                    }} />
+
+                                <TimePicker
+                                    ampm={false}
+                                    value={this.state.started_time}
+                                    onChange={ value => {
+                                        this.setState({
+                                            started_time: value
+                                        })
+                                    }} />
+                            </div>
+
+                            <div className="form-group ride-date">
+                                <label className="form-label">종료 시간</label>
+
+                                <DatePicker
+                                    name="ended_date"
+                                    variant="dialog"
+                                    format="yyyy-MM-dd"
+                                    value={this.state.ended_date}
+                                    onChange={ value => {
+                                        this.setState({
+                                            ended_date: value
+                                        })
+                                    }} />
+
+                                <TimePicker
+                                    ampm={false}
+                                    value={this.state.ended_time}
+                                    onChange={ value => {
+                                        this.setState({
+                                            ended_time: value
+                                        })
+                                    }} />
+                            </div>
+                        </MuiPickersUtilsProvider>
 
                         <div className="form-group ride-address">
                             <label className="form-label">장소</label>
