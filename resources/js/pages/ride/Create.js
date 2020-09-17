@@ -2,16 +2,6 @@ import React, {Component, useState} from 'react';
 import { connect } from 'react-redux';
 import { RenderAfterNavermapsLoaded } from "react-naver-maps";
 
-// test
-import DateFnsUtils from '@date-io/date-fns';
-import locale from "date-fns/locale/ko";
-import {
-    DatePicker,
-    TimePicker,
-    DateTimePicker,
-    MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
-
 // helper
 import { formatDate } from '@/helpers/dateFormat';
 import { handleChange } from '@/helpers/form';
@@ -36,9 +26,9 @@ class Create extends Component {
             name: '',
             description: '',
             started_date: new Date(),
-            started_time: new Date(),
+            started_time: '00:00',
             ended_date: new Date(),
-            ended_time: new Date(),
+            ended_time: '00:00',
             started_at: '',
             ended_at: '',
 
@@ -124,7 +114,6 @@ class Create extends Component {
                 }
             });
         });
-
     }
 
     render() {
@@ -157,55 +146,14 @@ class Create extends Component {
                         </div>
 
                         {/* 시작 종료 시간 설정 */}
-                        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={locale}>
-                            <div className="form-group ride-date">
-                                <label className="form-label">시작 시간</label>
+                        <div className="form-group ride-date">
+                            <label className="form-label">시작 시간</label>
 
-                                <DatePicker
-                                    name="started_date"
-                                    variant="dialog"
-                                    format="yyyy-MM-dd"
-                                    value={this.state.started_date}
-                                    onChange={ value => {
-                                        this.setState({
-                                            started_date: value
-                                        })
-                                    }} />
+                        </div>
 
-                                <TimePicker
-                                    ampm={false}
-                                    value={this.state.started_time}
-                                    onChange={ value => {
-                                        this.setState({
-                                            started_time: value
-                                        })
-                                    }} />
-                            </div>
-
-                            <div className="form-group ride-date">
-                                <label className="form-label">종료 시간</label>
-
-                                <DatePicker
-                                    name="ended_date"
-                                    variant="dialog"
-                                    format="yyyy-MM-dd"
-                                    value={this.state.ended_date}
-                                    onChange={ value => {
-                                        this.setState({
-                                            ended_date: value
-                                        })
-                                    }} />
-
-                                <TimePicker
-                                    ampm={false}
-                                    value={this.state.ended_time}
-                                    onChange={ value => {
-                                        this.setState({
-                                            ended_time: value
-                                        })
-                                    }} />
-                            </div>
-                        </MuiPickersUtilsProvider>
+                        <div className="form-group ride-date">
+                            <label className="form-label">종료 시간</label>
+                        </div>
 
                         <div className="form-group ride-address">
                             <label className="form-label">장소</label>
