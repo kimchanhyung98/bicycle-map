@@ -2,9 +2,12 @@ import React, {Component, useState} from 'react';
 import { connect } from 'react-redux';
 import { RenderAfterNavermapsLoaded } from "react-naver-maps";
 
+import DatePicker from 'react-date-picker';
+
 // helper
 import { formatDate } from '@/helpers/dateFormat';
 import { handleChange } from '@/helpers/form';
+import { timeOptions } from '@/helpers/option';
 
 // component
 import Map from '@/components/map/Map';
@@ -22,29 +25,31 @@ class Create extends Component {
         super(props);
 
         this.state = {
-            file_id: '',
-            name: '',
-            description: '',
+            ride: {
+                file_id: '',
+                name: '',
+                description: '',
+                started_at: '',
+                ended_at: '',
+
+                address: '',
+                address_detail: '',
+                locality: '',
+                sublocality1: '',
+                sublocality2: '',
+                latitude: '37.554722',
+                longitude: '126.970833',
+
+                difficulty: 'beginner',
+                capacity: '',
+                distance: '',
+                altitude: 'flat',
+                altitude_detail: ''
+            },
             started_date: new Date(),
             started_time: '00:00',
             ended_date: new Date(),
             ended_time: '00:00',
-            started_at: '',
-            ended_at: '',
-
-            address: '',
-            address_detail: '',
-            locality: '',
-            sublocality1: '',
-            sublocality2: '',
-            latitude: '37.554722',
-            longitude: '126.970833',
-
-            difficulty: 'beginner',
-            capacity: '',
-            distance: '',
-            altitude: 'flat',
-            altitude_detail: '',
 
             isLoading: false
         };
@@ -102,7 +107,7 @@ class Create extends Component {
             ended_at: ended_at,
             isLoading: true
         }, () => {
-            axios.post('/api/ride/store', this.state).then(res => {
+            axios.post('/api/ride/store', this.state.ride).then(res => {
                 alert(res.data.message);
                 this.props.history.push(`/ride/${res.data.ride_id}`);
             }).catch(err => {
@@ -129,9 +134,9 @@ class Create extends Component {
                             <input type="text"
                                 name="name"
                                 placeholder="내용을 입력해주세요"
-                                value={this.state.name}
+                                value={this.state.ride.name}
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'ride')
                                 }} />
                         </div>
 
@@ -141,7 +146,7 @@ class Create extends Component {
                             <textarea name="description"
                                 placeholder="내용을 입력해주세요"
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'ride')
                                 }}></textarea>
                         </div>
 
@@ -149,6 +154,18 @@ class Create extends Component {
                         <div className="form-group ride-date">
                             <label className="form-label">시작 시간</label>
 
+                            <DatePicker
+                                format={'y-MM-dd'}
+                                value={this.state.ride.started_date}
+                                onChange={(value) => {
+                                    this.setState({
+                                        started_date: value
+                                    })
+                                }} />
+
+                            <select>
+
+                            </select>
                         </div>
 
                         <div className="form-group ride-date">
@@ -160,11 +177,11 @@ class Create extends Component {
 
                             <input type="text"
                                 name="address"
-                                value={this.state.address}
+                                value={this.state.ride.address}
                                 placeholder="장소를 지도에 표시해주세요"
                                 readOnly
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'ride')
                                 }} />
 
                             <RenderAfterNavermapsLoaded
@@ -176,14 +193,14 @@ class Create extends Component {
                                    disabled={false}
                                    zoom={12}
                                    center={{
-                                       lat: this.state.latitude,
-                                       lng: this.state.longitude
+                                       lat: this.state.ride.latitude,
+                                       lng: this.state.ride.longitude
 
                                    }}
                                    markers={[
                                        {
-                                           lat: this.state.latitude,
-                                           lng: this.state.longitude
+                                           lat: this.state.ride.latitude,
+                                           lng: this.state.ride.longitude
                                        }
                                    ]}
                                    handleSetMarker={this.handleSetMarker} />
@@ -193,7 +210,7 @@ class Create extends Component {
                                 name="address_detail"
                                 placeholder="상세 장소를 입력해주세요"
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'ride')
                                 }} />
                         </div>
 
@@ -210,7 +227,7 @@ class Create extends Component {
                             <select name="difficulty"
                                 defaultValue={'beginner'}
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'ride')
                                 }}>
                                 <option value="beginner">초보자</option>
                                 <option value="intermediate">중급자</option>
@@ -224,7 +241,7 @@ class Create extends Component {
                             <input type="text"
                                 name="capacity"
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'ride')
                                 }} />
                         </div>
 
@@ -235,7 +252,7 @@ class Create extends Component {
                                 name="distance"
                                 placeholder="거리 (km)"
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'ride')
                                 }} />
                         </div>
 
@@ -245,7 +262,7 @@ class Create extends Component {
                             <select name="altitude"
                                 defaultValue={'flat'}
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'ride')
                                 }}>
                                 <option value="flat">flat</option>
                                 <option value="uphill">uphill</option>
@@ -256,7 +273,7 @@ class Create extends Component {
                                 name="altitude_detail"
                                 placeholder="고도 (m)"
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'ride')
                                 }} />
                         </div>
 
