@@ -12,6 +12,7 @@ import { timeOptions } from '@/helpers/option';
 // component
 import Map from '@/components/map/Map';
 import File from '@/components/common/File';
+import Selectbox from '@/components/common/Selectbox';
 
 // scss
 import '@sass/pages/ride/ride-create.scoped.scss';
@@ -51,6 +52,7 @@ class Create extends Component {
             ended_date: new Date(),
             ended_time: '00:00',
 
+            timeOptions: [],
             isLoading: false
         };
 
@@ -121,6 +123,12 @@ class Create extends Component {
         });
     }
 
+    componentDidMount() {
+        this.setState({
+            timeOptions: timeOptions()
+        });
+    }
+
     render() {
         const NAVER_API_KEY = env.NCLOUD_CLIENT_ID;
 
@@ -156,20 +164,43 @@ class Create extends Component {
 
                             <DatePicker
                                 format={'y-MM-dd'}
-                                value={this.state.ride.started_date}
+                                value={this.state.started_date}
                                 onChange={(value) => {
                                     this.setState({
                                         started_date: value
                                     })
                                 }} />
 
-                            <select>
-
-                            </select>
+                            <Selectbox
+                                value={ this.state.started_time }
+                                options={ this.state.timeOptions }
+                                handleSetTime={ e => {
+                                    this.setState({
+                                        started_time: e.target.value
+                                    });
+                                }} />
                         </div>
 
                         <div className="form-group ride-date">
                             <label className="form-label">종료 시간</label>
+
+                            <DatePicker
+                                format={'y-MM-dd'}
+                                value={this.state.ended_date}
+                                onChange={(value) => {
+                                    this.setState({
+                                        ended_date: value
+                                    })
+                                }} />
+
+                            <Selectbox
+                                value={ this.state.ended_time }
+                                options={ this.state.timeOptions }
+                                handleSetTime={ e => {
+                                    this.setState({
+                                        ended_time: e.target.value
+                                    });
+                                }} />
                         </div>
 
                         <div className="form-group ride-address">
