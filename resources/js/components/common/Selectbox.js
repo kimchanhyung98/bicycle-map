@@ -9,10 +9,14 @@ class Selectbox extends Component {
         return (
             <select
                 value={ this.props.value || '' }
-                onChange={ e => this.props.handleChange(e) }>
+                onChange={ e => this.props.handleSetTime(e) }>
                 { this.props.options.map((option) => {
                     return (
-                        <option value={option.value}>{option.text}</option>
+                        <option
+                            key={ option.value }
+                            value={ option.value }>
+                            { option.text }
+                        </option>
                     )
                 }) }
             </select>
