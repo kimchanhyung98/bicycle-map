@@ -63,18 +63,32 @@ class Create extends Component {
     }
 
     handleSetMarker(latitude, longitude) {
-        this.setState({
+        let nextState = {
             latitude: latitude,
             longitude: longitude
-        });
+        };
+
+        this.setState(prevState => ({
+            ride: {
+                ...prevState.ride,
+                ...nextState
+            }
+        }));
 
         this.handleSetAddress(latitude, longitude);
     }
 
     handleSetFile(file) {
-        this.setState({
+        let nextState = {
             file_id: file.id
-        });
+        };
+
+        this.setState(prevState => ({
+            ride: {
+                ...prevState.ride,
+                ...nextState
+            }
+        }));
     }
 
     handleSetAddress(latitude, longitude) {
@@ -83,12 +97,15 @@ class Create extends Component {
         axios.get(`/api/reverse-geocode?lnglat=${lnglat}`).then(res => {
             let data = res.data.results[0].region;
 
-            this.setState({
-                address: `${data.area1.name} ${data.area2.name} ${data.area3.name}`,
-                locality: data.area1.name,
-                sublocality1: data.area2.name,
-                sublocality2: data.area3.name
-            });
+            this.setState(prevState => ({
+                ride: {
+                    ...prevState.ride,
+                    address: `${data.area1.name} ${data.area2.name} ${data.area3.name}`,
+                    locality: data.area1.name,
+                    sublocality1: data.area2.name,
+                    sublocality2: data.area3.name
+                }
+            }));
         }).catch(err => {
             console.log(err);
         });
@@ -101,14 +118,17 @@ class Create extends Component {
             return false;
         }
 
-        let started_at = formatDate(this.state.started_date_time);
-        let ended_at = formatDate(this.state.ended_date_time);
+        let started_at = formatDate(this.state.started_date, this.state.started_time);
+        let ended_at = formatDate(this.state.ended_date, this.state.ended_time);
 
-        this.setState({
-            started_at: started_at,
-            ended_at: ended_at,
+        this.setState(prevState => ({
+            ride: {
+                ...prevState.ride,
+                started_at: started_at,
+                ended_at: ended_at,
+            },
             isLoading: true
-        }, () => {
+        }), () => {
             axios.post('/api/ride/store', this.state.ride).then(res => {
                 alert(res.data.message);
                 this.props.history.push(`/ride/${res.data.ride_id}`);
@@ -119,6 +139,10 @@ class Create extends Component {
                 } else {
                     alert('오류');
                 }
+
+                this.setState({
+                    isLoading: false
+                });
             });
         });
     }

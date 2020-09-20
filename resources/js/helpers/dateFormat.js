@@ -10,16 +10,14 @@ export function formatKR(date) {
     return `${splitDate[0]}년 ${splitDate[1]}월 ${splitDate[2]}일 ${splitTime[0]}시 ${splitTime[1]}분`;
 }
 
-export function formatDate(date) {
+export function formatDate(date, time) {
     if (!date) return null;
 
     let year = date.getFullYear();
     let month = formatDigit(date.getMonth() + 1);
     let day = formatDigit(date.getDate());
-    let hour = formatDigit(date.getHours());
-    let minute = formatDigit(date.getMinutes());
 
-    return `${year}-${month}-${day} ${hour}:${minute}:00`;
+    return `${year}-${month}-${day} ${time}:00`;
 }
 
 export function formatNaturalDate(date) {
