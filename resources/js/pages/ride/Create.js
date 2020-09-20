@@ -2,22 +2,17 @@ import React, {Component, useState} from 'react';
 import { connect } from 'react-redux';
 import { RenderAfterNavermapsLoaded } from "react-naver-maps";
 
-// test
-import DateFnsUtils from '@date-io/date-fns';
-import {
-    DatePicker,
-    TimePicker,
-    DateTimePicker,
-    MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
+import DatePicker from 'react-date-picker';
 
 // helper
 import { formatDate } from '@/helpers/dateFormat';
 import { handleChange } from '@/helpers/form';
+import { timeOptions } from '@/helpers/option';
 
 // component
 import Map from '@/components/map/Map';
 import File from '@/components/common/File';
+import Selectbox from '@/components/common/Selectbox';
 
 // scss
 import '@sass/pages/ride/ride-create.scoped.scss';
@@ -31,28 +26,33 @@ class Create extends Component {
         super(props);
 
         this.state = {
-            file_id: '',
-            name: '',
-            description: '',
-            started_date_time: new Date(),
-            started_at: '',
-            ended_date_time: new Date(),
-            ended_at: '',
+            ride: {
+                file_id: '',
+                name: '',
+                description: '',
+                started_at: '',
+                ended_at: '',
 
-            address: '',
-            address_detail: '',
-            locality: '',
-            sublocality1: '',
-            sublocality2: '',
-            latitude: '37.554722',
-            longitude: '126.970833',
+                address: '',
+                address_detail: '',
+                locality: '',
+                sublocality1: '',
+                sublocality2: '',
+                latitude: '37.554722',
+                longitude: '126.970833',
 
-            difficulty: 'beginner',
-            capacity: '',
-            distance: '',
-            altitude: 'flat',
-            altitude_detail: '',
+                difficulty: 'beginner',
+                capacity: '',
+                distance: '',
+                altitude: 'flat',
+                altitude_detail: ''
+            },
+            started_date: new Date(),
+            started_time: '00:00',
+            ended_date: new Date(),
+            ended_time: '00:00',
 
+            timeOptions: [],
             isLoading: false
         };
 
@@ -63,18 +63,32 @@ class Create extends Component {
     }
 
     handleSetMarker(latitude, longitude) {
-        this.setState({
+        let nextState = {
             latitude: latitude,
             longitude: longitude
-        });
+        };
+
+        this.setState(prevState => ({
+            ride: {
+                ...prevState.ride,
+                ...nextState
+            }
+        }));
 
         this.handleSetAddress(latitude, longitude);
     }
 
     handleSetFile(file) {
-        this.setState({
+        let nextState = {
             file_id: file.id
-        });
+        };
+
+        this.setState(prevState => ({
+            ride: {
+                ...prevState.ride,
+                ...nextState
+            }
+        }));
     }
 
     handleSetAddress(latitude, longitude) {
@@ -83,12 +97,15 @@ class Create extends Component {
         axios.get(`/api/reverse-geocode?lnglat=${lnglat}`).then(res => {
             let data = res.data.results[0].region;
 
-            this.setState({
-                address: `${data.area1.name} ${data.area2.name} ${data.area3.name}`,
-                locality: data.area1.name,
-                sublocality1: data.area2.name,
-                sublocality2: data.area3.name
-            });
+            this.setState(prevState => ({
+                ride: {
+                    ...prevState.ride,
+                    address: `${data.area1.name} ${data.area2.name} ${data.area3.name}`,
+                    locality: data.area1.name,
+                    sublocality1: data.area2.name,
+                    sublocality2: data.area3.name
+                }
+            }));
         }).catch(err => {
             console.log(err);
         });
@@ -101,15 +118,18 @@ class Create extends Component {
             return false;
         }
 
-        let started_at = formatDate(this.state.started_date_time);
-        let ended_at = formatDate(this.state.ended_date_time);
+        let started_at = formatDate(this.state.started_date, this.state.started_time);
+        let ended_at = formatDate(this.state.ended_date, this.state.ended_time);
 
-        this.setState({
-            started_at: started_at,
-            ended_at: ended_at,
+        this.setState(prevState => ({
+            ride: {
+                ...prevState.ride,
+                started_at: started_at,
+                ended_at: ended_at,
+            },
             isLoading: true
-        }, () => {
-            axios.post('/api/ride/store', this.state).then(res => {
+        }), () => {
+            axios.post('/api/ride/store', this.state.ride).then(res => {
                 alert(res.data.message);
                 this.props.history.push(`/ride/${res.data.ride_id}`);
             }).catch(err => {
@@ -119,9 +139,18 @@ class Create extends Component {
                 } else {
                     alert('오류');
                 }
+
+                this.setState({
+                    isLoading: false
+                });
             });
         });
+    }
 
+    componentDidMount() {
+        this.setState({
+            timeOptions: timeOptions()
+        });
     }
 
     render() {
@@ -137,9 +166,9 @@ class Create extends Component {
                             <input type="text"
                                 name="name"
                                 placeholder="내용을 입력해주세요"
-                                value={this.state.name}
+                                value={this.state.ride.name}
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'ride')
                                 }} />
                         </div>
 
@@ -149,16 +178,53 @@ class Create extends Component {
                             <textarea name="description"
                                 placeholder="내용을 입력해주세요"
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'ride')
                                 }}></textarea>
                         </div>
 
+                        {/* 시작 종료 시간 설정 */}
                         <div className="form-group ride-date">
-                            <label className="form-label">시간</label>
+                            <label className="form-label">시작 시간</label>
 
-                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <DateTimePicker />
-                            </MuiPickersUtilsProvider>
+                            <DatePicker
+                                format={'y-MM-dd'}
+                                value={this.state.started_date}
+                                onChange={(value) => {
+                                    this.setState({
+                                        started_date: value
+                                    })
+                                }} />
+
+                            <Selectbox
+                                value={ this.state.started_time }
+                                options={ this.state.timeOptions }
+                                handleSetTime={ e => {
+                                    this.setState({
+                                        started_time: e.target.value
+                                    });
+                                }} />
+                        </div>
+
+                        <div className="form-group ride-date">
+                            <label className="form-label">종료 시간</label>
+
+                            <DatePicker
+                                format={'y-MM-dd'}
+                                value={this.state.ended_date}
+                                onChange={(value) => {
+                                    this.setState({
+                                        ended_date: value
+                                    })
+                                }} />
+
+                            <Selectbox
+                                value={ this.state.ended_time }
+                                options={ this.state.timeOptions }
+                                handleSetTime={ e => {
+                                    this.setState({
+                                        ended_time: e.target.value
+                                    });
+                                }} />
                         </div>
 
                         <div className="form-group ride-address">
@@ -166,11 +232,11 @@ class Create extends Component {
 
                             <input type="text"
                                 name="address"
-                                value={this.state.address}
+                                value={this.state.ride.address}
                                 placeholder="장소를 지도에 표시해주세요"
                                 readOnly
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'ride')
                                 }} />
 
                             <RenderAfterNavermapsLoaded
@@ -182,14 +248,14 @@ class Create extends Component {
                                    disabled={false}
                                    zoom={12}
                                    center={{
-                                       lat: this.state.latitude,
-                                       lng: this.state.longitude
+                                       lat: this.state.ride.latitude,
+                                       lng: this.state.ride.longitude
 
                                    }}
                                    markers={[
                                        {
-                                           lat: this.state.latitude,
-                                           lng: this.state.longitude
+                                           lat: this.state.ride.latitude,
+                                           lng: this.state.ride.longitude
                                        }
                                    ]}
                                    handleSetMarker={this.handleSetMarker} />
@@ -199,7 +265,7 @@ class Create extends Component {
                                 name="address_detail"
                                 placeholder="상세 장소를 입력해주세요"
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'ride')
                                 }} />
                         </div>
 
@@ -216,7 +282,7 @@ class Create extends Component {
                             <select name="difficulty"
                                 defaultValue={'beginner'}
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'ride')
                                 }}>
                                 <option value="beginner">초보자</option>
                                 <option value="intermediate">중급자</option>
@@ -230,7 +296,7 @@ class Create extends Component {
                             <input type="text"
                                 name="capacity"
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'ride')
                                 }} />
                         </div>
 
@@ -241,7 +307,7 @@ class Create extends Component {
                                 name="distance"
                                 placeholder="거리 (km)"
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'ride')
                                 }} />
                         </div>
 
@@ -251,7 +317,7 @@ class Create extends Component {
                             <select name="altitude"
                                 defaultValue={'flat'}
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'ride')
                                 }}>
                                 <option value="flat">flat</option>
                                 <option value="uphill">uphill</option>
@@ -262,7 +328,7 @@ class Create extends Component {
                                 name="altitude_detail"
                                 placeholder="고도 (m)"
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'ride')
                                 }} />
                         </div>
 
