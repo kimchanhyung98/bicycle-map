@@ -46,16 +46,22 @@
         }
     }
 
-    .ride-date .react-datetime-picker{
-        @include margin(8px 12px 0 0);
+    .ride-date{
+        .react-date-picker{
+            @include margin(8px 12px 0 0);
+        }
 
-        .react-datetime-picker__wrapper{
+        .react-date-picker__wrapper{
             @include padding(0 10px);
             @include border(1px solid $border-color-base);
             @include border-radius(4px);
             font-size: $font-size-base !important;
             line-height: 40px;
             color: $font-color-base !important;
+        }
+
+        select{
+            @include size(auto, 40px);
         }
     }
 
@@ -74,13 +80,13 @@
 
     .ride-altitude{
         select{
-            @include size(20%, 45px);
-            @include margin(right 2%);
+            @include size(135px, 45px);
+            @include margin(right 10px);
             float: left;
         }
 
         input[type="text"]{
-            @include size(78%);
+            @include size(calc(100% - 145px));
             float: left;
         }
     }
