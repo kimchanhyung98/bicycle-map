@@ -30,6 +30,15 @@ export function formatNaturalDate(date) {
     return new Date(splitDate[0], splitDate[1] - 1, splitDate[2], splitTime[0], splitTime[1], 0);
 }
 
+export function getTime(date) {
+    if (!date) return '00:00';
+
+    date = date.split(' ');
+    let splitTime = date[1].split(':');
+
+    return `${splitTime[0]}:${splitTime[1]}`;
+}
+
 export function formatDigit(date) {
     return date < 10 ? `0${date}` : date;
 }
