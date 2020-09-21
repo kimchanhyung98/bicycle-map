@@ -63,6 +63,8 @@ class Register extends Component {
 
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
+                            <label className="form-label required">이름</label>
+
                             <input type="text" name="name" placeholder="이름" maxLength="255" required
                                 onChange={ e => {
                                     handleChange(e, this)
@@ -70,6 +72,8 @@ class Register extends Component {
                         </div>
 
                         <div className="form-group">
+                            <label className="form-label required">이메일</label>
+
                             <input type="email" name="email" placeholder="이메일" maxLength="255" required
                                 onChange={ e => {
                                     handleChange(e, this)
@@ -77,6 +81,8 @@ class Register extends Component {
                         </div>
 
                         <div className="form-group">
+                            <label className="form-label required">전화번호</label>
+
                             <input type="text" name="phone" placeholder="전화번호" required
                                 onChange={ e => {
                                     handleChange(e, this)
@@ -84,6 +90,8 @@ class Register extends Component {
                         </div>
 
                         <div className="form-group">
+                            <label className="form-label required">비밀번호</label>
+
                             <input type="password" name="password" placeholder="비밀번호" minLength="8" required
                                 onChange={ e => {
                                     handleChange(e, this)
@@ -91,6 +99,8 @@ class Register extends Component {
                         </div>
 
                         <div className="form-group">
+                            <label className="form-label required">비밀번호 확인</label>
+
                             <input type="password" name="password_confirmation" placeholder="비밀번호 확인" minLength="8" required
                                 onChange={ e => {
                                     handleChange(e, this)

@@ -1,0 +1,29 @@
+%form-default{
+    @extend %reset-box-height;
+
+    .form-label{
+        display: block;
+        font-size: $font-size-large;
+        line-height: 18px;
+    }
+
+    .required::after{
+        @include padding(left 4px);
+        color: $red;
+        content: '(필수)';
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="tel"],
+    textarea,
+    select,
+    input[type="file"]{
+        @include margin(top 8px)
+    }
+}
+
+@mixin form(){
+    @extend %form-default;
+}
