@@ -51,14 +51,18 @@ class Login extends Component {
 
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
-                            <input type="email" name="email" placeholder="이메일"
+                            <label className="form-label required">이메일</label>
+
+                            <input type="email" name="email" placeholder="이메일을 입력해주세요."
                                 onChange={ e=> {
                                     handleChange(e, this)
                                 }} />
                         </div>
 
                         <div className="form-group">
-                            <input type="password" name="password" placeholder="패스워드"
+                            <label className="form-label required">비밀번호</label>
+
+                            <input type="password" name="password" placeholder="비밀번호를 입력해주세요."
                                 onChange={ e=> {
                                     handleChange(e, this)
                                 }} />

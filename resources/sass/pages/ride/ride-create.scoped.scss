@@ -2,6 +2,7 @@
 @import '@sass/helpers/_extends.scss';
 @import '@sass/helpers/_mixins.scss';
 
+@import '@sass/components/_form.scss';
 @import '@sass/components/_input.scss';
 @import '@sass/components/_textarea.scss';
 @import '@sass/components/_selectbox.scss';
@@ -12,14 +13,8 @@
     overflow: hidden;
 
     .form-group{
-        @extend %reset-box-height;
+        @include form();
         @include margin(top 24px);
-
-        .form-label{
-            display: block;
-            font-size: $font-size-large;
-            line-height: 18px;
-        }
 
         input[type="text"],
         input[type="password"],
@@ -27,22 +22,15 @@
         input[type="tel"]{
             @include input();
             @include size(100%, 45px);
-            @include margin(top 8px);
         }
 
         textarea{
             @include textarea();
             @include size(100%, 80px);
-            @include margin(top 8px);
         }
 
         select{
             @include selectbox();
-            @include margin(top 8px);
-        }
-
-        input[type="file"]{
-            @include margin(top 8px);
         }
     }
 

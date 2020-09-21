@@ -2,6 +2,7 @@
 @import '@sass/helpers/_extends.scss';
 @import '@sass/helpers/_mixins.scss';
 
+@import '@sass/components/_form.scss';
 @import '@sass/components/_input.scss';
 @import '@sass/components/_button.scss';
 
@@ -17,7 +18,16 @@
     }
 
     .form-group{
+        @include form();
         @include margin(top 15px);
+
+        &:first-child{
+            @include margin(top 27px);
+        }
+
+        .form-label{
+            font-size: $font-size-base;
+        }
 
         input[type="text"],
         input[type="password"],
