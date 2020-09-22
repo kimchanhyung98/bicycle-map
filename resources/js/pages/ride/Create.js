@@ -27,6 +27,9 @@ class Create extends Component {
 
         this.state = {
             ride: {
+                file: {
+                    name: ''
+                },
                 file_id: '',
                 name: '',
                 description: '',
@@ -47,6 +50,7 @@ class Create extends Component {
                 altitude: 'flat',
                 altitude_detail: ''
             },
+
             started_date: new Date(),
             started_time: '00:00',
             ended_date: new Date(),
@@ -80,6 +84,7 @@ class Create extends Component {
 
     handleSetFile(file) {
         let nextState = {
+            file: file,
             file_id: file.id
         };
 
@@ -273,7 +278,8 @@ class Create extends Component {
                             <label className="form-label">코스</label>
 
                             <File placeholder={'GPX 파일을 업로드해주세요'}
-                                handleSetFile={this.handleSetFile} />
+                                file={ this.state.ride.file }
+                                handleSetFile={ this.handleSetFile } />
                         </div>
 
                         <div className="form-group ride-difficulty">

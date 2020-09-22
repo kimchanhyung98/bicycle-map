@@ -28,6 +28,9 @@ class Edit extends Component {
             id: this.props.match.params.id,
 
             ride: {
+                file: {
+                    name: ''
+                },
                 file_id: '',
                 name: '',
                 description: '',
@@ -83,6 +86,7 @@ class Edit extends Component {
 
     handleSetFile(file) {
         let nextState = {
+            file: file,
             file_id: file.id
         };
 
@@ -304,6 +308,7 @@ class Edit extends Component {
 
                             <File value={this.state.ride.file_id || ''}
                                 placeholder={'GPX 파일을 업로드해주세요'}
+                                file={ this.state.ride.file }
                                 handleSetFile={this.handleSetFile} />
                         </div>
 

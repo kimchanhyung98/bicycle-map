@@ -21,10 +21,21 @@ class File extends Component {
 
     render() {
         return (
-            <input type="file"
-                name={this.props.name}
-                placeholder={this.props.placeholder}
-                onChange={e => this.handleSubmit(e)} />
+            <div className="file-wrap">
+                <input type="text"
+                    className="file-name"
+                    value={ this.props.file ? this.props.file.name : '' }
+                    placeholder={ this.props.placeholder }
+                    readOnly />
+                <label htmlFor="file"
+                    className="file-label">등록</label>
+
+                <input type="file"
+                    id="file"
+                    className="file-input"
+                    readOnly
+                    onChange={ e => this.handleSubmit(e) } />
+            </div>
         );
     }
 };
