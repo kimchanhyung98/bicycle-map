@@ -7,7 +7,7 @@ import DatePicker from 'react-date-picker';
 // helper
 import { formatDate } from '@/helpers/dateFormat';
 import { handleChange } from '@/helpers/form';
-import { timeOptions, difficultyOptions } from '@/helpers/option';
+import { timeOptions, difficultyOptions, altitudeOptions } from '@/helpers/option';
 
 // component
 import Map from '@/components/map/Map';
@@ -58,6 +58,7 @@ class Create extends Component {
 
             timeOptions: [],
             difficultyOptions: [],
+            altitudeOptions: [],
             isLoading: false
         };
 
@@ -156,7 +157,8 @@ class Create extends Component {
     componentDidMount() {
         this.setState({
             timeOptions: timeOptions(),
-            difficultyOptions: difficultyOptions()
+            difficultyOptions: difficultyOptions(),
+            altitudeOptions: altitudeOptions()
         });
     }
 
@@ -325,15 +327,18 @@ class Create extends Component {
                         <div className="form-group ride-altitude">
                             <label className="form-label">고도</label>
 
-                            <select name="altitude"
-                                defaultValue={'flat'}
-                                onChange={ e => {
-                                    handleChange(e, this, 'ride')
-                                }}>
-                                <option value="flat">flat</option>
-                                <option value="uphill">uphill</option>
-                                <option value="mountain">mountain</option>
-                            </select>
+                            <Selectbox
+                                value={ this.state.ride.altitude }
+                                options={ this.state.altitudeOptions }
+                                handleSetData={ e => {
+                                    let value = e.target.value;
+                                    this.setState(prevState => ({
+                                        ride: {
+                                            ...prevState.ride,
+                                            altitude: value
+                                        }
+                                    }));
+                                }} />
 
                             <input type="text"
                                 name="altitude_detail"

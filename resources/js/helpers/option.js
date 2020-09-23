@@ -36,3 +36,23 @@ export function difficultyOptions() {
 
     return options;
 }
+
+
+export function altitudeOptions() {
+    let options = [
+        {
+            value: 'flat',
+            text: '평지'
+        },
+        {
+            value: 'uphill',
+            text: '업힐'
+        },
+        {
+            value: 'mountain',
+            text: '산'
+        }
+    ];
+
+    return options;
+}
