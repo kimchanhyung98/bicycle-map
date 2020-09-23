@@ -197,7 +197,7 @@ class Edit extends Component {
                 <section className="create-container">
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group ride-name">
-                            <label className="form-label">제목</label>
+                            <label className="form-label required">제목</label>
 
                             <input type="text"
                                 name="name"
@@ -209,7 +209,7 @@ class Edit extends Component {
                         </div>
 
                         <div className="form-group ride-description">
-                            <label className="form-label">설명</label>
+                            <label className="form-label required">설명</label>
 
                             <textarea name="description"
                                 value={this.state.ride.description || ''}
@@ -221,7 +221,7 @@ class Edit extends Component {
 
                         {/* 시작 종료 시간 설정 */}
                         <div className="form-group ride-date">
-                            <label className="form-label">시작 시간</label>
+                            <label className="form-label required">시작 시간</label>
 
                             <DatePicker
                                 format={'y-MM-dd'}
@@ -265,7 +265,7 @@ class Edit extends Component {
                         </div>
 
                         <div className="form-group ride-address">
-                            <label className="form-label">장소</label>
+                            <label className="form-label required">장소</label>
 
                             <input type="text"
                                 name="address"
@@ -317,7 +317,7 @@ class Edit extends Component {
                         </div>
 
                         <div className="form-group ride-difficulty">
-                            <label className="form-label">난이도</label>
+                            <label className="form-label required">난이도</label>
 
                             <Selectbox
                                 value={ this.state.ride.difficulty }
@@ -334,11 +334,12 @@ class Edit extends Component {
                         </div>
 
                         <div className="form-group ride-capacity">
-                            <label className="form-label">정원</label>
+                            <label className="form-label required">정원</label>
 
-                            <input type="text"
+                            <input type="number"
                                 name="capacity"
                                 value={this.state.ride.capacity || ''}
+                                placeholder="3~30 사이 숫자만 입력해 주세요"
                                 onChange={ e => {
                                     handleChange(e, this, 'ride')
                                 }} />
@@ -347,9 +348,9 @@ class Edit extends Component {
                         <div className="form-group ride-distance">
                             <label className="form-label">거리</label>
 
-                            <input type="text"
+                            <input type="number"
                                 name="distance"
-                                placeholder="거리 (km)"
+                                placeholder="숫자만 입력해 주세요"
                                 value={this.state.ride.distance || ''}
                                 onChange={ e => {
                                     handleChange(e, this, 'ride')
@@ -357,7 +358,7 @@ class Edit extends Component {
                         </div>
 
                         <div className="form-group ride-altitude">
-                            <label className="form-label">고도</label>
+                            <label className="form-label required">고도</label>
 
                             <Selectbox
                                 value={ this.state.ride.altitude }
@@ -372,10 +373,10 @@ class Edit extends Component {
                                     }));
                                 }} />
 
-                            <input type="text"
+                            <input type="number"
                                 name="altitude_detail"
                                 value={this.state.ride.altitude_detail || ''}
-                                placeholder="고도 (m)"
+                                placeholder="숫자만 입력해 주세요"
                                 onChange={ e => {
                                     handleChange(e, this, 'ride')
                                 }} />

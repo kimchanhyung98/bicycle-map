@@ -9,11 +9,13 @@
 
     .required::after{
         @include padding(left 4px);
+        font-size: 15px;
         color: $red;
         content: '(필수)';
     }
 
     input[type="text"],
+    input[type="number"],
     input[type="password"],
     input[type="email"],
     input[type="tel"],
