@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import storage from '@/lib/storage.js';
 import { RenderAfterNavermapsLoaded } from "react-naver-maps";
-import { formatDifficulty } from '@/helpers/ride';
+import { formatDifficulty, formatAltitude } from '@/helpers/ride';
 
 import Map from '@/components/map/Map';
 
@@ -92,8 +92,8 @@ class Detail extends Component {
             <main className="main">
                 <RenderAfterNavermapsLoaded
                     ncpClientId={NAVER_API_KEY}
-                    error={<p>Maps Load Error</p>}
-                    loading={<p>Maps Loading...</p>}>
+                    error={<p>오류</p>}
+                    loading={''}>
                     <section className="map-container">
                         <Map id={'map'}
                             width={'100%'}
@@ -149,7 +149,7 @@ class Detail extends Component {
                                 <li>
                                     <span>고도</span>
                                     <p>
-                                        { ride.altitude }
+                                        { formatAltitude(ride.altitude) }
                                         { ride.altitude_detail &&
                                             <span> {ride.altitude_detail}m</span>
                                         }

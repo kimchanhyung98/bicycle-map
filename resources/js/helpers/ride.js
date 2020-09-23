@@ -10,3 +10,16 @@ export function formatDifficulty(difficulty) {
             return ''
     }
 }
+
+export function formatAltitude(altitude) {
+    switch (altitude) {
+        case 'flat':
+            return '평지'
+        case 'uphill':
+            return '업힐'
+        case 'mountain':
+            return '산'
+        default:
+            return ''
+    }
+}
