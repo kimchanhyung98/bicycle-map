@@ -7,7 +7,7 @@ import DatePicker from 'react-date-picker';
 // helper
 import { formatDate } from '@/helpers/dateFormat';
 import { handleChange } from '@/helpers/form';
-import { timeOptions } from '@/helpers/option';
+import { timeOptions, difficultyOptions } from '@/helpers/option';
 
 // component
 import Map from '@/components/map/Map';
@@ -57,6 +57,7 @@ class Create extends Component {
             ended_time: '00:00',
 
             timeOptions: [],
+            difficultyOptions: [],
             isLoading: false
         };
 
@@ -154,7 +155,8 @@ class Create extends Component {
 
     componentDidMount() {
         this.setState({
-            timeOptions: timeOptions()
+            timeOptions: timeOptions(),
+            difficultyOptions: difficultyOptions()
         });
     }
 
@@ -203,7 +205,7 @@ class Create extends Component {
                             <Selectbox
                                 value={ this.state.started_time }
                                 options={ this.state.timeOptions }
-                                handleSetTime={ e => {
+                                handleSetData={ e => {
                                     this.setState({
                                         started_time: e.target.value
                                     });
@@ -225,7 +227,7 @@ class Create extends Component {
                             <Selectbox
                                 value={ this.state.ended_time }
                                 options={ this.state.timeOptions }
-                                handleSetTime={ e => {
+                                handleSetData={ e => {
                                     this.setState({
                                         ended_time: e.target.value
                                     });
@@ -285,15 +287,18 @@ class Create extends Component {
                         <div className="form-group ride-difficulty">
                             <label className="form-label">난이도</label>
 
-                            <select name="difficulty"
-                                defaultValue={'beginner'}
-                                onChange={ e => {
-                                    handleChange(e, this, 'ride')
-                                }}>
-                                <option value="beginner">초보자</option>
-                                <option value="intermediate">중급자</option>
-                                <option value="advanced">숙련자</option>
-                            </select>
+                            <Selectbox
+                                value={ this.state.ride.difficulty }
+                                options={ this.state.difficultyOptions }
+                                handleSetData={ e => {
+                                    let value = e.target.value;
+                                    this.setState(prevState => ({
+                                        ride: {
+                                            ...prevState.ride,
+                                            difficulty: value
+                                        }
+                                    }));
+                                }} />
                         </div>
 
                         <div className="form-group ride-capacity">

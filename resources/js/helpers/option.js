@@ -17,3 +17,22 @@ export function timeOptions() {
 
     return options;
 }
+
+export function difficultyOptions() {
+    let options = [
+        {
+            value: 'beginner',
+            text: '초보자'
+        },
+        {
+            value: 'intermediate',
+            text: '중급자'
+        },
+        {
+            value: 'advanced',
+            text: '숙련자'
+        }
+    ];
+
+    return options;
+}
