@@ -32,9 +32,7 @@ class Login extends Component {
         dispatch(login(email, password)).then(() => {
             const check = storage.get('loggedToken');
 
-            if (check == '' || check == null || check == undefined) {
-                alert('로그인 실패');
-            } else {
+            if (!(check == '' || check == null || check == undefined)) {
                 alert('로그인 성공');
                 this.props.history.push('/');
             }

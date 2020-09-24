@@ -19,8 +19,15 @@ export const login = (email, password) => {
                 dispatch(saveLoggedInfo());
             } else {
                 storage.set('loggedToken', '');
+                alert('이메일 또는 비밀번호를 확인해주세요.')
             }
         }).catch(err => {
+            if (err.response.status == 422) {
+                const messages = err.response.data.errors;
+                alert(messages[Object.keys(messages)[0]]);
+            } else {
+                alert('오류');
+            }
             dispatch(loginFailure());
         });
     }
