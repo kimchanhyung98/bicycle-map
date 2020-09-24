@@ -72,6 +72,18 @@
             color: $page-color;
         }
 
+        .ride-map{
+            .btn-download{
+                @include button(page-border, 1px solid $page-color);
+                @include size(100%, 40px);
+                @include margin(10px auto 0);
+                @include padding(0 20px);
+                font-size: $font-size-base;
+                line-height: 40px;
+                text-align: center;
+            }
+        }
+
         .ride-description{
             p{
                 font-size: $font-size-small;
