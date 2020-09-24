@@ -52,7 +52,6 @@ class RideController extends Controller
         ]);
         $validatedData['user_id'] = $request->user()->id;
         $ride = Ride::create($validatedData);
-        logger($ride);
 
         return response()->json([
             'ride_id' => $ride->id,
@@ -69,10 +68,8 @@ class RideController extends Controller
     public function show(Ride $ride)
     {
         return response()->json([
-            'ride' => $ride->load('user', 'file', 'participants'),
+            'ride' => $ride->load('user', 'file', 'participants.user'),
             'participants_count' => $ride->participants()->count(),
-
-            // 'comments' => $ride->comments,
         ]);
     }
 
