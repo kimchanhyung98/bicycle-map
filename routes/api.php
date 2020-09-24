@@ -58,6 +58,11 @@ Route::group(['prefix' => 'ride', 'as' => 'ride.'], function () {
 
 // 마이 페이지
 Route::group(['prefix' => 'account', 'as' => 'account.', 'middleware' => 'auth:sanctum'], function () {
+    // 회원 정보 업데이트
+    Route::put('/', 'AccountController@update')->name('update');
+    // 회원 탈퇴
+    Route::delete('/', 'AccountController@destroy')->name('destroy');
+
     // 개설 내역
     Route::get('manage', 'AccountController@manage')->name('manage');
     // 참가 내역
