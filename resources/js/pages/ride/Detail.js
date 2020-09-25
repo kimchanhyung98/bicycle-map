@@ -179,13 +179,17 @@ class Detail extends Component {
                             </ul>
 
                             { ride.file &&
-                                <div className='content-group'>
+                                <div className='content-group ride-map'>
                                     <Map id={'gpx-map'}
                                         width={'100%'}
                                         height={'360px'}
                                         disabled={true}
                                         zoom={14}
                                         gpx={ ride.file } />
+
+                                    <a href={ride.file.path}
+                                        className="btn-download"
+                                        download>GPX파일 다운로드</a>
                                 </div>
                             }
 

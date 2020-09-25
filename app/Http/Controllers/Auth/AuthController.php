@@ -12,12 +12,12 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        try {
-            $credentials = $request->validate([
-                'email' => 'email|required',
-                'password' => 'required'
-            ]);
+        $credentials = $request->validate([
+            'email' => 'email|required',
+            'password' => 'required'
+        ]);
 
+        try {
             if (!Auth::attempt($credentials)) {
                 return response()->json([
                     'status_code' => 500,

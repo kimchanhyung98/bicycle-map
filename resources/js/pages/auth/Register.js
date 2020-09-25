@@ -49,7 +49,12 @@ class Register extends Component {
                 alert('회원가입 성공');
                 this.props.history.push('/login');
             }).catch(err => {
-                alert('오류');
+                if (err.response.status == 422) {
+                    const messages = err.response.data.errors;
+                    alert(messages[Object.keys(messages)[0]]);
+                } else {
+                    alert('오류');
+                }
             });
         });
 
