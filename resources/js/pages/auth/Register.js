@@ -8,10 +8,12 @@ class Register extends Component {
         super(props);
 
         this.state = {
-            name: '',
-            email: '',
-            phone: '',
-            password: '',
+            user: {
+                name: '',
+                email: '',
+                phone: '',
+                password: ''
+            },
             isLoading: false
         };
 
@@ -25,13 +27,7 @@ class Register extends Component {
             return false;
         }
 
-        let name = this.state.name;
-        let email = this.state.email;
-        let phone = this.state.phone;
-        let password = this.state.password;
-        let password_confirmation = this.state.password_confirmation;
-
-        if (password != password_confirmation) {
+        if (this.state.user.password != this.state.user.password_confirmation) {
             alert('비빌번호가 일치하지 않습니다.');
             return false;
         }
@@ -39,13 +35,7 @@ class Register extends Component {
         this.setState({
             isLoading: true
         }, () => {
-            axios.post('/register', {
-                name: name,
-                email: email,
-                phone: phone,
-                password: password,
-                password_confirmation: password_confirmation
-            }).then(res => {
+            axios.post('/register', this.state.user).then(res => {
                 alert('회원가입 성공');
                 this.props.history.push('/login');
             }).catch(err => {
@@ -57,7 +47,6 @@ class Register extends Component {
                 }
             });
         });
-
     }
 
     render() {
@@ -70,45 +59,64 @@ class Register extends Component {
                         <div className="form-group">
                             <label className="form-label required">이름</label>
 
-                            <input type="text" name="name" placeholder="이름" maxLength="255" required
+                            <input type="text"
+                                name="name"
+                                placeholder="이름"
+                                maxLength="255"
+                                required
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'user')
                                 }} />
                         </div>
 
                         <div className="form-group">
                             <label className="form-label required">이메일</label>
 
-                            <input type="email" name="email" placeholder="이메일" maxLength="255" required
+                            <input type="email"
+                                name="email"
+                                placeholder="이메일"
+                                maxLength="255"
+                                required
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'user')
                                 }} />
                         </div>
 
                         <div className="form-group">
                             <label className="form-label required">전화번호</label>
 
-                            <input type="text" name="phone" placeholder="전화번호" required
+                            <input type="text"
+                                name="phone"
+                                placeholder="전화번호"
+                                required
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'user')
                                 }} />
                         </div>
 
                         <div className="form-group">
                             <label className="form-label required">비밀번호</label>
 
-                            <input type="password" name="password" placeholder="비밀번호" minLength="8" required
+                            <input type="password"
+                                name="password"
+                                placeholder="8자리 이상 입력해주세요"
+                                minLength="8"
+                                required
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'user')
                                 }} />
                         </div>
 
                         <div className="form-group">
                             <label className="form-label required">비밀번호 확인</label>
 
-                            <input type="password" name="password_confirmation" placeholder="비밀번호 확인" minLength="8" required
+                            <input type="password"
+                                name="password_confirmation"
+                                placeholder="비밀번호 확인"
+                                minLength="8"
+                                required
                                 onChange={ e => {
-                                    handleChange(e, this)
+                                    handleChange(e, this, 'user')
                                 }} />
                         </div>
 
