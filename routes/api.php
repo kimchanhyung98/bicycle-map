@@ -25,8 +25,27 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('participation', 'StatusController@participation')->name('participation');
     });
 
-    // 파일 업로드
-    Route::post('upload', 'FileController@store')->name('upload');
+    // 마이 페이지
+    Route::group(['prefix' => 'account', 'as' => 'account.'], function () {
+        // 회원 정보 업데이트
+        Route::put('/', 'AccountController@update')->name('update');
+        // 회원 탈퇴
+        Route::delete('/', 'AccountController@destroy')->name('destroy');
+
+        // 개설 내역
+        Route::get('manage', 'AccountController@manage')->name('manage');
+        // 참가 내역
+        Route::get('attend', 'AccountController@attend')->name('attend');
+    });
+
+    // 업로드
+    Route::group(['prefix' => 'upload', 'as' => 'upload.'], function () {
+        // GPX 파일 업로드
+        Route::post('gpx', 'FileController@gpx')->name('gpx');
+
+        // 썸네일 업로드
+        Route::post('thumbnail', 'FileController@thumbnail')->name('thumbnail');
+    });
 
     // 네이버 지도 리버스 지오코드
     Route::get('reverse-geocode', 'MapController@reverse_geocode');
@@ -54,17 +73,4 @@ Route::group(['prefix' => 'ride', 'as' => 'ride.'], function () {
         // 라이드 참가 취소
         Route::post('cancel', 'ParticipantController@destroy')->name('cancel');
     });
-});
-
-// 마이 페이지
-Route::group(['prefix' => 'account', 'as' => 'account.', 'middleware' => 'auth:sanctum'], function () {
-    // 회원 정보 업데이트
-    Route::put('/', 'AccountController@update')->name('update');
-    // 회원 탈퇴
-    Route::delete('/', 'AccountController@destroy')->name('destroy');
-
-    // 개설 내역
-    Route::get('manage', 'AccountController@manage')->name('manage');
-    // 참가 내역
-    Route::get('attend', 'AccountController@attend')->name('attend');
 });
