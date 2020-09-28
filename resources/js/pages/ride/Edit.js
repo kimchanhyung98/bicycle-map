@@ -195,7 +195,7 @@ class Edit extends Component {
         return (
             <main className="main">
                 <section className="create-container">
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={ this.handleSubmit }>
                         <div className="form-group ride-name">
                             <label className="form-label required">제목</label>
 
@@ -212,7 +212,7 @@ class Edit extends Component {
                             <label className="form-label required">설명</label>
 
                             <textarea name="description"
-                                value={this.state.ride.description || ''}
+                                value={ this.state.ride.description || '' }
                                 placeholder="내용을 입력해주세요"
                                 onChange={ e => {
                                     handleChange(e, this, 'ride')
@@ -225,7 +225,7 @@ class Edit extends Component {
 
                             <DatePicker
                                 format={'y-MM-dd'}
-                                value={this.state.started_date}
+                                value={ this.state.started_date }
                                 onChange={(value) => {
                                     this.setState({
                                         started_date: value
@@ -247,7 +247,7 @@ class Edit extends Component {
 
                             <DatePicker
                                 format={'y-MM-dd'}
-                                value={this.state.ended_date}
+                                value={ this.state.ended_date }
                                 onChange={(value) => {
                                     this.setState({
                                         ended_date: value
@@ -269,7 +269,7 @@ class Edit extends Component {
 
                             <input type="text"
                                 name="address"
-                                value={this.state.ride.address || ''}
+                                value={ this.state.ride.address || '' }
                                 placeholder="장소를 지도에 표시해주세요"
                                 readOnly
                                 onChange={ e => {
@@ -277,9 +277,9 @@ class Edit extends Component {
                                 }} />
 
                             <RenderAfterNavermapsLoaded
-                                ncpClientId={NAVER_API_KEY}
-                                error={<p>Maps Load Error</p>}
-                                loading={<p>Maps Loading...</p>}>
+                                ncpClientId={ NAVER_API_KEY }
+                                error={<p>오류</p>}
+                                loading={<p>Loading</p>}>
                                 <Map width={'100%'}
                                    height={'300px'}
                                    disabled={false}
@@ -295,12 +295,12 @@ class Edit extends Component {
                                            lng: this.state.ride.longitude
                                        }
                                    ]}
-                                   handleSetMarker={this.handleSetMarker} />
+                                   handleSetMarker={ this.handleSetMarker } />
                             </RenderAfterNavermapsLoaded>
 
                             <input type="text"
                                 name="address_detail"
-                                value={this.state.ride.address_detail || ''}
+                                value={ this.state.ride.address_detail || '' }
                                 placeholder="상세 장소를 입력해주세요"
                                 onChange={ e => {
                                     handleChange(e, this, 'ride')
@@ -310,10 +310,11 @@ class Edit extends Component {
                         <div className="form-group ride-course">
                             <label className="form-label">코스</label>
 
-                            <File value={this.state.ride.file_id || ''}
+                            <File value={ this.state.ride.file_id || '' }
                                 placeholder={'GPX 파일을 업로드해주세요'}
+                                url={'/api/upload/gpx'}
                                 file={ this.state.ride.file }
-                                handleSetFile={this.handleSetFile} />
+                                handleSetFile={ this.handleSetFile } />
                         </div>
 
                         <div className="form-group ride-difficulty">
@@ -338,7 +339,7 @@ class Edit extends Component {
 
                             <input type="number"
                                 name="capacity"
-                                value={this.state.ride.capacity || ''}
+                                value={ this.state.ride.capacity || '' }
                                 placeholder="3~30 사이 숫자만 입력해 주세요"
                                 onChange={ e => {
                                     handleChange(e, this, 'ride')
@@ -351,7 +352,7 @@ class Edit extends Component {
                             <input type="number"
                                 name="distance"
                                 placeholder="숫자만 입력해 주세요"
-                                value={this.state.ride.distance || ''}
+                                value={ this.state.ride.distance || '' }
                                 onChange={ e => {
                                     handleChange(e, this, 'ride')
                                 }} />
@@ -375,7 +376,7 @@ class Edit extends Component {
 
                             <input type="number"
                                 name="altitude_detail"
-                                value={this.state.ride.altitude_detail || ''}
+                                value={ this.state.ride.altitude_detail || '' }
                                 placeholder="숫자만 입력해 주세요"
                                 onChange={ e => {
                                     handleChange(e, this, 'ride')
@@ -383,9 +384,7 @@ class Edit extends Component {
                         </div>
 
                         <div className="btn-area">
-                            <input type="submit"
-                                className="btn-submit"
-                                value="코스 수정하기" />
+                            <input type="submit" className="btn-submit" value="코스 수정하기" />
                         </div>
                     </form>
                 </section>
