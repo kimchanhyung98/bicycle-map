@@ -11,7 +11,7 @@ class File extends Component {
         const formData = new FormData();
         formData.append('file', e.target.files[0]);
 
-        axios.post('/api/upload', formData).then(res => {
+        axios.post(this.props.url, formData).then(res => {
             this.props.handleSetFile(res.data.file);
             alert('업로드 성공');
         }).catch(err => {
