@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+
+// helper
 import { login } from '@/actions/user.js';
 import storage from '@/lib/storage.js';
 import { handleChange } from '@/helpers/form';
 
+// scss
 import '@sass/pages/auth.scoped.scss';
 
 const mapStateToProps = (state) => ({
@@ -47,12 +50,14 @@ class Login extends Component {
                 <article className="auth-container">
                     <h2 className="title">로그인</h2>
 
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={ this.handleSubmit }>
                         <div className="form-group">
                             <label className="form-label required">이메일</label>
 
-                            <input type="email" name="email" placeholder="이메일을 입력해주세요."
-                                onChange={ e=> {
+                            <input type="email"
+                                name="email"
+                                placeholder="이메일을 입력해주세요."
+                                onChange={ e => {
                                     handleChange(e, this)
                                 }} />
                         </div>
@@ -60,8 +65,10 @@ class Login extends Component {
                         <div className="form-group">
                             <label className="form-label required">비밀번호</label>
 
-                            <input type="password" name="password" placeholder="비밀번호를 입력해주세요."
-                                onChange={ e=> {
+                            <input type="password"
+                                name="password"
+                                placeholder="비밀번호를 입력해주세요."
+                                onChange={ e => {
                                     handleChange(e, this)
                                 }} />
                         </div>

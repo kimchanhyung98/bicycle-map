@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
+
+// helper
 import { handleChange } from '@/helpers/form';
 
+// scss
 import '@sass/pages/auth.scoped.scss';
 
 class Register extends Component {
@@ -55,7 +58,7 @@ class Register extends Component {
                 <article className="auth-container">
                     <h2 className="title">회원가입</h2>
 
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={ this.handleSubmit }>
                         <div className="form-group">
                             <label className="form-label required">이름</label>
 
