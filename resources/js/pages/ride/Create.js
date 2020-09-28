@@ -1,7 +1,6 @@
 import React, {Component, useState} from 'react';
 import { connect } from 'react-redux';
 import { RenderAfterNavermapsLoaded } from "react-naver-maps";
-
 import DatePicker from 'react-date-picker';
 
 // helper
@@ -168,14 +167,14 @@ class Create extends Component {
         return (
             <main className="main">
                 <section className="create-container">
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={ this.handleSubmit }>
                         <div className="form-group ride-name">
                             <label className="form-label required">제목</label>
 
                             <input type="text"
                                 name="name"
                                 placeholder="내용을 입력해주세요"
-                                value={this.state.ride.name}
+                                value={ this.state.ride.name }
                                 onChange={ e => {
                                     handleChange(e, this, 'ride')
                                 }} />
@@ -197,7 +196,7 @@ class Create extends Component {
 
                             <DatePicker
                                 format={'y-MM-dd'}
-                                value={this.state.started_date}
+                                value={ this.state.started_date }
                                 onChange={(value) => {
                                     this.setState({
                                         started_date: value
@@ -219,7 +218,7 @@ class Create extends Component {
 
                             <DatePicker
                                 format={'y-MM-dd'}
-                                value={this.state.ended_date}
+                                value={ this.state.ended_date }
                                 onChange={(value) => {
                                     this.setState({
                                         ended_date: value
@@ -241,7 +240,7 @@ class Create extends Component {
 
                             <input type="text"
                                 name="address"
-                                value={this.state.ride.address}
+                                value={ this.state.ride.address }
                                 placeholder="장소를 지도에 표시해주세요"
                                 readOnly
                                 onChange={ e => {
@@ -249,9 +248,9 @@ class Create extends Component {
                                 }} />
 
                             <RenderAfterNavermapsLoaded
-                                ncpClientId={NAVER_API_KEY}
-                                error={<p>Maps Load Error</p>}
-                                loading={<p>Maps Loading...</p>}>
+                                ncpClientId={ NAVER_API_KEY }
+                                error={<p>오류</p>}
+                                loading={<p>Loading</p>}>
                                 <Map width={'100%'}
                                    height={'300px'}
                                    disabled={false}
@@ -259,7 +258,6 @@ class Create extends Component {
                                    center={{
                                        lat: this.state.ride.latitude,
                                        lng: this.state.ride.longitude
-
                                    }}
                                    markers={[
                                        {
@@ -267,7 +265,7 @@ class Create extends Component {
                                            lng: this.state.ride.longitude
                                        }
                                    ]}
-                                   handleSetMarker={this.handleSetMarker} />
+                                   handleSetMarker={ this.handleSetMarker } />
                                </RenderAfterNavermapsLoaded>
 
                             <input type="text"
@@ -282,6 +280,7 @@ class Create extends Component {
                             <label className="form-label">코스</label>
 
                             <File placeholder={'GPX 파일을 업로드해주세요'}
+                                url={'/api/upload/gpx'}
                                 file={ this.state.ride.file }
                                 handleSetFile={ this.handleSetFile } />
                         </div>
@@ -350,9 +349,7 @@ class Create extends Component {
                         </div>
 
                         <div className="btn-area">
-                            <input type="submit"
-                                className="btn-submit"
-                                value="코스 만들기" />
+                            <input type="submit" className="btn-submit" value="코스 만들기" />
                         </div>
                     </form>
                 </section>

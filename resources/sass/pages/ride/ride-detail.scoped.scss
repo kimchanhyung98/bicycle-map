@@ -41,7 +41,7 @@
         }
 
         ul li{
-            @include margin(top 8px);
+            @include margin(top 12px);
             overflow: hidden;
             font-size: $font-size-base;
             line-height: 16px;
