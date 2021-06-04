@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { logout } from '@/actions/user.js';
-import storage from '@/lib/storage.js';
+import { logout } from '@/store/actions/user.js';
+import storage from '@/utils/storage.js';
 
 const mapStateToProps = (state) => ({
     state

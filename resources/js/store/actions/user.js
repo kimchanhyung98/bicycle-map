@@ -1,4 +1,4 @@
-import storage from '@/lib/storage.js';
+import storage from '@/utils/storage.js';
 
 export const LOGIN_NON = 'LOGIN_NON';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';

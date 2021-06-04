@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
-import { formatDifficulty } from '@/helpers/ride';
+import { formatDifficulty } from '@/utils/ride';
 
 import '@sass/pages/index.scoped.scss';
 

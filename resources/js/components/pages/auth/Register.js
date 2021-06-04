@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 // helper
-import { handleChange } from '@/helpers/form';
+import { handleChange } from '@/utils/form';
 
 // scss
 import '@sass/pages/auth.scoped.scss';

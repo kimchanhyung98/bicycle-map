@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
-import storage from '@/lib/storage.js';
+import storage from '@/utils/storage.js';
 import { RenderAfterNavermapsLoaded } from "react-naver-maps";
-import { formatDifficulty, formatAltitude } from '@/helpers/ride';
+import { formatDifficulty, formatAltitude } from '@/utils/ride';
 
 import Map from '@/components/map/Map';
 

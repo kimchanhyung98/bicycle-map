@@ -1,4 +1,4 @@
-import { formatDigit } from '@/helpers/dateFormat';
+import { formatDigit } from '@/utils/dateFormat';
 
 export function timeOptions() {
     let options = [];

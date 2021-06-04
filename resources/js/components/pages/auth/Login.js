@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
 // helper
-import { login } from '@/actions/user.js';
-import storage from '@/lib/storage.js';
-import { handleChange } from '@/helpers/form';
+import { login } from '@/store/actions/user.js';
+import storage from '@/utils/storage.js';
+import { handleChange } from '@/utils/form';
 
 // scss
 import '@sass/pages/auth.scoped.scss';

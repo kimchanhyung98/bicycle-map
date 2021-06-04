@@ -1,13 +1,13 @@
 import React from 'react';
 import {BrowserRouter, Link, Route, Switch} from 'react-router-dom';
-import Home from '@/pages/Home';
-import Login from '@/pages/auth/Login';
-import Register from '@/pages/auth/Register';
-import RideCreate from '@/pages/ride/Create';
-import RideEdit from '@/pages/ride/Edit';
-import RideDetail from '@/pages/ride/Detail';
-import AccountAttend from '@/pages/account/Attend';
-import AccountManage from '@/pages/account/Manage';
+import Home from '@/components/pages/Home';
+import Login from '@/components/pages/auth/Login';
+import Register from '@/components/pages/auth/Register';
+import RideCreate from '@/components/pages/ride/Create';
+import RideEdit from '@/components/pages/ride/Edit';
+import RideDetail from '@/components/pages/ride/Detail';
+import AccountAttend from '@/components/pages/account/Attend';
+import AccountManage from '@/components/pages/account/Manage';
 
 const Main = props => (
     <Switch>
