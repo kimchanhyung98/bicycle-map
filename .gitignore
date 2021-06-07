@@ -6,12 +6,29 @@
 .env
 .env.backup
 .phpunit.result.cache
+docker-compose.override.yml
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/.idea
-.rnd
+
+# Mix
 /public/css
 /public/js
 /public/mix-manifest.json
+package-lock.json
+
+# IDE
+/.idea
+/.vscode
+
+# Logs and databases
+*.log
+*.sql
+
+# OS generated files
+.DS_Store
+.DS_Store?
+.Trashes
+ehthumbs.db
+Thumbs.db

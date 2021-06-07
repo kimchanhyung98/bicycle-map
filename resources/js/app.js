@@ -1,13 +1,21 @@
-import '@/bootstrap';
+require('./bootstrap');
 
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import reducers from '@/reducers/user.js';
-import thunk from 'redux-thunk';
+// Import modules...
+import { createApp, h } from 'vue';
+import { App as InertiaApp, plugin as InertiaPlugin } from '@inertiajs/inertia-vue3';
+import { InertiaProgress } from '@inertiajs/progress';
 
-import Index from '@/Index';
-const store = createStore(reducers, applyMiddleware(thunk));
+const el = document.getElementById('app');
 
-ReactDOM.render(<Provider store = {store}><Index /></Provider>, document.getElementById('app'));
+createApp({
+    render: () =>
+        h(InertiaApp, {
+            initialPage: JSON.parse(el.dataset.page),
+            resolveComponent: (name) => require(`./Pages/${name}`).default,
+        }),
+})
+    .mixin({ methods: { route } })
+    .use(InertiaPlugin)
+    .mount(el);
+
+InertiaProgress.init({ color: '#4B5563' });
