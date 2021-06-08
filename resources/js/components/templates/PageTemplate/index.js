@@ -63,8 +63,7 @@ const PageTemplate = memo(({
             <StyledAside className={showAside ? 'show' : ''}>
                 <Aside toggleAside={toggleAside} />
             </StyledAside>
-            {/*<Header handleAside={toggleAside} />*/}
-            {/*<Aside handleAside={toggleAside} />*/}
+
             <StyledMain>
                 {children}
             </StyledMain>

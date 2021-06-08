@@ -1,4 +1,4 @@
-import React, {memo} from "react";
+import React, {memo, useCallback} from "react";
 import styled from "styled-components";
 import font from "@/constant/font";
 import color from "@/constant/color";
@@ -21,8 +21,13 @@ const StyledInput = styled.input`
     }
 `;
 
-const Input = memo(({...props}) => {
-    return <StyledInput {...props} />;
+const Input = memo(({onChange, value, ...props}) => {
+    const handleChange = useCallback((event) => {
+        const {value} = event.target;
+        onChange(value);
+    }, []);
+    return <StyledInput onInput={handleChange}
+                        {...props} />;
 });
 
 export default Input;

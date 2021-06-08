@@ -1,8 +1,8 @@
 import React from "react";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import Home from "@/components/pages/Home";
-// import Login from '@/components/pages/auth/Login';
-// import Register from '@/components/pages/auth/Register';
+import Home from "@components/pages/Home";
+import Login from '@components/pages/Login';
+import Register from '@components/pages/Register';
 // import RideCreate from '@/components/pages/ride/Create';
 // import RideEdit from '@/components/pages/ride/Edit';
 // import RideDetail from '@/components/pages/ride/Detail';
@@ -14,8 +14,8 @@ const Routes = () => {
         <BrowserRouter>
             <Switch>
                 <Route exact path='/' component={Home}/>
-                {/*<Route path='/login' component={Login}/>*/}
-                {/*<Route path='/register' component={Register}/>*/}
+                <Route path='/login' component={Login}/>
+                <Route path='/register' component={Register}/>
                 {/*<Route path='/ride/create' component={RideCreate}/>*/}
                 {/*<Route path='/ride/edit/:id' component={RideEdit}/>*/}
                 {/*<Route path='/ride/:id' component={RideDetail}/>*/}
