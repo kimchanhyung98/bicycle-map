@@ -13,12 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes([
-    'verify' => true,
-    'reset' => false
-]);
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('{path?}', [
-    'uses' => 'HomeController@index',
-    'where' => ['path' => '.*']
-]);
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
