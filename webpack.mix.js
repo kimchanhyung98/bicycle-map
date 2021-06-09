@@ -1,22 +1,32 @@
 const mix = require('laravel-mix');
+// require('laravel-mix-alias');
 
-/*
- |--------------------------------------------------------------------------
- | Mix Asset Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel applications. By default, we are compiling the CSS
- | file for the application as well as bundling up all the JS files.
- |
- */
+const webpack = require('webpack');
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        require('postcss-import'),
-        require('tailwindcss'),
-    ]);
+mix.webpackConfig({
+    resolve: {
+        extensions: ['.js', '.json'],
+        alias: {
+            '@': __dirname + '/resources/js',
+            '@components': __dirname + '/resources/js/components',
+            '@sass': __dirname + '/resources/sass'
+        },
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            env: {
+                API_URL: JSON.stringify(process.env.API_URL),
+                NCLOUD_CLIENT_ID: JSON.stringify(process.env.NCLOUD_CLIENT_ID)
+            }
+        })
+    ]
+});
 
-if (mix.inProduction()) {
-    mix.version();
-}
+// TODO: prod dev 버전 분리
+mix.js('resources/js/app.js', 'public/js').react().sourceMaps();
+
+mix.options({
+    processCssUrls: false
+});
+
+mix.version();

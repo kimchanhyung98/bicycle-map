@@ -1,0 +1,14 @@
+%selectbox-default{
+    @include padding(0 20px);
+    @include border(1px solid $border-color-base);
+    @include border-radius(4px);
+    background: $white;
+    font-size: $font-size-base;
+    color: $font-color-base;
+    text-align: center;
+    outline: none;
+}
+
+@mixin selectbox(){
+    @extend %selectbox-default;
+}

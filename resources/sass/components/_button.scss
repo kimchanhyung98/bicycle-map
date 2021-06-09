@@ -1,0 +1,69 @@
+@import '@sass/helpers/_variables';
+@import '@sass/helpers/_extends';
+@import '@sass/helpers/_mixins';
+
+%button-default{
+    @include box-sizing(border-box);
+    display: block;
+    text-decoration: none;
+}
+
+%btn-page{
+    background: $page-color;
+    color: $white;
+}
+
+%btn-page-border{
+    border-color: $page-color;
+    background: $white;
+    color: $page-color;
+}
+
+%btn-blue{
+    background: $blue;
+    color: $white;
+}
+
+%btn-blue-600{
+    background: $blue-600;
+    color: $white;
+}
+
+%btn-gray{
+    background: $gray-600;
+    color: $white;
+}
+
+@mixin button($type: null, $border: null, $radius: null) {
+    @extend %button-default;
+
+    @if $type == page-fill {
+        @extend %btn-page;
+    }
+    @if $type == page-border {
+        @extend %btn-page-border;
+    }
+    @else if $type == gray-fill {
+        @extend %btn-gray;
+    }
+    @else if $type == blue-fill {
+        @extend %btn-blue;
+    }
+    @else if $type == blue-fill-600 {
+        @extend %btn-blue-600;
+    }
+
+    @if $border != null {
+        @include border($border);
+    }
+    @else {
+        @include border(0);
+    }
+
+    @if $radius != null {
+        @include border-radius($radius);
+    }
+    @else {
+        @include border-radius(4px);
+    }
+}

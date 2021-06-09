@@ -1,0 +1,12 @@
+body{
+    @include size(100% null 320px);
+    background: $white;
+    font-family: Helvetica,"Malgun Gothic","Apple SD Gothic Neo",AppleGothic,Dotum,Arial,Tahoma;
+    font-size: $font-size-base;
+    line-height: 1;
+    color: $font-color-base;
+}
+
+.hidden{
+    display: none;
+}

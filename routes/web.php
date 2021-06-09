@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('{path?}', [
-    'uses' => 'HomeController@index',
-    'where' => ['path' => '.*']
-]);
+Route::get('{path?}', [HomeController::class, 'index']);

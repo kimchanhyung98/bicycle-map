@@ -1,0 +1,33 @@
+%input-default{
+    @include padding(0 20px);
+    @include box-sizing(border-box);
+    font-size: $font-size-base;
+    color: $font-color-base;
+    outline: none;
+
+    &::placeholder{
+        color: $gray-900;
+    }
+
+    &:disabled{
+        background: $light-gray-600;
+    }
+}
+
+@mixin input($border: null, $radius: null){
+    @extend %input-default;
+
+    @if $border != null {
+        @include border($border);
+    }
+    @else {
+        @include border(1px solid $border-color-base);
+    }
+
+    @if $radius != null {
+        @include border-radius($radius);
+    }
+    @else {
+        @include border-radius(4px);
+    }
+}

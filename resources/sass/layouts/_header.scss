@@ -1,0 +1,39 @@
+@import '@sass/components/_icon';
+
+.header{
+    @include size(null, 56px);
+    background: $page-color;
+}
+
+.header-wrap{
+    @include size(null, 100%);
+    @include padding(12px);
+    @include box-sizing(border-box);
+    overflow: hidden;
+    position: relative;
+
+    .gnb-area{
+        float: left;
+
+        .btn-gnb{
+            @include icon(white-menu);
+            display: block;
+            background-size: cover;
+        }
+    }
+
+    .header-logo{
+        @include size(200px);
+        @include margin(left -100px);
+        position: absolute;
+        left: 50%;
+        text-align: center;
+
+        a{
+            @extend %reset-link;
+            font-size: $font-size-large;
+            line-height: 32px;
+            color: $white;
+        }
+    }
+}
