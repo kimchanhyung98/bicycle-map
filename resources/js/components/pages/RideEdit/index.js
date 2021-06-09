@@ -4,7 +4,7 @@ import { RenderAfterNavermapsLoaded } from "react-naver-maps";
 import DatePicker from 'react-date-picker';
 
 // helper
-import { formatDate } from '@/utils/dateFormat';
+import { formatDate, formatNaturalDate, getTime } from '@/utils/dateFormat';
 import { handleChange } from '@/utils/form';
 import { timeOptions, difficultyOptions, altitudeOptions } from '@/utils/option';
 
@@ -20,11 +20,13 @@ const mapStateToProps = (state) => ({
     state
 });
 
-class Create extends Component {
+class Index extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            id: this.props.match.params.id,
+
             ride: {
                 file: {
                     name: ''
@@ -47,7 +49,7 @@ class Create extends Component {
                 capacity: '',
                 distance: '',
                 altitude: 'flat',
-                altitude_detail: ''
+                altitude_detail: '',
             },
 
             started_date: new Date(),
@@ -65,6 +67,7 @@ class Create extends Component {
         this.handleSetFile = this.handleSetFile.bind(this);
         this.handleSetAddress = this.handleSetAddress.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.getData = this.getData.bind(this);
     }
 
     handleSetMarker(latitude, longitude) {
@@ -135,7 +138,7 @@ class Create extends Component {
             },
             isLoading: true
         }), () => {
-            axios.post('/api/ride/store', this.state.ride).then(res => {
+            axios.put(`/api/ride/${this.state.id}`, this.state.ride).then(res => {
                 alert(res.data.message);
                 this.props.history.push(`/ride/${res.data.ride_id}`);
             }).catch(err => {
@@ -153,12 +156,37 @@ class Create extends Component {
         });
     }
 
+    getData() {
+        axios.get(`/api/ride/edit/${this.state.id}`).then(res => {
+            let data = res.data.ride;
+            let nextState = {
+                started_date: formatNaturalDate(data.started_at),
+                started_time: getTime(data.started_at),
+                ended_date: formatNaturalDate(data.ended_at),
+                ended_time: getTime(data.ended_at)
+            }
+
+            this.setState(prevState => ({
+                ride: {
+                    ...prevState.ride,
+                    ...res.data.ride
+                },
+                ...nextState
+            }));
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+
     componentDidMount() {
         this.setState({
             timeOptions: timeOptions(),
             difficultyOptions: difficultyOptions(),
             altitudeOptions: altitudeOptions()
         });
+
+        //  TODO: 추후 getdata 오류 수정
+        setTimeout(this.getData, 0);
     }
 
     render() {
@@ -173,8 +201,8 @@ class Create extends Component {
 
                             <input type="text"
                                 name="name"
+                                value={this.state.ride.name || ''}
                                 placeholder="내용을 입력해주세요"
-                                value={ this.state.ride.name }
                                 onChange={ e => {
                                     handleChange(e, this, 'ride')
                                 }} />
@@ -184,6 +212,7 @@ class Create extends Component {
                             <label className="form-label required">설명</label>
 
                             <textarea name="description"
+                                value={ this.state.ride.description || '' }
                                 placeholder="내용을 입력해주세요"
                                 onChange={ e => {
                                     handleChange(e, this, 'ride')
@@ -240,7 +269,7 @@ class Create extends Component {
 
                             <input type="text"
                                 name="address"
-                                value={ this.state.ride.address }
+                                value={ this.state.ride.address || '' }
                                 placeholder="장소를 지도에 표시해주세요"
                                 readOnly
                                 onChange={ e => {
@@ -258,6 +287,7 @@ class Create extends Component {
                                    center={{
                                        lat: this.state.ride.latitude,
                                        lng: this.state.ride.longitude
+
                                    }}
                                    markers={[
                                        {
@@ -266,10 +296,11 @@ class Create extends Component {
                                        }
                                    ]}
                                    handleSetMarker={ this.handleSetMarker } />
-                               </RenderAfterNavermapsLoaded>
+                            </RenderAfterNavermapsLoaded>
 
                             <input type="text"
                                 name="address_detail"
+                                value={ this.state.ride.address_detail || '' }
                                 placeholder="상세 장소를 입력해주세요"
                                 onChange={ e => {
                                     handleChange(e, this, 'ride')
@@ -279,7 +310,8 @@ class Create extends Component {
                         <div className="form-group ride-course">
                             <label className="form-label">코스</label>
 
-                            <File placeholder={'GPX 파일을 업로드해주세요'}
+                            <File value={ this.state.ride.file_id || '' }
+                                placeholder={'GPX 파일을 업로드해주세요'}
                                 url={'/api/upload/gpx'}
                                 file={ this.state.ride.file }
                                 handleSetFile={ this.handleSetFile } />
@@ -307,6 +339,7 @@ class Create extends Component {
 
                             <input type="number"
                                 name="capacity"
+                                value={ this.state.ride.capacity || '' }
                                 placeholder="3~30 사이 숫자만 입력해 주세요"
                                 onChange={ e => {
                                     handleChange(e, this, 'ride')
@@ -319,6 +352,7 @@ class Create extends Component {
                             <input type="number"
                                 name="distance"
                                 placeholder="숫자만 입력해 주세요"
+                                value={ this.state.ride.distance || '' }
                                 onChange={ e => {
                                     handleChange(e, this, 'ride')
                                 }} />
@@ -342,6 +376,7 @@ class Create extends Component {
 
                             <input type="number"
                                 name="altitude_detail"
+                                value={ this.state.ride.altitude_detail || '' }
                                 placeholder="숫자만 입력해 주세요"
                                 onChange={ e => {
                                     handleChange(e, this, 'ride')
@@ -349,7 +384,7 @@ class Create extends Component {
                         </div>
 
                         <div className="btn-area">
-                            <input type="submit" className="btn-submit" value="코스 만들기" />
+                            <input type="submit" className="btn-submit" value="코스 수정하기" />
                         </div>
                     </form>
                 </section>
@@ -358,4 +393,4 @@ class Create extends Component {
     }
 };
 
-export default connect(mapStateToProps)(Create);
+export default connect(mapStateToProps)(Index);

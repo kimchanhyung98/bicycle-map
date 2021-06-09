@@ -59,13 +59,13 @@ class Map extends Component {
                     this.mapRef = ref;
                 }}>
                 { this.props.markers &&
-                    this.props.markers.map((marker, index) => {
-                        return (
-                            <Marker
-                                key={`marker${index}`}
-                                position={marker} />
-                        )
-                    })
+                this.props.markers.map((marker, index) => {
+                    return (
+                        <Marker
+                            key={`marker${index}`}
+                            position={marker} />
+                    )
+                })
                 }
             </NaverMap>
         );

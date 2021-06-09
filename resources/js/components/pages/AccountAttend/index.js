@@ -9,7 +9,7 @@ const mapStateToProps = (state) => ({
     state
 });
 
-class Manage extends Component {
+class Index extends Component {
     constructor(props) {
         super(props);
 
@@ -17,11 +17,11 @@ class Manage extends Component {
             rides: [],
             page: 0,
             isEnd: false,
-            isDeleteLoading: false
+            isCancelLoading: false
         }
 
         this.handleScroll = this.handleScroll.bind(this);
-        this.handleRideDelete = this.handleRideDelete.bind(this);
+        this.handleRideCancel = this.handleRideCancel.bind(this);
         this.getData = this.getData.bind(this);
     }
 
@@ -35,17 +35,17 @@ class Manage extends Component {
         }
     }
 
-    handleRideDelete(e, ride_id) {
+    handleRideCancel(e, ride_id) {
         e.preventDefault();
 
-        if (this.state.isDeleteLoading) {
+        if (this.state.isCancelLoading) {
             return false;
         }
 
         this.setState({
-            isDeleteLoading: true
+            isCancelLoading: true
         }, () => {
-            axios.delete(`/api/ride/${ride_id}`, {
+            axios.post('/api/ride/cancel', {
                 ride_id: ride_id
             }).then(res => {
                 this.setState((state) => ({
@@ -67,7 +67,7 @@ class Manage extends Component {
             page: ++this.state.page,
             isEnd: false
         }, () => {
-            axios.get(`/api/account/manage?page=${this.state.page}`).then(res => {
+            axios.get(`/api/account/attend?page=${this.state.page}`).then(res => {
                 let resData = res.data.rides.data;
                 let data = this.state.rides.concat(resData);
 
@@ -99,8 +99,8 @@ class Manage extends Component {
 
         return (
             <main className="main">
-                <section className="manage-container">
-                    <h2 className="title">개설내역</h2>
+                <section className="attend-container">
+                    <h2 className="title">신청내역</h2>
 
                     <ul className="ride-list">
                         { rides.length > 0 ?
@@ -129,17 +129,16 @@ class Manage extends Component {
 
                                         <div className="btn-area">
                                             <Link to={`/ride/${ride.id}`}>바로가기</Link>
-                                            <Link to={`/ride/edit/${ride.id}`}>수정하기</Link>
                                             <button type="button"
                                                 onClick={e => {
-                                                    this.handleRideDelete(e, ride.id);
-                                                }}>삭제하기</button>
+                                                    this.handleRideCancel(e, ride.id);
+                                                }}>취소하기</button>
                                         </div>
                                     </li>
                                 )
                             })
                             :
-                            <li className="empty-list">개설한 라이드가 없습니다.</li>
+                            <li className="empty-list">신청한 라이드가 없습니다.</li>
                         }
                     </ul>
                 </section>
@@ -148,4 +147,4 @@ class Manage extends Component {
     }
 };
 
-export default connect(mapStateToProps)(Manage);
+export default connect(mapStateToProps)(Index);
