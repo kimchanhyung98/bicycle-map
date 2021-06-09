@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Route} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginSuccess } from '@/actions/user.js';
-import storage from '@/lib/storage.js';
+import { loginSuccess } from '@/store/actions/user.js';
+import storage from '@/utils/storage.js';
 
-import Main from '@/Router';
+import Main from '@/routes/Router';
 import Header from '@/components/Header';
 import Aside from '@/components/Aside';
 

@@ -17,20 +17,26 @@ const dotenv = require('dotenv');
 
 mix.alias({
     '@': '/resources/js',
+    '@components': '/resources/js/components',
     '@sass': '/resources/sass'
  });
-
-mix.react('resources/js/app.js', 'public/js');
 
 mix.webpackConfig({
     module: {
         rules: [
             {
                 test: /\.(sc|c|sa)ss$/,
-                use: [
-                    { loader: 'scoped-css-loader' },
-                ],
+                // use: [
+                //     { loader: 'scoped-css-loader' },
+                // ],
+                use: ['style-loader', 'css-loader', 'scoped-css-loader', 'sass-loader'],
             },
+            // {
+            //     enforce: 'pre',
+            //     exclude: /node_modules/,
+            //     test: /\.(js)$/,
+            //     use: ['eslint-loader'],
+            // },
         ]
     },
     plugins: [
@@ -41,6 +47,13 @@ mix.webpackConfig({
             }
         })
     ]
+});
+
+// TODO: prod dev 버전 분리
+mix.react('resources/js/app.js', 'public/js').sourceMaps();
+
+mix.options({
+    processCssUrls: false
 });
 
 mix.version();
