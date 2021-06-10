@@ -22,7 +22,7 @@ const Styles = css`
     }
 `;
 
-const StyledTextarea = styled.textarea`${styles}`;
+const StyledTextarea = styled.textarea`${Styles}`;
 const StyledInput = styled.input`${Styles}`;
 
 const Input = memo(({onChange, value, ...props}) => {
