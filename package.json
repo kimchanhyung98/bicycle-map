@@ -25,6 +25,7 @@
         "react": "^16.14.0",
         "react-date-picker": "^8.2.0",
         "react-dom": "^16.14.0",
+        "react-naver-maps": "^0.0.13",
         "react-redux": "^7.2.4",
         "react-router-dom": "^5.2.0",
         "redux": "^4.1.0",
