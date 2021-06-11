@@ -1,6 +1,5 @@
 import React, {memo} from "react";
 import styled, {css} from "styled-components";
-import color from "@/constant/color";
 
 const styles = css`
     margin-top: 30px;

@@ -1,6 +1,5 @@
 import React from "react";
 import styled, {css} from "styled-components";
-import color from "@/constant/color";
 
 const styles = css`
     margin: 0;
