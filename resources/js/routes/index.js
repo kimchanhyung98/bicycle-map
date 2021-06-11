@@ -6,8 +6,8 @@ import Register from "@components/pages/Register";
 import RideCreate from "@components/pages/RideCreate";
 import RideEdit from "@components/pages/RideEdit";
 import RideDetail from '@components/pages/RideDetail';
-// import AccountAttend from '@/components/pages/account/Attend';
-// import AccountManage from '@/components/pages/account/Manage';
+// import AccountAttend from '@components/pages/account/Attend';
+import AccountManage from '@components/pages/AccountManage';
 
 const Routes = () => {
     return (
@@ -20,7 +20,7 @@ const Routes = () => {
                 <Route path='/ride/edit/:id' component={RideEdit}/>
                 <Route path='/ride/:id' component={RideDetail}/>
                 {/*<Route path='/account/attend' component={AccountAttend}/>*/}
-                {/*<Route path='/account/manage' component={AccountManage}/>*/}
+                <Route path='/account/manage' component={AccountManage}/>
             </Switch>
         </BrowserRouter>
     )
