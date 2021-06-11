@@ -1,220 +1,93 @@
-import React, {Component} from 'react';
-import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
-import storage from '@/utils/storage.js';
-import { RenderAfterNavermapsLoaded } from "react-naver-maps";
-import { formatDifficulty, formatAltitude } from '@/utils/ride';
+import React, {memo, useCallback, useEffect, useState} from "react";
+import styled from "styled-components";
+import axios from "axios";
+import {connect} from "react-redux";
+import PageTemplate from "@components/templates/PageTemplate";
+import Header from "@components/UI/organisms/Header";
+import Aside from "@components/UI/organisms/Aside";
+import Map from "@components/UI/atoms/Map";
+import RideContent from "@components/UI/organisms/RideContent";
 
-import Map from '@/components/map/Map';
-
-import '@sass/pages/ride/ride-detail.scoped.scss';
+const StyledMainSection = styled.section`
+    overflow: hidden;
+    padding-bottom: 30px;
+`;
 
 const mapStateToProps = (state) => ({
     state
 });
 
-class Index extends Component {
-    constructor(props) {
-        super(props);
+const RideDetail = memo(({...props}) => {
+    const [rideData, setRideData] = useState({
+        user: {}
+    });
+    const [participantsCount, setParticipantsCount] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
+    const id = props.match.params.id;
+    const user = props.state.user;
 
-        this.state = {
-            id: this.props.match.params.id,
-            ride: {
-                user: {}
-            },
-            participants_count: 0,
-            isLoading: false
+    const getRideData = useCallback(() => {
+        axios.get(`/api/ride/${id}`).then(({data}) => {
+            const {ride, participants_count} = data;
+            setRideData({
+                ...ride
+            });
+            setParticipantsCount(participants_count);
+        }).catch(err => {
+            console.log(err);
+        });
+    }, [id]);
+
+    const handleSubmit = useCallback((event) => {
+        event.preventDefault();
+
+        if (isLoading) return false;
+
+        const user_id = user.user.id;
+        const data = {
+            user_id: user_id,
+            ride_id: id
         };
-
-        this.getData = this.getData.bind(this);
-        this.getAttendStatus = this.getAttendStatus.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    getData() {
-        axios.get(`/api/ride/${this.state.id}`).then(res => {
-            this.setState({
-                ride: res.data.ride,
-                participants_count: res.data.participants_count
-            });
+        setIsLoading(true);
+        axios.post('/api/ride/attend', data).then(res => {
+            setParticipantsCount(prevCount => prevCount + 1);
+            alert(res.data.message);
         }).catch(err => {
-            console.log(err);
+            alert('오류');
         });
-    }
+    }, [isLoading, participantsCount]);
 
-    getAttendStatus() {
-        axios.get(`/api/status/participation?user_id=${this.state.user.id}&ride_id=${this.state.id}`).then(res => {
-            console.log(res);
-        }).catch(err => {
-            console.log(err);
-        })
-    }
+    useEffect(() => {
+        getRideData();
+    }, []);
 
-    handleSubmit(e) {
-        e.preventDefault();
-        let user = this.props.state.user;
+    return (
+        <PageTemplate Header={Header}
+                      Aside={Aside}>
+            <section>
+                <Map mapOptions={{
+                    height: '360px',
+                    disabled: true,
+                    zoom: 14,
+                    center: {
+                        lat: rideData.latitude,
+                        lng: rideData.longitude
+                    },
+                    markers: {
+                        lat: rideData.latitude,
+                        lng: rideData.longitude
+                    }
+                }}/>
+            </section>
 
-        if (this.state.isLoading) {
-            return false;
-        }
+            <StyledMainSection>
+                <RideContent rideData={rideData}
+                             participantsCount={participantsCount}
+                             onSubmit={handleSubmit}/>
+            </StyledMainSection>
+        </PageTemplate>
 
-        if (!user.isLoggedIn) {
-            alert('로그인을 해주세요');
-            return false;
-        }
+    )
+});
 
-        this.setState({
-            isLoading: true
-        }, () => {
-            axios.post('/api/ride/attend', {
-                user_id: user.user.id,
-                ride_id: this.state.id
-            }).then(res => {
-                this.setState({
-                    participants_count: ++this.state.participants_count
-                })
-                alert(res.data.message);
-            }).catch(err => {
-                alert('오류');
-            });
-        });
-    }
-
-    componentDidMount() {
-        this.getData();
-    }
-
-    render() {
-        const NAVER_API_KEY = env.NCLOUD_CLIENT_ID;
-        let ride = this.state.ride;
-
-        return (
-            <main className="main">
-                <RenderAfterNavermapsLoaded
-                    ncpClientId={NAVER_API_KEY}
-                    error={<p>오류</p>}
-                    loading={''}>
-                    <section className="map-container">
-                        <Map id={'map'}
-                            width={'100%'}
-                            height={'360px'}
-                            disabled={true}
-                            zoom={14}
-                            center={{
-                                lat: ride.latitude,
-                                lng: ride.longitude
-                            }}
-                            markers={[
-                                {
-                                    lat: ride.latitude,
-                                    lng: ride.longitude
-                                }
-                            ]} />
-                    </section>
-
-                    <section className="main-container">
-                        <div className="ride-header">
-                            <div className="ride-difficulty">{ formatDifficulty(ride.difficulty) }</div>
-                        </div>
-
-                        <div className="ride-content">
-                            <div className="content-group ride-title">
-                                <h2>{ ride.name }</h2>
-                            </div>
-
-                            <ul className="content-group user-info">
-                                <li>
-                                    <span>개설자</span>
-                                    <p>{ ride.user.name }</p>
-                                </li>
-                                <li>
-                                    <span>이메일</span>
-                                    <p>{ ride.user.email }</p>
-                                </li>
-                                <li>
-                                    <span>전화번호</span>
-                                    <p>{ ride.user.phone }</p>
-                                </li>
-                            </ul>
-
-                            <ul className="content-group ride-detail">
-                                <li>
-                                    <span>거리</span>
-                                    <p>
-                                        { ride.distance ?
-                                            `${ride.distance}km` : '미정'
-                                        }
-                                    </p>
-                                </li>
-                                <li>
-                                    <span>고도</span>
-                                    <p>
-                                        { formatAltitude(ride.altitude) }
-                                        { ride.altitude_detail &&
-                                            <span> {ride.altitude_detail}m</span>
-                                        }
-                                    </p>
-                                </li>
-                                <li>
-                                    <span>시작시간</span>
-                                    <p>{ ride.started_at }</p>
-                                </li>
-                                <li>
-                                    <span>종료시간</span>
-                                    <p>
-                                        { ride.ended_at || '미정' }
-                                    </p>
-                                </li>
-                                <li>
-                                    <span>장소</span>
-                                    <p>{ ride.address }</p>
-                                </li>
-
-                                { ride.address_detail &&
-                                    <li>
-                                        <span>장소상세</span>
-                                        <p>{ ride.address_detail }</p>
-                                    </li>
-                                }
-                            </ul>
-
-                            { ride.file &&
-                                <div className='content-group ride-map'>
-                                    <Map id={'gpx-map'}
-                                        width={'100%'}
-                                        height={'360px'}
-                                        disabled={true}
-                                        zoom={14}
-                                        gpx={ ride.file } />
-
-                                    <a href={ride.file.path}
-                                        className="btn-download"
-                                        download>GPX파일 다운로드</a>
-                                </div>
-                            }
-
-                            <div className="content-group ride-description">
-                                <p>
-                                    { ride.description }
-                                </p>
-                            </div>
-
-                            <div className="content-group ride-capacity">
-                                <div>정원 { ride.capacity }명</div>
-                                <div>현재 { this.state.participants_count }명 참석</div>
-                            </div>
-                        </div>
-
-                        <div className="btn-area">
-                            <button type="button"
-                                className="btn-attend"
-                                onClick={ this.handleSubmit }>참가 하기</button>
-                        </div>
-                    </section>
-                </RenderAfterNavermapsLoaded>
-            </main>
-        );
-    }
-};
-
-export default connect(mapStateToProps)(Index);
+export default connect(mapStateToProps)(RideDetail);
