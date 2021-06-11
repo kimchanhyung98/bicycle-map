@@ -86,7 +86,7 @@ const AccountManage = memo(() => {
                       Aside={Aside}>
             <section>
                 <StyledHeading level={2}>개설내역</StyledHeading>
-                <RideButtonList type={"manage"}
+                <RideButtonList type={'manage'}
                                 rides={rides}
                                 rideDelete={handleRideDelete}
                                 emptyMessage="개설내역이 없습니다."/>

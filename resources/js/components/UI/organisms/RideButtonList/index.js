@@ -52,7 +52,7 @@ const ButtonStyles = css`
 const StyledLink = styled(Link)`${ButtonStyles}`;
 const StyledButton = styled.button`${ButtonStyles}`;
 
-const RideButtonList = memo(({type, rides, emptyMessage, rideDelete}) => {
+const RideButtonList = memo(({type, rides, emptyMessage, rideDelete, rideCancel}) => {
     let lists = rides.map(ride => {
         const {
             id,
@@ -77,7 +77,18 @@ const RideButtonList = memo(({type, rides, emptyMessage, rideDelete}) => {
             buttons = <>
                 <StyledLink to={`/ride/${id}`}>바로가기</StyledLink>
                 <StyledLink to={`/ride/edit/${id}`}>수정하기</StyledLink>
-                <StyledButton type="button" onClick={rideDelete(id)}>삭제하기</StyledButton>
+                <StyledButton type="button"
+                              onClick={rideDelete(id)}>
+                    삭제하기
+                </StyledButton>
+            </>
+        } else if (type === 'attend') {
+            buttons = <>
+                <StyledLink to={`/ride/${id}`}>바로가기</StyledLink>
+                <StyledButton type="button"
+                              onClick={rideCancel(id)}>
+                    취소하기
+                </StyledButton>
             </>
         }
 
