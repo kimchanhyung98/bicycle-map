@@ -4,6 +4,7 @@ import Heading from "@components/UI/atoms/Heading";
 import Span from "@components/UI/atoms/Span";
 import font from "@/constant/font";
 import color from "@/constant/color";
+import {formatDifficulty} from '@/utils/ride';
 
 const StyledRideHeader = styled.div`
     overflow: hidden;
@@ -28,7 +29,7 @@ const RideHeader = memo(({level, name, difficulty}) => {
                 {name}
             </StyledHeading>
 
-            <Span>{difficulty}</Span>
+            <Span>{formatDifficulty(difficulty)}</Span>
         </StyledRideHeader>
     )
 });

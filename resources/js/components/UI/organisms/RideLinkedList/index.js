@@ -1,6 +1,6 @@
 import React, {memo} from "react";
-import {connect} from 'react-redux';
 import styled from "styled-components";
+import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import List from "@components/UI/atoms/List";
 import RideAttendInfo from "@components/UI/molecules/RideAttendInfo";
@@ -74,7 +74,9 @@ const RideLinkedList = memo(({rides, ...props}) => {
                     </RideAttendInfo>
 
                     {/* 리스트 해더 영역 */}
-                    <RideHeader level={2} name={name} difficulty={difficulty}/>
+                    <RideHeader level={2}
+                                name={name}
+                                difficulty={difficulty}/>
 
                     {/* 리스트 디테일 영역 */}
                     <RideDetailList detailItems={detailItems}/>
