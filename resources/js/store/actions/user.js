@@ -1,5 +1,6 @@
 import storage from "@/utils/storage.js";
 import axios from "axios";
+import {loginApi, getUserStatus} from "@/api/userApi";
 
 export const LOGIN_NON = 'LOGIN_NON';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
@@ -7,8 +8,37 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
 export const login = (email, password) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(loginRequest());
+
+        try {
+            const options = {
+                data: {
+                    email,
+                    password
+                }
+            };
+            const response = await loginApi(options);
+
+            if (response.success) {
+                const {data} = response.data;
+                const {status_code, access_token} = data;
+
+                if (status_code === 200) {
+                    storage.set('loggedToken', data);
+                    axios.defaults.headers.common.Authorization = `Bearer ${access_token}`;
+                    dispatch(saveLoggedInfo());
+                } else {
+                    storage.set('loggedToken', '');
+                    alert('이메일 또는 비밀번호를 확인해주세요.');
+                }
+            } else {
+                throw response;
+            }
+
+        } catch (err) {
+            alert('오류');
+        }
 
         return axios.post('/api/login', {
             email,
@@ -42,11 +72,20 @@ export const saveLoggedToken = (user) => {
 };
 
 export const saveLoggedInfo = () => {
-    return (dispatch) => {
-        axios.get('/api/status/user').then(res => {
-            storage.set('loggedInfo', res.data);
-            dispatch(loginSuccess(res.data));
-        });
+    return async (dispatch) => {
+        try {
+            const response = await getUserStatus();
+
+            if (response.success) {
+                const {data} = response;
+                storage.set('loggedInfo', data);
+                dispatch(loginSuccess(data));
+            } else {
+                throw response;
+            }
+        } catch (err) {
+            console.log(err);
+        }
     };
 };
 
