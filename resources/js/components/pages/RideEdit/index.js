@@ -1,11 +1,13 @@
 import React, {memo, useCallback, useEffect, useState} from "react";
-import axios from "axios";
 import {connect} from "react-redux";
 import PageTemplate from "@components/templates/PageTemplate";
 import Header from "@components/UI/organisms/Header";
 import Aside from "@components/UI/organisms/Aside";
 import RideForm from "@components/UI/organisms/RideForm";
 import {formatDate, formatNaturalDate, getTime} from '@/utils/dateFormat';
+
+import {getReverseGeocode} from "@/api/mapApi";
+import {getRideEditData, rideUpdate} from "@/api/rideApi";
 
 const mapStateToProps = (state) => ({
     state
@@ -57,83 +59,106 @@ const RideEdit = memo(({...props}) => {
         });
     }, [rideData]);
 
-    const handleSetLocation = useCallback((latitude, longitude) => {
-        const lnglat = `${longitude},${latitude}`;
-
-        axios.get(`/api/reverse-geocode?lnglat=${lnglat}`).then(res => {
-            const data = res.data.results[0].region;
-            const {area1, area2, area3} = data;
-            const newRideData = {
-                latitude: latitude,
-                longitude: longitude,
-                address: `${area1.name} ${area2.name} ${area3.name}`,
-                locality: area1.name,
-                sublocality1: area2.name,
-                sublocality2: area3.name
+    const handleSetLocation = useCallback(async (latitude, longitude) => {
+        try {
+            const lnglat = `${longitude},${latitude}`;
+            const options = {
+                params: {
+                    lnglat: lnglat
+                }
             };
+            const response = await getReverseGeocode(options);
 
-            setRideData(prevRideData => {
-                return {
-                    ...prevRideData,
-                    ...newRideData
+            if (response.success) {
+                const data = response.data.results[0].region;
+                const {area1, area2, area3} = data;
+                const newRideData = {
+                    latitude: latitude,
+                    longitude: longitude,
+                    address: `${area1.name} ${area2.name} ${area3.name}`,
+                    locality: area1.name,
+                    sublocality1: area2.name,
+                    sublocality2: area3.name
                 };
-            });
-        }).catch(err => {
-            console.log(err);
-        });
+
+                setRideData(prevRideData => {
+                    return {
+                        ...prevRideData,
+                        ...newRideData
+                    };
+                });
+            } else {
+                throw response;
+            }
+        } catch (err) {
+            alert('오류');
+        }
     }, [rideData]);
 
-    const handleSubmit = useCallback((event) => {
+    const handleSubmit = useCallback(async (event) => {
         event.preventDefault();
 
         if (isLoading) return false;
-        const {start_date, start_time, end_date, end_time} = rideData;
-        const started_at = formatDate(start_date, start_time);
-        const ended_at = formatDate(end_date, end_time);
-        const data = {
-            ...rideData,
-            started_at: started_at,
-            ended_at: ended_at
-        };
 
         setIsLoading(true);
 
-        axios.put(`/api/ride/${id}`, data).then(res => {
-            alert(res.data.message);
-            props.history.push(`/ride/${res.data.ride_id}`);
-        }).catch(err => {
-            if (err.response.status == 422) {
-                const messages = err.response.data.errors;
-                alert(messages[Object.keys(messages)[0]]);
-            } else {
-                alert('오류');
-            }
+        try {
+            const {start_date, start_time, end_date, end_time} = rideData;
+            const started_at = formatDate(start_date, start_time);
+            const ended_at = formatDate(end_date, end_time);
+            const options = {
+                data: {
+                    ...rideData,
+                    started_at: started_at,
+                    ended_at: ended_at,
+                    id: id
+                }
+            };
+            const response = await rideUpdate(options);
 
+            if (response.success) {
+                const {message} = response.data;
+                alert(message);
+                props.history.push(`/ride/${id}`);
+            } else {
+                throw response;
+            }
+        } catch (err) {
+            alert('오류');
             setIsLoading(false);
-        });
+        }
     }, [isLoading, rideData]);
 
-    const getData = useCallback(() => {
-        axios.get(`/api/ride/edit/${id}`).then(res => {
-            const data = res.data.ride;
-            const {started_at, ended_at} = data;
-            const newRideData = {
-                ...data,
-                started_date: formatNaturalDate(started_at),
-                started_time: getTime(started_at),
-                ended_date: formatNaturalDate(ended_at),
-                ended_time: getTime(ended_at)
+    const getData = useCallback(async () => {
+        try {
+            const options = {
+                id: id
             };
+            const response = await getRideEditData(options);
 
-            setRideData(prevRideData => {
-                return {
-                    ...prevRideData,
-                    ...newRideData
+            if (response.success) {
+                const rideData = response.data.ride;
+                const {started_at, ended_at} = rideData;
+                const newRideData = {
+                    ...rideData,
+                    started_date: formatNaturalDate(started_at),
+                    started_time: getTime(started_at),
+                    ended_date: formatNaturalDate(ended_at),
+                    ended_time: getTime(ended_at)
                 };
-            });
-        }).catch(err => {
-            console.log(err);
-        });
+
+                setRideData(prevRideData => {
+                    return {
+                        ...prevRideData,
+                        ...newRideData
+                    };
+                });
+            } else {
+                throw response;
+            }
+        } catch (err) {
+            alert('오류');
+        }
     }, [rideData]);
 
     useEffect(() => {

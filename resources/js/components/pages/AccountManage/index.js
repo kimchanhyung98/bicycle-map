@@ -1,6 +1,5 @@
 import React, {memo, useCallback, useEffect, useState} from "react";
 import styled from "styled-components";
-import axios from "axios";
 import {connect} from "react-redux";
 import PageTemplate from "@components/templates/PageTemplate";
 import Header from "@components/UI/organisms/Header";
@@ -8,6 +7,9 @@ import Aside from "@components/UI/organisms/Aside";
 import RideButtonList from "@components/UI/organisms/RideButtonList";
 import Heading from "@components/UI/atoms/Heading";
 import font from "@/constant/font";
+
+import {rideDelete} from "@/api/rideApi";
+import {getCreateList} from "@/api/rideListApi";
 
 const StyledHeading = styled(Heading)`
     margin-top: 10px;
@@ -35,42 +37,63 @@ const AccountManage = memo(() => {
         }
     }, [isEnd]);
 
-    const handleRideDelete = useCallback((id) => {
+    const handleRideDelete = useCallback(async (id) => {
         if (isLoading) return false;
-
         setIsEnd(true);
 
-        axios.delete(`/api/ride/${id}`, {
-            ride_id: id
-        }).then(res => {
-            const newData = [...rides].filter(ride => {
-                return ride.id !== id;
-            });
+        try {
+            const options = {
+                data: {
+                    ride_id: id
+                }
+            };
+            const response = await rideDelete(options);
 
-            setRides(newData);
-            alert(res.data.message);
-        }).catch(() => {
+            if (response.success) {
+                const newData = [...rides].filter(ride => {
+                    return ride.id !== id;
+                });
+                const {message} = response.data;
+
+                setRides(newData);
+                alert(message);
+            } else {
+                throw response;
+            }
+        } catch (err) {
             alert('오류');
-        });
+        }
     }, [isLoading, rides]);
 
-    const getData = useCallback(() => {
+    const getData = useCallback(async () => {
         setPage(prevPage => prevPage + 1);
         setIsEnd(false);
 
-        axios.get(`/api/account/manage?page=${page}`).then(res => {
-            const data = res.data.rides.data;
-            const newData = rides.concat(data);
+        try {
+            const options = {
+                params: {
+                    page: page
+                }
+            };
+            const response = await getCreateList(options);
 
-            if (data.length < 10) {
-                window.removeEventListener('scroll', handleScroll);
+            if (response.success) {
+                const data = response.data.rides.data;
+                const newData = rides.concat(data);
+
+                if (data.length < 10) {
+                    window.removeEventListener('scroll', handleScroll);
+                }
+
+                setRides(newData);
+                setIsEnd(true);
+            } else {
+                throw response;
             }
-
-            setRides(newData);
+        } catch (err) {
+            alert('오류');
             setIsEnd(true);
-        }).catch(err => {
-            console.log(err);
-        });
+        }
     }, [page, rides]);
 
     useEffect(() => {

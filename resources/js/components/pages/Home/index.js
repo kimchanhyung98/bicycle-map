@@ -1,9 +1,10 @@
 import React, {memo, useCallback, useEffect, useState} from "react";
-import axios from "axios";
 import PageTemplate from "@components/templates/PageTemplate";
 import Header from "@components/UI/organisms/Header";
 import Aside from "@components/UI/organisms/Aside";
 import RideLinkedList from "@components/UI/organisms/RideLinkedList";
+
+import {getList} from "@/api/rideListApi";
 
 const Home = memo(() => {
     const [rides, setRides] = useState([]);
@@ -20,23 +21,35 @@ const Home = memo(() => {
         }
     }, []);
 
-    const getData = useCallback(() => {
-        setIsEnd(false, () => {
-            axios.get(`/api/ride?page=${page + 1}`).then(res => {
-                const resData = res.data.rides.data;
-                const data = rides.concat(resData);
+    const getData = useCallback(async () => {
+        setIsEnd(false);
 
-                if (resData.length < 10) {
-                    window.removeEventListener('scroll', this.handleScroll);
+        try {
+            const options = {
+                params: {
+                    page: page + 1
+                }
+            };
+            const response = await getList(options);
+
+            if (response.success) {
+                const data = response.data.rides.data;
+                const newData = rides.concat(data);
+
+                if (data.length < 10) {
+                    window.removeEventListener('scroll', handleScroll);
                 }
 
-                setRides(data);
+                setRides(newData);
                 setPage((prevPage) => prevPage + 1);
                 setIsEnd(true);
-            }).catch(err => {
-                console.log(err);
-            });
-        });
+            } else {
+                throw response;
+            }
+        } catch (err) {
+            alert('오류');
+            setIsEnd(true);
+        }
     }, []);
 
     useEffect(() => {

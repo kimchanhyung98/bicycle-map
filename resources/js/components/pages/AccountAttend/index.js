@@ -1,6 +1,5 @@
 import React, {memo, useCallback, useEffect, useState} from "react";
 import styled from "styled-components";
-import axios from "axios";
 import {connect} from "react-redux";
 import PageTemplate from "@components/templates/PageTemplate";
 import Header from "@components/UI/organisms/Header";
@@ -8,6 +7,8 @@ import Aside from "@components/UI/organisms/Aside";
 import RideButtonList from "@components/UI/organisms/RideButtonList";
 import Heading from "@components/UI/atoms/Heading";
 import font from "@/constant/font";
+
+import {getAttendRides, rideAttendCancel} from "@/api/rideAttendApi";
 
 const StyledHeading = styled(Heading)`
     margin-top: 10px;
@@ -35,42 +36,62 @@ const AccountAttend = memo(() => {
         }
     }, [isEnd]);
 
-    const handleRideCancel = useCallback((id) => {
+    const handleRideCancel = useCallback(async (id) => {
         if (isLoading) return false;
-
         setIsEnd(true);
 
-        axios.post('/api/ride/cancel', {
-            ride_id: id
-        }).then(res => {
-            const newData = [...rides].filter(ride => {
-                return ride.id !== id;
-            });
+        try {
+            const options = {
+                data: {
+                    ride_id: id
+                }
+            };
+            const response = await rideAttendCancel(options);
 
-            setRides(newData);
-            alert(res.data.message);
-        }).catch(() => {
+            if (response.success) {
+                const newData = [...rides].filter(ride => {
+                    return ride.id !== id;
+                });
+                const {message} = response.data;
+                setRides(newData);
+                alert(message);
+            } else {
+                throw response;
+            }
+        } catch (err) {
             alert('오류');
-        });
+        }
     }, [isLoading, rides]);
 
-    const getData = useCallback(() => {
+    const getData = useCallback(async () => {
         setPage(prevPage => prevPage + 1);
         setIsEnd(false);
 
-        axios.get(`/api/account/attend?page=${page}`).then(res => {
-            const data = res.data.rides.data;
-            const newData = rides.concat(data);
+        try {
+            const options = {
+                params: {
+                    page: page
+                }
+            };
+            const response = await getAttendRides(options);
 
-            if (data.length < 10) {
-                window.removeEventListener('scroll', handleScroll);
+            if (response.success) {
+                const data = response.data.rides.data;
+                const newData = rides.concat(data);
+
+                if (data.length < 10) {
+                    window.removeEventListener('scroll', handleScroll);
+                }
+
+                setRides(newData);
+                setIsEnd(true);
+            } else {
+                throw response;
             }
-
-            setRides(newData);
+        } catch (err) {
+            alert('오류');
             setIsEnd(true);
-        }).catch(err => {
-            console.log(err);
-        });
+        }
     }, [page, rides]);
 
     useEffect(() => {

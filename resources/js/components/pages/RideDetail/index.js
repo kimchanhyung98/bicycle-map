@@ -1,12 +1,14 @@
 import React, {memo, useCallback, useEffect, useState} from "react";
 import styled from "styled-components";
-import axios from "axios";
 import {connect} from "react-redux";
 import PageTemplate from "@components/templates/PageTemplate";
 import Header from "@components/UI/organisms/Header";
 import Aside from "@components/UI/organisms/Aside";
 import Map from "@components/UI/atoms/Map";
 import RideContent from "@components/UI/organisms/RideContent";
+
+import {getRideData} from "@/api/rideApi";
+import {rideAttend} from "@/api/rideAttendApi";
 
 const StyledMainSection = styled.section`
     overflow: hidden;
@@ -26,39 +28,58 @@ const RideDetail = memo(({...props}) => {
     const id = props.match.params.id;
     const user = props.state.user;
 
-    const getRideData = useCallback(() => {
-        axios.get(`/api/ride/${id}`).then(({data}) => {
-            const {ride, participants_count} = data;
-            setRideData({
-                ...ride
-            });
-            setParticipantsCount(participants_count);
-        }).catch(err => {
-            console.log(err);
-        });
+    const getData = useCallback(async () => {
+        try {
+            const options = {
+                id: id
+            };
+            const response = await getRideData(options);
+
+            if (response.success) {
+                const {ride, participants_count} = response;
+                setRideData({
+                    ...ride
+                });
+                setParticipantsCount(participants_count);
+            } else {
+                throw response;
+            }
+        } catch (err) {
+            alert('오류');
+        }
     }, [id]);
 
-    const handleSubmit = useCallback((event) => {
+    const handleSubmit = useCallback(async (event) => {
         event.preventDefault();
-
         if (isLoading) return false;
 
-        const user_id = user.user.id;
-        const data = {
-            user_id: user_id,
-            ride_id: id
-        };
         setIsLoading(true);
-        axios.post('/api/ride/attend', data).then(res => {
-            setParticipantsCount(prevCount => prevCount + 1);
-            alert(res.data.message);
-        }).catch(() => {
+        try {
+            const user_id = user.user.id;
+            const options = {
+                data: {
+                    user_id: user_id,
+                    ride_id: id
+                }
+            };
+            const response = await rideAttend(options);
+
+            if (response.success) {
+                const {message} = response.data;
+                setParticipantsCount(prevCount => prevCount + 1);
+                alert(message);
+                setIsLoading(false);
+            } else {
+                throw response;
+            }
+        } catch (err) {
             alert('오류');
-        });
+            setIsLoading(false);
+        }
     }, [isLoading, participantsCount]);
 
     useEffect(() => {
-        getRideData();
+        getData();
     }, []);
 
     return (
