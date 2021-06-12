@@ -4,6 +4,16 @@ const mix = require('laravel-mix');
 const webpack = require('webpack');
 
 mix.webpackConfig({
+    module: {
+        rules: [
+            {
+                enforce: 'pre',
+                exclude: /node_modules/,
+                loader: 'eslint-loader',
+                test: /\.(js|vue)?$/
+            },
+        ]
+    },
     resolve: {
         extensions: ['.js', '.json'],
         alias: {
