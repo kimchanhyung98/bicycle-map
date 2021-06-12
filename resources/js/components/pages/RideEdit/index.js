@@ -14,7 +14,7 @@ const mapStateToProps = (state) => ({
 const formType = 'update';
 
 const RideEdit = memo(({...props}) => {
-    const [id, setId] = useState(props.match.params.id);
+    const [id] = useState(props.match.params.id);
     const [isLoading, setIsLoading] = useState(false);
     const [rideData, setRideData] = useState({
         file: {
@@ -53,7 +53,7 @@ const RideEdit = memo(({...props}) => {
             return {
                 ...prevRideData,
                 ...newRideData
-            }
+            };
         });
     }, [rideData]);
 
@@ -70,13 +70,13 @@ const RideEdit = memo(({...props}) => {
                 locality: area1.name,
                 sublocality1: area2.name,
                 sublocality2: area3.name
-            }
+            };
 
             setRideData(prevRideData => {
                 return {
                     ...prevRideData,
                     ...newRideData
-                }
+                };
             });
         }).catch(err => {
             console.log(err);
@@ -129,7 +129,7 @@ const RideEdit = memo(({...props}) => {
                 return {
                     ...prevRideData,
                     ...newRideData
-                }
+                };
             });
         }).catch(err => {
             console.log(err);
@@ -152,7 +152,7 @@ const RideEdit = memo(({...props}) => {
                           setLocation={handleSetLocation}/>
             </section>
         </PageTemplate>
-    )
+    );
 });
 
 export default connect(mapStateToProps)(RideEdit);

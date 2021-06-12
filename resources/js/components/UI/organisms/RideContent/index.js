@@ -184,7 +184,7 @@ const RideContent = memo(({rideData, participantsCount, onSubmit}) => {
                 </StyledAttendButton>
             </ButtonWrapper>
         </>
-    )
+    );
 });
 
 export default RideContent;

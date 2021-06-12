@@ -1,4 +1,5 @@
-import storage from '@/utils/storage.js';
+import storage from "@/utils/storage.js";
+import axios from "axios";
 
 export const LOGIN_NON = 'LOGIN_NON';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
@@ -19,7 +20,7 @@ export const login = (email, password) => {
                 dispatch(saveLoggedInfo());
             } else {
                 storage.set('loggedToken', '');
-                alert('이메일 또는 비밀번호를 확인해주세요.')
+                alert('이메일 또는 비밀번호를 확인해주세요.');
             }
         }).catch(err => {
             if (err.response.status == 422) {
@@ -30,15 +31,15 @@ export const login = (email, password) => {
             }
             dispatch(loginFailure());
         });
-    }
+    };
 };
 
 export const saveLoggedToken = (user) => {
     return (dispatch) => {
         axios.defaults.headers.common.Authorization = `Bearer ${user.access_token}`;
         dispatch(saveLoggedInfo());
-    }
-}
+    };
+};
 
 export const saveLoggedInfo = () => {
     return (dispatch) => {
@@ -46,15 +47,15 @@ export const saveLoggedInfo = () => {
             storage.set('loggedInfo', res.data);
             dispatch(loginSuccess(res.data));
         });
-    }
-}
+    };
+};
 
 export const logout = () => {
     return (dispatch) => {
         storage.set('loggedToken', '');
         dispatch(loginNon());
-    }
-}
+    };
+};
 
 export function loginNon() {
     return {

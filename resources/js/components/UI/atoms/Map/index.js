@@ -1,28 +1,21 @@
 import React, {memo, useCallback, useEffect} from "react";
 import {RenderAfterNavermapsLoaded, NaverMap, Marker} from "react-naver-maps";
 
+const {env, $} = window;
 const NAVER_API_KEY = env.NCLOUD_CLIENT_ID;
 const location = {
     latitude: '37.554722',
     longitude: '126.970833'
-}
+};
 
 const Map = memo(({
     mapOptions,
     markers,
     ...props
 }) => {
-    const navermaps = window.naver.maps;
     const {id, style, center, zoom} = mapOptions;
-    const {disabled, setLocation, gpx} = props;
+    const {gpx} = props;
     let mapRef;
-
-    const handleClick = useCallback((event) => {
-        if (!disabled) {
-            const {x, y} = event.coord;
-            setLocation(y, x);
-        }
-    }, [disabled, setLocation]);
 
     const startDataLayer = useCallback((xmlDoc) => {
         mapRef.instance.data.addGpx(xmlDoc);
@@ -38,7 +31,7 @@ const Map = memo(({
                         startDataLayer(res);
                     }
                 });
-            })
+            });
         }
     }, []);
 
@@ -64,12 +57,12 @@ const Map = memo(({
                         return (
                             <Marker key={marker}
                                     position={marker}/>
-                        )
+                        );
                     })
                 }
             </NaverMap>
         </RenderAfterNavermapsLoaded>
-    )
+    );
 });
 
 export default Map;

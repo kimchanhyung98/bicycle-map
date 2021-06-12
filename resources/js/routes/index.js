@@ -5,9 +5,9 @@ import Login from "@components/pages/Login";
 import Register from "@components/pages/Register";
 import RideCreate from "@components/pages/RideCreate";
 import RideEdit from "@components/pages/RideEdit";
-import RideDetail from '@components/pages/RideDetail';
-import AccountAttend from '@components/pages/AccountAttend';
-import AccountManage from '@components/pages/AccountManage';
+import RideDetail from "@components/pages/RideDetail";
+import AccountAttend from "@components/pages/AccountAttend";
+import AccountManage from "@components/pages/AccountManage";
 
 const Routes = () => {
     return (
@@ -23,7 +23,7 @@ const Routes = () => {
                 <Route path='/account/manage' component={AccountManage}/>
             </Switch>
         </BrowserRouter>
-    )
+    );
 };
 
 export default Routes;

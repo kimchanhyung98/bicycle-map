@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useEffect, useState} from "react";
+import React, {memo, useCallback, useState} from "react";
 import axios from "axios";
 import {connect} from "react-redux";
 import PageTemplate from "@components/templates/PageTemplate";
@@ -52,7 +52,7 @@ const RideCreate = memo(({...props}) => {
             return {
                 ...prevRideData,
                 ...newRideData
-            }
+            };
         });
     }, [rideData]);
 
@@ -69,13 +69,13 @@ const RideCreate = memo(({...props}) => {
                 locality: area1.name,
                 sublocality1: area2.name,
                 sublocality2: area3.name
-            }
+            };
 
             setRideData(prevRideData => {
                 return {
                     ...prevRideData,
                     ...newRideData
-                }
+                };
             });
         }).catch(err => {
             console.log(err);
@@ -95,7 +95,7 @@ const RideCreate = memo(({...props}) => {
             ...rideData,
             started_at: started_at,
             ended_at: ended_at
-        }
+        };
 
         setIsLoading(true);
 
@@ -126,7 +126,7 @@ const RideCreate = memo(({...props}) => {
                           setLocation={handleSetLocation}/>
             </section>
         </PageTemplate>
-    )
+    );
 });
 
 export default connect(mapStateToProps)(RideCreate);

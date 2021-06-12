@@ -1,4 +1,4 @@
-import React, {memo, useCallback} from "react";
+import React, {memo} from "react";
 import styled, {css} from "styled-components";
 import List from "@components/UI/atoms/List";
 import RideHeader from "@components/UI/molecules/RideHeader";
@@ -81,7 +81,7 @@ const RideButtonList = memo(({type, rides, emptyMessage, rideDelete, rideCancel}
                               onClick={rideDelete(id)}>
                     삭제하기
                 </StyledButton>
-            </>
+            </>;
         } else if (type === 'attend') {
             buttons = <>
                 <StyledLink to={`/ride/${id}`}>바로가기</StyledLink>
@@ -89,7 +89,7 @@ const RideButtonList = memo(({type, rides, emptyMessage, rideDelete, rideCancel}
                               onClick={rideCancel(id)}>
                     취소하기
                 </StyledButton>
-            </>
+            </>;
         }
 
         return (
@@ -106,7 +106,7 @@ const RideButtonList = memo(({type, rides, emptyMessage, rideDelete, rideCancel}
                     {buttons}
                 </ButtonWrapper>
             </StyledRideItem>
-        )
+        );
     });
 
     if (lists.length === 0) {
@@ -117,7 +117,7 @@ const RideButtonList = memo(({type, rides, emptyMessage, rideDelete, rideCancel}
         <StyledList ordered={false}>
             {lists}
         </StyledList>
-    )
+    );
 });
 
 export default RideButtonList;

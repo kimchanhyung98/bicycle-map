@@ -33,7 +33,7 @@ const mapStateToProps = (state) => ({
     state
 });
 
-const RideLinkedList = memo(({rides, ...props}) => {
+const RideLinkedList = memo(({rides}) => {
     let lists = rides.map((ride) => {
         const {
             id,
@@ -66,8 +66,8 @@ const RideLinkedList = memo(({rides, ...props}) => {
         ];
 
         return (
-            <Link to={`/ride/${id}`}>
-                <StyledRideItem key={id}>
+            <Link to={`/ride/${id}`} key={id}>
+                <StyledRideItem>
                     {/* 참여 인수 */}
                     <RideAttendInfo>
                         {participants_count}명 참석
@@ -82,7 +82,7 @@ const RideLinkedList = memo(({rides, ...props}) => {
                     <RideDetailList detailItems={detailItems}/>
                 </StyledRideItem>
             </Link>
-        )
+        );
     });
 
     if (lists.length === 0) {
@@ -93,7 +93,7 @@ const RideLinkedList = memo(({rides, ...props}) => {
         <List ordered={false}>
             {lists}
         </List>
-    )
+    );
 });
 
 export default connect(mapStateToProps)(RideLinkedList);

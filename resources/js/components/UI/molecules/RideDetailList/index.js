@@ -32,7 +32,7 @@ const StyledDistance = styled.p`
     word-break: keep-all;
 `;
 
-const RideDetailList = memo(({detailItems, ...props}) => {
+const RideDetailList = memo(({detailItems}) => {
     const lists = detailItems.maps(item => {
         const {name, value} = item;
         return (
@@ -40,14 +40,14 @@ const RideDetailList = memo(({detailItems, ...props}) => {
                 <StyledName>{name}</StyledName>
                 <StyledDistance>{value}</StyledDistance>
             </StyledItem>
-        )
+        );
     });
 
     return (
         <StyledList>
             {lists}
         </StyledList>
-    )
+    );
 });
 
 export default RideDetailList;

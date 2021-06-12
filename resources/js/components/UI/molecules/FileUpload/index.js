@@ -43,7 +43,7 @@ const FileUpload = memo(({
         axios.post(url, formData).then(res => {
             setFile(res.data.file);
             alert('업로드 성공');
-        }).catch(err => {
+        }).catch(() => {
             alert('업로드 실패');
         });
     }, [setFile]);
@@ -60,7 +60,7 @@ const FileUpload = memo(({
                              readOnly
                              onChange={handleSubmit}/>
         </FileWrapper>
-    )
+    );
 });
 
 export default FileUpload;

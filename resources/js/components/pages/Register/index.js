@@ -1,5 +1,6 @@
 import React, {memo, useCallback, useState} from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 import PageTemplate from "@components/templates/PageTemplate";
 import Header from "@components/UI/organisms/Header";
@@ -43,7 +44,7 @@ const Register = memo(({...props}) => {
             password_confirmation: pwConfirm
         };
 
-        axios.post('/register', req).then(res => {
+        axios.post('/register', req).then(() => {
             alert('회원가입 성공');
             props.history.push('/login');
         }).catch(err => {

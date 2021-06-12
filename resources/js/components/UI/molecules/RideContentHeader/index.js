@@ -27,7 +27,7 @@ const RideContentHeader = memo(({children}) => {
         <StyledHeader>
             <StyledSpan>{children}</StyledSpan>
         </StyledHeader>
-    )
+    );
 });
 
 export default RideContentHeader;

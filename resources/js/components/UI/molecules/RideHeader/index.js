@@ -31,7 +31,7 @@ const RideHeader = memo(({level, name, difficulty}) => {
 
             <Span>{formatDifficulty(difficulty)}</Span>
         </StyledRideHeader>
-    )
+    );
 });
 
 export default RideHeader;

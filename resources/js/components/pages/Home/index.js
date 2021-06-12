@@ -1,4 +1,5 @@
 import React, {memo, useCallback, useEffect, useState} from "react";
+import axios from "axios";
 import PageTemplate from "@components/templates/PageTemplate";
 import Header from "@components/UI/organisms/Header";
 import Aside from "@components/UI/organisms/Aside";
@@ -44,7 +45,7 @@ const Home = memo(() => {
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
-        }
+        };
     }, []);
 
     return (
@@ -54,7 +55,7 @@ const Home = memo(() => {
                 <RideLinkedList rides={rides} />
             </section>
         </PageTemplate>
-    )
+    );
 });
 
 export default Home;

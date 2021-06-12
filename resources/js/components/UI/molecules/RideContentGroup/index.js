@@ -46,13 +46,13 @@ const RideContentGroup = memo(({type, children}) => {
             <StyledListGroup>
                 {children}
             </StyledListGroup>
-        )
+        );
     } else {
         return (
             <StyledWrapGroup>
                 {children}
             </StyledWrapGroup>
-        )
+        );
     }
 });
 

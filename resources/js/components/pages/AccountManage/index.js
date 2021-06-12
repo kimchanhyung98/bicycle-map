@@ -1,5 +1,6 @@
 import React, {memo, useCallback, useEffect, useState} from "react";
 import styled from "styled-components";
+import axios from "axios";
 import {connect} from "react-redux";
 import PageTemplate from "@components/templates/PageTemplate";
 import Header from "@components/UI/organisms/Header";
@@ -22,7 +23,7 @@ const AccountManage = memo(() => {
     const [rides, setRides] = useState([]);
     const [page, setPage] = useState(0);
     const [isEnd, setIsEnd] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading] = useState(false);
 
     const handleScroll = useCallback((event) => {
         if (isEnd) {
@@ -48,7 +49,7 @@ const AccountManage = memo(() => {
 
             setRides(newData);
             alert(res.data.message);
-        }).catch(err => {
+        }).catch(() => {
             alert('오류');
         });
     }, [isLoading, rides]);
@@ -78,7 +79,7 @@ const AccountManage = memo(() => {
 
         return () => {
             window.removeEventListener('scroll', this.handleScroll);
-        }
+        };
     }, []);
 
     return (

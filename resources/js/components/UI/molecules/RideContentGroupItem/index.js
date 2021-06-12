@@ -34,7 +34,7 @@ const RideContentGroupItem = memo(({title, children}) => {
 
             {children}
         </StyledListItem>
-    )
+    );
 });
 
 export default RideContentGroupItem;

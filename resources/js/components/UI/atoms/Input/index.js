@@ -25,7 +25,7 @@ const Styles = css`
 const StyledTextarea = styled.textarea`${Styles}`;
 const StyledInput = styled.input`${Styles}`;
 
-const Input = memo(({onChange, value, ...props}) => {
+const Input = memo(({onChange, ...props}) => {
     const handleChange = useCallback((event) => {
         const {value} = event.target;
         onChange(value);
@@ -34,7 +34,7 @@ const Input = memo(({onChange, value, ...props}) => {
     const {type} = props;
     if (type === 'textarea') {
         return <StyledTextarea onInput={handleChange}
-                               {...props} />
+                               {...props} />;
     } else if (type === 'file') {
         return <StyledInput {...props} />;
     } else {

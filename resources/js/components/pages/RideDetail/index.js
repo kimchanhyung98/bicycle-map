@@ -52,7 +52,7 @@ const RideDetail = memo(({...props}) => {
         axios.post('/api/ride/attend', data).then(res => {
             setParticipantsCount(prevCount => prevCount + 1);
             alert(res.data.message);
-        }).catch(err => {
+        }).catch(() => {
             alert('오류');
         });
     }, [isLoading, participantsCount]);
@@ -86,8 +86,7 @@ const RideDetail = memo(({...props}) => {
                              onSubmit={handleSubmit}/>
             </StyledMainSection>
         </PageTemplate>
-
-    )
+    );
 });
 
 export default connect(mapStateToProps)(RideDetail);

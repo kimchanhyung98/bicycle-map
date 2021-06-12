@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import {memo} from "react";
 
@@ -13,7 +14,7 @@ const Button = memo(({children, ...props}) => {
         <StyledButton {...props}>
             {children}
         </StyledButton>
-    )
+    );
 });
 
 export default Button;

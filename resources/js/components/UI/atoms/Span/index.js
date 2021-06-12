@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import font from "@/constant/font";
 import {memo} from "react";
@@ -11,7 +12,7 @@ const Span = memo(({children, ...props}) => {
         <StyledSpan {...props}>
             {children}
         </StyledSpan>
-    )
+    );
 });
 
 export default Span;

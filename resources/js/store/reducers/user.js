@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux';
-import { login, LOGIN_NON, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '@/store/actions/user.js';
+import {combineReducers} from "redux";
+import {LOGIN_NON, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE} from "@/store/actions/user.js";
 
 const defaultState = {
     isLoggedIn: false,
@@ -15,14 +15,14 @@ const userReducer = (state = defaultState, action) => {
                 fetchingUpdate: false,
                 isLoggedIn: false,
                 user: {},
-            }
+            };
         case LOGIN_REQUEST:
             return {
                 ...state,
                 fetchingUpdate: true
             };
         case LOGIN_SUCCESS:
-        return {
+            return {
                 ...state,
                 fetchingUpdate: false,
                 isLoggedIn: true,

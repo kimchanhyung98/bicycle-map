@@ -41,7 +41,7 @@ const DateTimePicker = memo(({
             <DatePicker {...datePickerProps} />
             <StyledSelectBox {...timePickerProps} />
         </Wrapper>
-    )
+    );
 });
 
 export default DateTimePicker;

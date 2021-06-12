@@ -1,5 +1,8 @@
-window.axios = require('axios');
+import axios from "axios";
 
+window.$ = window.jQuery = require('jquery');
+
+window.axios = axios;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
