@@ -26,5 +26,10 @@ module.exports = {
             "error",
             "always"
         ]
-    }
+    },
+    "globals": {
+        "env": true,
+        "$": true,
+        "axios": true
+    },
 };

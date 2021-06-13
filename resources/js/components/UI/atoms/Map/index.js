@@ -1,7 +1,6 @@
 import React, {memo, useCallback, useEffect} from "react";
 import {RenderAfterNavermapsLoaded, NaverMap, Marker} from "react-naver-maps";
 
-const {env, $} = window;
 const NAVER_API_KEY = env.NCLOUD_CLIENT_ID;
 const location = {
     latitude: '37.554722',

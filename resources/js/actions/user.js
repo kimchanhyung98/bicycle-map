@@ -1,5 +1,4 @@
 import storage from "@/utils/storage.js";
-import axios from "axios";
 import {loginApi, getUserStatus} from "@/api/userApi";
 
 export const LOGIN_NON = 'LOGIN_NON';
