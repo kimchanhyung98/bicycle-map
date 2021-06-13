@@ -1,7 +1,7 @@
 import React, {memo, useCallback, useState} from "react";
 import styled from "styled-components";
 import {connect} from "react-redux";
-import {login} from "@/store/actions/user";
+import {login} from "@/actions/user";
 import storage from "@/utils/storage";
 import PageTemplate from "@components/templates/PageTemplate";
 import Header from "@components/UI/organisms/Header";

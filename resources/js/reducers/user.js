@@ -1,5 +1,5 @@
 import {combineReducers} from "redux";
-import {LOGIN_NON, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE} from "@/store/actions/user.js";
+import {LOGIN_NON, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE} from "@/actions/user";
 
 const defaultState = {
     isLoggedIn: false,

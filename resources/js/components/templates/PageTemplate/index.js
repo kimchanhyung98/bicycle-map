@@ -2,7 +2,7 @@ import React, {memo, useCallback, useEffect, useState} from "react";
 import styled from "styled-components";
 import axios from "axios";
 import {connect} from 'react-redux';
-import {loginSuccess} from '@/store/actions/user';
+import {loginSuccess} from '@/actions/user';
 import storage from '@/utils/storage';
 import color from "@/constant/color";
 
