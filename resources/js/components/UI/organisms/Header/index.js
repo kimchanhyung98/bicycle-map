@@ -1,81 +1,55 @@
-import React, {PureComponent} from "react";
+import React, {memo} from "react";
 import styled from "styled-components";
-import {connect} from "react-redux";
 import {Link} from "react-router-dom";
+import Heading from "@components/UI/atoms/Heading";
 import color from "@/constant/color";
 import font from "@/constant/font";
 
-const StyledHeader = styled.div`
+const StyledHeader = styled.header`
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 45px;
+    background: ${color.pageColor};
+`;
+
+const HeaderWrapper = styled.div`
+    display: flex;
+    align-items: center;
     overflow: hidden;
     position: relative;
     height: 100%;
-    padding: 12px;
     box-sizing: border-box;
+`;
 
-    .gnb-area {
-        float: left;
+const HeaderLogo = styled(Heading)`
+    position: absolute;
+    left: 50%;
+    width: 200px;
+    margin-left: -100px;
+    text-align: center;
 
-        .btn-gnb {
-            display: block;
-            overflow: hidden;
-            width: 32px;
-            height: 32px;
-            padding: 0;
-            border: 0;
-            background: url('/images/global/menu_white_icon.png') no-repeat center center;
-            background-size: cover;
-            text-indent: -9999px;
-        }
-    }
-
-    .header-logo {
-        position: absolute;
-        left: 50%;
-        width: 200px;
-        margin-left: -100px;
-        text-align: center;
-
-        a {
-            font-size: ${font.sizeLarge};
-            line-height: 32px;
-            color: ${color.white};
-            text-decoration: none;
-        }
+    a {
+        font-weight: normal;
+        font-size: ${font.sizeLarge};
+        line-height: 32px;
+        color: ${color.white};
+        text-decoration: none;
     }
 `;
 
-const mapStateToProps = (state) => ({
-    state
+const Header = memo(() => {
+    return (
+        <StyledHeader>
+            <HeaderWrapper>
+                <HeaderLogo level={1}>
+                    <Link to="/">Ride</Link>
+                </HeaderLogo>
+            </HeaderWrapper>
+        </StyledHeader>
+    );
 });
 
-class Header extends PureComponent {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            isMenu: false
-        };
-    }
-
-    render() {
-        return (
-            <StyledHeader>
-                <div className="gnb-area">
-                    <button type="button"
-                            className="btn-gnb"
-                            onClick={this.props.toggleAside}>gnb</button>
-                </div>
-
-                <h1 className="header-logo">
-                    <Link to="/">Ride</Link>
-                </h1>
-
-                <div className="header-btn-area">
-                    <a href="#"></a>
-                </div>
-            </StyledHeader>
-        );
-    }
-}
-
-export default connect(mapStateToProps)(Header);
+export default Header;

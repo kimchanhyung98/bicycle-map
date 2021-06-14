@@ -3,7 +3,6 @@ import styled from "styled-components";
 import {connect} from "react-redux";
 import PageTemplate from "@components/templates/PageTemplate";
 import Header from "@components/UI/organisms/Header";
-import Aside from "@components/UI/organisms/Aside";
 import RideButtonList from "@components/UI/organisms/RideButtonList";
 import Heading from "@components/UI/atoms/Heading";
 import font from "@/constant/font";
@@ -106,8 +105,7 @@ const AccountManage = memo(() => {
     }, []);
 
     return (
-        <PageTemplate Header={Header}
-                      Aside={Aside}>
+        <PageTemplate Header={Header}>
             <section>
                 <StyledHeading level={2}>개설내역</StyledHeading>
                 <RideButtonList type={'manage'}

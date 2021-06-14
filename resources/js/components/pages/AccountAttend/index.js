@@ -3,7 +3,6 @@ import styled from "styled-components";
 import {connect} from "react-redux";
 import PageTemplate from "@components/templates/PageTemplate";
 import Header from "@components/UI/organisms/Header";
-import Aside from "@components/UI/organisms/Aside";
 import RideButtonList from "@components/UI/organisms/RideButtonList";
 import Heading from "@components/UI/atoms/Heading";
 import font from "@/constant/font";
@@ -104,8 +103,7 @@ const AccountAttend = memo(() => {
     }, []);
 
     return (
-        <PageTemplate Header={Header}
-                      Aside={Aside}>
+        <PageTemplate Header={Header}>
             <section>
                 <StyledHeading level={2}>신청내역</StyledHeading>
                 <RideButtonList type={'attend'}
