@@ -1,6 +1,5 @@
 import React, {memo, useCallback, useEffect, useState} from "react";
 import styled from "styled-components";
-import {connect} from "react-redux";
 import PageTemplate from "@components/templates/PageTemplate";
 import Header from "@components/UI/organisms/Header";
 import RideButtonList from "@components/UI/organisms/RideButtonList";
@@ -14,10 +13,6 @@ const StyledHeading = styled(Heading)`
     font-weight: bold;
     font-size: ${font.sizeLarge};
 `;
-
-const mapStateToProps = (state) => ({
-    state
-});
 
 const AccountAttend = memo(() => {
     const [rides, setRides] = useState([]);
@@ -115,4 +110,4 @@ const AccountAttend = memo(() => {
     );
 });
 
-export default connect(mapStateToProps)(AccountAttend);
+export default AccountAttend;

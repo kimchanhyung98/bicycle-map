@@ -1,6 +1,5 @@
 import React, {memo} from "react";
 import styled from "styled-components";
-import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import List from "@components/UI/atoms/List";
 import RideAttendInfo from "@components/UI/molecules/RideAttendInfo";
@@ -28,10 +27,6 @@ const StyledEmptyList = styled(StyledRideItem)`
     font-size: 24px;
     text-align: center;
 `;
-
-const mapStateToProps = (state) => ({
-    state
-});
 
 const RideLinkedList = memo(({rides}) => {
     let lists = rides.map((ride) => {
@@ -96,4 +91,4 @@ const RideLinkedList = memo(({rides}) => {
     );
 });
 
-export default connect(mapStateToProps)(RideLinkedList);
+export default RideLinkedList;

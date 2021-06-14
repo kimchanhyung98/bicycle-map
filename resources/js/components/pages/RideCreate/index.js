@@ -1,5 +1,4 @@
 import React, {memo, useCallback, useState} from "react";
-import {connect} from "react-redux";
 import PageTemplate from "@components/templates/PageTemplate";
 import Header from "@components/UI/organisms/Header";
 import Aside from "@components/UI/organisms/Aside";
@@ -8,10 +7,6 @@ import {formatDate} from '@/utils/dateFormat';
 
 import {getReverseGeocode} from "@/api/mapApi";
 import {rideCreate} from "@/api/rideApi";
-
-const mapStateToProps = (state) => ({
-    state
-});
 
 const formType = 'create';
 
@@ -142,4 +137,4 @@ const RideCreate = memo(({...props}) => {
     );
 });
 
-export default connect(mapStateToProps)(RideCreate);
+export default RideCreate;

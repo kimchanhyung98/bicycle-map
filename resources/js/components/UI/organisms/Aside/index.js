@@ -91,9 +91,11 @@ const StyledAside = styled.div`
     }
 `;
 
-const mapStateToProps = (state) => ({
-    state
-});
+const mapStateToProps = (state) => {
+    return {
+        ...state
+    };
+};
 
 class Aside extends Component {
     constructor(props) {
@@ -122,8 +124,8 @@ class Aside extends Component {
     }
 
     render() {
-        let user = this.props.state.user.user;
-        let isLoggedIn = this.props.state.user.isLoggedIn;
+        const user = this.props.user.info;
+        const isLoggedIn = this.props.user.isLoggedIn;
 
         return (
             <StyledAside>

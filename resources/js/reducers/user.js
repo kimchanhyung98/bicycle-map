@@ -4,7 +4,7 @@ import {LOGIN_NON, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE} from "@/actions/
 const defaultState = {
     isLoggedIn: false,
     fetchingUpdate: false,
-    user: {}
+    info: {}
 };
 
 const userReducer = (state = defaultState, action) => {
@@ -30,8 +30,7 @@ const userReducer = (state = defaultState, action) => {
             };
         case LOGIN_FAILURE:
             return {
-                ...state,
-                fetchingUpdate: false
+                ...state
             };
         default:
             return state;

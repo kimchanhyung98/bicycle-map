@@ -14,10 +14,6 @@ const StyledHeading = styled(Heading)`
     font-size: 20px;
 `;
 
-const mapStateToProps = (state) => ({
-    state
-});
-
 const Login = memo(({...props}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -55,4 +51,4 @@ const Login = memo(({...props}) => {
     );
 });
 
-export default connect(mapStateToProps)(Login);
+export default connect()(Login);

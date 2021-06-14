@@ -14,9 +14,11 @@ const StyledMainSection = styled.section`
     padding-bottom: 30px;
 `;
 
-const mapStateToProps = (state) => ({
-    state
-});
+const mapStateToProps = (state) => {
+    return {
+        ...state
+    };
+};
 
 const RideDetail = memo(({...props}) => {
     const [rideData, setRideData] = useState({
@@ -25,7 +27,7 @@ const RideDetail = memo(({...props}) => {
     const [participantsCount, setParticipantsCount] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const id = props.match.params.id;
-    const user = props.state.user;
+    const user = props.user;
 
     const getData = useCallback(async () => {
         try {
