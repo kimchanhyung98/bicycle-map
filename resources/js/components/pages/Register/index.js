@@ -1,7 +1,6 @@
 import React, {memo, useCallback, useState} from "react";
 import styled from "styled-components";
 import PageTemplate from "@components/templates/PageTemplate";
-import Header from "@components/UI/organisms/Header";
 import Heading from "@components/UI/atoms/Heading";
 import RegisterForm from "@components/UI/organisms/RegisterForm";
 
@@ -58,7 +57,7 @@ const Register = memo(({...props}) => {
     }, [name, email, phone, password, pwConfirm, isLoading]);
 
     return (
-        <PageTemplate Header={Header}>
+        <PageTemplate>
             <section>
                 <StyledHeading level={2}>회원가입</StyledHeading>
 

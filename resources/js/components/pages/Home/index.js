@@ -1,6 +1,5 @@
 import React, {memo, useCallback, useEffect, useState} from "react";
 import PageTemplate from "@components/templates/PageTemplate";
-import Header from "@components/UI/organisms/Header";
 import RideLinkedList from "@components/UI/organisms/RideLinkedList";
 
 import {getList} from "@/api/rideListApi";
@@ -61,7 +60,7 @@ const Home = memo(() => {
     }, []);
 
     return (
-        <PageTemplate Header={Header}>
+        <PageTemplate>
             <section>
                 <RideLinkedList rides={rides} />
             </section>

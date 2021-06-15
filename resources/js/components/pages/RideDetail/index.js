@@ -2,7 +2,6 @@ import React, {memo, useCallback, useEffect, useState} from "react";
 import styled from "styled-components";
 import {connect} from "react-redux";
 import PageTemplate from "@components/templates/PageTemplate";
-import Header from "@components/UI/organisms/Header";
 import Map from "@components/UI/atoms/Map";
 import RideContent from "@components/UI/organisms/RideContent";
 
@@ -84,7 +83,7 @@ const RideDetail = memo(({...props}) => {
     }, []);
 
     return (
-        <PageTemplate Header={Header}>
+        <PageTemplate>
             <section>
                 <Map mapOptions={{
                     height: '360px',

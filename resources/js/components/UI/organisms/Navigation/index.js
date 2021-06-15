@@ -46,19 +46,18 @@ const mapStateToProps = (state) => {
     };
 };
 
-const Navigation = memo(({...props}) => {
-    console.log(props);
+const Navigation = memo(() => {
     return (
         <StyledNav>
             <NavList>
                 <li>
-                    <Link to={'/'}>Home</Link>
+                    <Link to="/">Home</Link>
                 </li>
                 <li>
-                    <Link to={'/ride/create'}>Create</Link>
+                    <Link to="/ride/create">Create</Link>
                 </li>
                 <li>
-                    <Link to={'/account/manage'}>MyPage</Link>
+                    <Link to="/mypage">MyPage</Link>
                 </li>
             </NavList>
         </StyledNav>

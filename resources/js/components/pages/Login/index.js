@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import {login} from "@/actions/user";
 import storage from "@/utils/storage";
 import PageTemplate from "@components/templates/PageTemplate";
-import Header from "@components/UI/organisms/Header";
 import LoginForm from "@components/UI/organisms/LoginForm";
 import Heading from "@components/UI/atoms/Heading";
 
@@ -37,7 +36,7 @@ const Login = memo(({...props}) => {
     }, [email, password]);
 
     return (
-        <PageTemplate Header={Header}>
+        <PageTemplate>
             <section>
                 <StyledHeading level={2}>로그인</StyledHeading>
 

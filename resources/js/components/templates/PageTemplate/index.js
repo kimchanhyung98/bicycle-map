@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {loginSuccess} from "@/actions/user";
 import storage from "@/utils/storage";
 
+import Header from "@components/UI/organisms/Header";
 import Navigation from "@components/UI/organisms/Navigation";
 
 const StyledMain = styled.main`
@@ -12,7 +13,10 @@ const StyledMain = styled.main`
 `;
 
 const PageTemplate = memo(({
-    Header, children, ...props
+    Header: HeaderComponent,
+    Navigation: NavComponent,
+    children,
+    ...props
 }) => {
     const initUserInfo = useCallback(() => {
         const loggedToken = storage.get('loggedToken');
@@ -30,9 +34,8 @@ const PageTemplate = memo(({
 
     return (
         <section>
-            <Header/>
-
-            <Navigation />
+            {HeaderComponent || <Header/>}
+            {NavComponent || <Navigation/>}
 
             <StyledMain>
                 {children}
