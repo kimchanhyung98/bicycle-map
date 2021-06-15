@@ -1,5 +1,6 @@
 import React, {memo, useCallback, useEffect} from "react";
 import styled from "styled-components";
+import {connect} from "react-redux";
 import {loginSuccess} from "@/actions/user";
 import storage from "@/utils/storage";
 
@@ -40,4 +41,4 @@ const PageTemplate = memo(({
     );
 });
 
-export default PageTemplate;
+export default connect()(PageTemplate);
