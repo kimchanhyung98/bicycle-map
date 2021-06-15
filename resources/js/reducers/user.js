@@ -14,7 +14,7 @@ const userReducer = (state = defaultState, action) => {
                 ...state,
                 fetchingUpdate: false,
                 isLoggedIn: false,
-                user: {},
+                info: {},
             };
         case LOGIN_REQUEST:
             return {
@@ -26,7 +26,7 @@ const userReducer = (state = defaultState, action) => {
                 ...state,
                 fetchingUpdate: false,
                 isLoggedIn: true,
-                user: action.user,
+                info: action.user,
             };
         case LOGIN_FAILURE:
             return {
