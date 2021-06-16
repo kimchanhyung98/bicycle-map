@@ -1,23 +1,24 @@
 <?php
 
 use App\Http\Controllers\AccountController;
-use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\RideController;
-use App\Http\Controllers\StatusController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::group(['prefix' => 'status', 'as' => 'status.'], function () {
+    Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
         // 유저 상태
-        Route::get('user', [StatusController::class, 'user'])->name('user');
+        Route::get('/', [UserController::class, 'index']);
 
         // 라이드 참가 상태
-        Route::get('participation', [StatusController::class, 'participation'])->name('participation');
+        Route::get('participation', [UserController::class, 'participation'])->name('participation');
     });
 
     // 마이 페이지

@@ -6,7 +6,7 @@ use App\Models\Participant;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class StatusController extends Controller
+class UserController extends Controller
 {
     /**
      * 유저 상태
@@ -14,7 +14,7 @@ class StatusController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function user(Request $request)
+    public function index(Request $request)
     {
         return $request->user();
     }
