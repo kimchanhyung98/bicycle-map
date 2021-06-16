@@ -21,9 +21,6 @@ const Login = memo(({...props}) => {
         event.preventDefault();
         const {dispatch} = props;
 
-        console.log(email);
-        console.log(password);
-
         dispatch(login(email, password)).then(() => {
             const check = storage.get('loggedToken');
 

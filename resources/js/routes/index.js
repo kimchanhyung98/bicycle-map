@@ -1,5 +1,6 @@
 import React from "react";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Switch} from "react-router-dom";
+import AuthRoute from "@/hoc/AuthRoute";
 import Home from "@components/pages/Home";
 import Login from "@components/pages/Login";
 import Register from "@components/pages/Register";
@@ -12,13 +13,13 @@ const Routes = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path='/' component={Home}/>
-                <Route path='/login' component={Login}/>
-                <Route path='/register' component={Register}/>
-                <Route path='/ride/create' component={RideCreate}/>
-                <Route path='/ride/edit/:id' component={RideEdit}/>
-                <Route path='/ride/:id' component={RideDetail}/>
-                <Route path='/mypage' component={MyPage}/>
+                <AuthRoute exact path='/' component={Home}/>
+                <AuthRoute check={false} path='/login' component={Login}/>
+                <AuthRoute check={false} path='/register' component={Register}/>
+                <AuthRoute check={true} path='/ride/create' component={RideCreate}/>
+                <AuthRoute check={true} path='/ride/edit/:id' component={RideEdit}/>
+                <AuthRoute path='/ride/:id' component={RideDetail}/>
+                <AuthRoute check={true} path='/mypage' component={MyPage}/>
             </Switch>
         </BrowserRouter>
     );

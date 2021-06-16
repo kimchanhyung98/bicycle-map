@@ -1,4 +1,4 @@
-import storage from "@/utils/storage.js";
+import storage from "@/utils/storage";
 import {loginApi, getUserStatus} from "@/api/userApi";
 
 export const LOGIN_NON = 'LOGIN_NON';
@@ -20,12 +20,12 @@ export const login = (email, password) => {
             const response = await loginApi(options);
 
             if (response.success) {
-                const {data} = response.data;
-                const {status_code, access_token} = data;
+                const {data} = response;
 
-                if (status_code === 200) {
+                if (data) {
+                    const {token_type, access_token} = data;
                     storage.set('loggedToken', data);
-                    axios.defaults.headers.common.Authorization = `Bearer ${access_token}`;
+                    axios.defaults.headers.common.Authorization = `${token_type} ${access_token}`;
                     dispatch(saveLoggedInfo());
                 } else {
                     storage.set('loggedToken', '');
@@ -38,28 +38,6 @@ export const login = (email, password) => {
         } catch (err) {
             alert('오류');
         }
-
-        return axios.post('/api/login', {
-            email,
-            password
-        }).then(res => {
-            if (res.data.status_code === 200) {
-                storage.set('loggedToken', res.data);
-                axios.defaults.headers.common.Authorization = `Bearer ${res.data.access_token}`;
-                dispatch(saveLoggedInfo());
-            } else {
-                storage.set('loggedToken', '');
-                alert('이메일 또는 비밀번호를 확인해주세요.');
-            }
-        }).catch(err => {
-            if (err.response.status == 422) {
-                const messages = err.response.data.errors;
-                alert(messages[Object.keys(messages)[0]]);
-            } else {
-                alert('오류');
-            }
-            dispatch(loginFailure());
-        });
     };
 };
 
@@ -74,8 +52,9 @@ export const saveLoggedInfo = () => {
     return async (dispatch) => {
         try {
             const response = await getUserStatus();
+            const {success} = response;
 
-            if (response.success) {
+            if (success) {
                 const {data} = response;
                 storage.set('loggedInfo', data);
                 dispatch(loginSuccess(data));
@@ -107,10 +86,10 @@ export function loginRequest() {
     };
 }
 
-export function loginSuccess(user) {
+export function loginSuccess(info) {
     return {
         type: LOGIN_SUCCESS,
-        user
+        info
     };
 }
 

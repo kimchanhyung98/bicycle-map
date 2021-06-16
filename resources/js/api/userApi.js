@@ -1,13 +1,13 @@
 import request from "@/api/request";
 
-const getUserStatusUrl = '/api/status/user';
+const getUserStatusUrl = '/api/user';
 const getUserStatus = async () => {
     try {
         const response = await request({
             method: 'get',
             url: getUserStatusUrl
         });
-        const data = response.data;
+        const {data} = response;
 
         return {
             success: true,
@@ -43,7 +43,7 @@ const loginApi = async ({...options}) => {
     }
 };
 
-const registerApiUrl = '/login';
+const registerApiUrl = '/api/register';
 const registerApi = async ({...options}) => {
     try {
         const response = await request({
