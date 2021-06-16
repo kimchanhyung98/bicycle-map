@@ -22,6 +22,7 @@ module.exports = {
     "rules": {
         "react/display-name": "off",
         "react/prop-types": "off",
+        "react/no-children-prop": "off",
         "semi": [
             "error",
             "always"
