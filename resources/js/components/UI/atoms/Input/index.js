@@ -1,4 +1,4 @@
-import React, {memo, useCallback} from "react";
+import React, {memo} from "react";
 import styled, {css} from "styled-components";
 import font from "@/constant/font";
 import color from "@/constant/color";
@@ -25,21 +25,14 @@ const Styles = css`
 const StyledTextarea = styled.textarea`${Styles}`;
 const StyledInput = styled.input`${Styles}`;
 
-const Input = memo(({onChange, ...props}) => {
-    const handleChange = useCallback((event) => {
-        const {value} = event.target;
-        onChange(value);
-    }, [onChange]);
-
+const Input = memo(({...props}) => {
     const {type} = props;
     if (type === 'textarea') {
-        return <StyledTextarea onInput={handleChange}
-                               {...props} />;
+        return <StyledTextarea {...props} />;
     } else if (type === 'file') {
         return <StyledInput {...props} />;
     } else {
-        return <StyledInput onInput={handleChange}
-                            {...props} />;
+        return <StyledInput {...props} />;
     }
 });
 

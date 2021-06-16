@@ -12,7 +12,7 @@ const Map = memo(({
     markers,
     ...props
 }) => {
-    const {id, style, center, zoom} = mapOptions;
+    const {id, width, height, center, zoom} = mapOptions;
     const {gpx} = props;
     let mapRef;
 
@@ -41,8 +41,8 @@ const Map = memo(({
             <NaverMap {...mapOptions}
                       id={id || 'map'}
                       style={{
-                          width: style.width || '100%',
-                          height: style.height || '300px'
+                          width: width || '100%',
+                          height: height || '300px'
                       }}
                       defaultCenter={center || location}
                       center={center || location}
@@ -51,11 +51,12 @@ const Map = memo(({
                           mapRef = ref;
                       }}>
 
-                {markers &&
-                    markers.map((marker) => {
+                {(markers && window.naver) &&
+                    markers.map(({lat, lng}) => {
+                        const latlng = new window.naver.maps.LatLng(lat, lng);
                         return (
-                            <Marker key={marker}
-                                    position={marker}/>
+                            <Marker key={latlng}
+                                    position={latlng}/>
                         );
                     })
                 }

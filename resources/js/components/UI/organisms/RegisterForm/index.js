@@ -44,7 +44,7 @@ const RegisterForm = memo(({
                             name: 'name',
                             defaultValue: name,
                             placeholder: '이름을 입력해주세요.',
-                            onChange: setName
+                            onChange: event => setName(event.target.value)
                         }}/>
 
             <LabelInput isRequired={true}
@@ -56,7 +56,7 @@ const RegisterForm = memo(({
                             name: 'email',
                             defaultValue: email,
                             placeholder: '이메일을 입력해주세요.',
-                            onChange: setEmail
+                            onChange: event => setEmail(event.target.value)
                         }}/>
 
             <LabelInput isRequired={true}
@@ -68,7 +68,7 @@ const RegisterForm = memo(({
                             name: 'phone',
                             defaultValue: phone,
                             placeholder: '전화번호를 입력해주세요.',
-                            onChange: setPhone
+                            onChange: event => setPhone(event.target.value)
                         }}/>
 
             <LabelInput isRequired={true}
@@ -80,7 +80,7 @@ const RegisterForm = memo(({
                             name: 'password',
                             defaultValue: password,
                             placeholder: '비밀번호를 입력해주세요.',
-                            onChange: setPassword
+                            onChange: event => setPassword(event.target.value)
                         }}/>
 
             <LabelInput isRequired={true}
@@ -92,7 +92,7 @@ const RegisterForm = memo(({
                             name: 'password_confirmation',
                             defaultValue: pwConfirm,
                             placeholder: '비밀번호 다시 입력해주세요.',
-                            onChange: setPwConfirm
+                            onChange: event => setPwConfirm(event.target.value)
                         }}/>
 
             <ButtonWrapper>

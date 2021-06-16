@@ -1,7 +1,6 @@
 import React, {memo, useCallback, useState} from "react";
+import styled from "styled-components";
 import PageTemplate from "@components/templates/PageTemplate";
-import Header from "@components/UI/organisms/Header";
-import Aside from "@components/UI/organisms/Aside";
 import RideForm from "@components/UI/organisms/RideForm";
 import {formatDate} from '@/utils/dateFormat';
 
@@ -9,6 +8,10 @@ import {getReverseGeocode} from "@/api/mapApi";
 import {rideCreate} from "@/api/rideApi";
 
 const formType = 'create';
+
+const StyledSection = styled.section`
+    padding-bottom: 20px;
+`;
 
 const RideCreate = memo(({...props}) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -53,22 +56,24 @@ const RideCreate = memo(({...props}) => {
         });
     }, [rideData]);
 
-    const handleSetLocation = useCallback(async (latitude, longitude) => {
+    const handleSetLocation = useCallback(async ({latlng}) => {
+        const {x: lng, y: lat} = latlng;
+
         try {
-            const lnglat = `${longitude},${latitude}`;
+            const lnglat = `${lng},${lat}`;
             const options = {
                 params: {
                     lnglat: lnglat
                 }
             };
             const response = await getReverseGeocode(options);
+            const {success} = response;
 
-            if (response.success) {
-                const data = response.data.results[0].region;
-                const {area1, area2, area3} = data;
+            if (success) {
+                const {area1, area2, area3} = response.data.results[0].region;
                 const newRideData = {
-                    latitude: latitude,
-                    longitude: longitude,
+                    latitude: lat,
+                    longitude: lng,
                     address: `${area1.name} ${area2.name} ${area3.name}`,
                     locality: area1.name,
                     sublocality1: area2.name,
@@ -123,16 +128,15 @@ const RideCreate = memo(({...props}) => {
     }, [isLoading, rideData]);
 
     return (
-        <PageTemplate Header={Header}
-                      Aside={Aside}>
-            <section>
+        <PageTemplate>
+            <StyledSection>
                 <RideForm formType={formType}
                           rideData={rideData}
                           onSubmit={handleSubmit}
                           setRideData={setRideData}
                           setFile={handleSetFile}
                           setLocation={handleSetLocation}/>
-            </section>
+            </StyledSection>
         </PageTemplate>
     );
 });

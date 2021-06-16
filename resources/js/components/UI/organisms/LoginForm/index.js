@@ -32,7 +32,7 @@ const LoginForm = memo(({onSubmit, email, setEmail, password, setPassword}) => {
                                  name: 'email',
                                  defaultValue: email,
                                  placeholder: '이메일을 입력해주세요.',
-                                 onChange: setEmail
+                                 onChange: event => setEmail(event.target.value)
                              }}/>
 
             <LabelInput isRequired={true}
@@ -44,7 +44,7 @@ const LoginForm = memo(({onSubmit, email, setEmail, password, setPassword}) => {
                                  name: 'password',
                                  defaultValue: password,
                                  placeholder: '비밀번호를 입력해주세요.',
-                                 onChange: setPassword
+                                 onChange: event => setPassword(event.target.value)
                              }}/>
 
             <ButtonWrapper>

@@ -7,17 +7,25 @@ import FileUpload from "@components/UI/molecules/FileUpload";
 import Map from "@components/UI/atoms/Map";
 import Input from "@components/UI/atoms/Input";
 import SelectBox from "@components/UI/atoms/SelectBox";
-import {timeOptions, difficultyOptions, altitudeOptions} from "@/utils/option";
 import color from "@/constant/color";
+import {timeOptions, difficultyOptions, altitudeOptions} from "@/utils/option";
 
 const dateFormat = 'y-MM-dd';
+
+const AddressInput = styled(Input)`
+    margin-bottom: 12px;
+`;
 
 const StyledFullSelectBox = styled(SelectBox)`
     width: 100%;
     height: 45px;
+    margin-top: 8px;
 `;
 
-const StyledAltitudeGroup = styled(FormGroup)`
+const StyledAltitudeGroup = styled.div`
+    overflow: hidden;
+    margin-top: 8px;
+
     select {
         float: left;
         width: 135px;
@@ -28,6 +36,8 @@ const StyledAltitudeGroup = styled(FormGroup)`
     input {
         float: left;
         width: calc(100% - 145px);
+        height: 45px;
+        line-height: 20px;
     }
 `;
 
@@ -40,7 +50,7 @@ const StyledSubmitInput = styled(Input)`
     display: block;
     margin: 0 auto;
     border: 0;
-    background: ${color.borderColor};
+    background: ${color.pageColor};
     line-height: 40px;
     color: ${color.white};
     cursor: pointer;
@@ -168,24 +178,26 @@ const RideForm = memo(({
                        labelProps={{
                            children: '장소'
                        }}>
-                <Input type="text"
-                       name="address"
-                       defaultValue={address}
-                       placeholder="장소를 지도에 표시해주세요"
-                       readOnly
-                       onChange={handleSetRideData}/>
+                <AddressInput type="text"
+                              name="address"
+                              defaultValue={address}
+                              placeholder="장소를 지도에 표시해주세요"
+                              readOnly
+                              onChange={handleSetRideData}/>
 
-                <Map mapOptions={{
-                    center: {
+                <Map
+                    mapOptions={{
+                        center: {
+                            lat: latitude,
+                            lng: longitude
+                        },
+                        zoom: 13,
+                        onClick: setLocation
+                    }}
+                    markers={[{
                         lat: latitude,
                         lng: longitude
-                    },
-                    markers: {
-                        lat: latitude,
-                        lng: longitude
-                    },
-                    setLocation: setLocation
-                }}/>
+                    }]}/>
 
                 <Input type="text"
                        name="address_detail"
@@ -210,8 +222,8 @@ const RideForm = memo(({
                        }}>
                 <StyledFullSelectBox name="difficulty"
                                      defaultValue={difficulty}
-                                     options={difficultyOptions}
-                                     onChange={handleSetRideData}/>
+                                     onChange={handleSetRideData}
+                                     children={difficultyOptions}/>
             </FormGroup>
 
             <LabelInput isRequired={true}
@@ -238,21 +250,23 @@ const RideForm = memo(({
                             onChange: handleSetRideData
                         }}/>
 
-            <StyledAltitudeGroup isRequired={true}
-                                 labelProps={{
-                                     children: '고도'
-                                 }}>
-                <SelectBox name="altitude"
-                           defaultValue={altitude}
-                           options={altitudeOptions}
-                           onChange={handleSetRideData}/>
+            <FormGroup isRequired={true}
+                       labelProps={{
+                           children: '고도'
+                       }}>
+                <StyledAltitudeGroup>
+                    <SelectBox name="altitude"
+                               defaultValue={altitude}
+                               children={altitudeOptions}
+                               onChange={handleSetRideData}/>
 
-                <Input type="number"
-                       name="altitude_detail"
-                       defaultValue={altitude_detail}
-                       placeholder="숫자만 입력해 주세요"
-                       onChange={handleSetRideData}/>
-            </StyledAltitudeGroup>
+                    <Input type="number"
+                           name="altitude_detail"
+                           defaultValue={altitude_detail}
+                           placeholder="숫자만 입력해 주세요"
+                           onChange={handleSetRideData}/>
+                </StyledAltitudeGroup>
+            </FormGroup>
 
             <ButtonWrapper>
                 <StyledSubmitInput type="submit"

@@ -13,6 +13,7 @@ const StyledNav = styled.nav`
     z-index: 1000;
     width: 100%;
     height: 45px;
+    background: ${color.white};
     border-top: 1px solid ${color.borderColor};
 `;
 

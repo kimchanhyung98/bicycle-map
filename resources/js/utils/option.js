@@ -1,6 +1,6 @@
-import { formatDigit } from '@/utils/dateFormat';
+import {formatDigit} from "@/utils/dateFormat";
 
-export function timeOptions() {
+const timeOptions = (() => {
     let options = [];
 
     for (let i = 0; i < 24; i++) {
@@ -16,9 +16,9 @@ export function timeOptions() {
     }
 
     return options;
-}
+})();
 
-export function difficultyOptions() {
+const difficultyOptions = (() => {
     let options = [
         {
             value: 'beginner',
@@ -35,10 +35,9 @@ export function difficultyOptions() {
     ];
 
     return options;
-}
+})();
 
-
-export function altitudeOptions() {
+const altitudeOptions = (() => {
     let options = [
         {
             value: 'flat',
@@ -55,4 +54,10 @@ export function altitudeOptions() {
     ];
 
     return options;
-}
+})();
+
+export {
+    timeOptions,
+    difficultyOptions,
+    altitudeOptions
+};
