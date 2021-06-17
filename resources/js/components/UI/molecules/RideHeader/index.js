@@ -18,8 +18,25 @@ const StyledHeading = styled(Heading)`
     font-weight: bold;
     font-size: ${font.sizeLarge};
     line-height: 30px;
-    color: ${color.red};
+    color: ${color.pageColor};
     text-align: left;
+`;
+
+const StyledDifficulty = styled(Span)`
+    display: block;
+    float: right;
+    width: auto;
+    height: 30px;
+    margin-right: -1px;
+    padding: 0 10px;
+    border-radius: 5px 0 0 5px;
+    background: ${color.blue};
+    font-size: ${font.sizeSmall};
+    line-height: 30px;
+    color: ${color.white};
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
 `;
 
 const RideHeader = memo(({level, name, difficulty}) => {
@@ -29,7 +46,7 @@ const RideHeader = memo(({level, name, difficulty}) => {
                 {name}
             </StyledHeading>
 
-            <Span>{formatDifficulty(difficulty)}</Span>
+            <StyledDifficulty>{formatDifficulty(difficulty)}</StyledDifficulty>
         </StyledRideHeader>
     );
 });

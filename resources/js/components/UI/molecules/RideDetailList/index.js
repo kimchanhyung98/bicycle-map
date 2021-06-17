@@ -33,7 +33,7 @@ const StyledDistance = styled.p`
 `;
 
 const RideDetailList = memo(({detailItems}) => {
-    const lists = detailItems.maps(item => {
+    const lists = detailItems.map(item => {
         const {name, value} = item;
         return (
             <StyledItem>

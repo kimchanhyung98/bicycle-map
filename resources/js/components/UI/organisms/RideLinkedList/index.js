@@ -29,7 +29,7 @@ const StyledEmptyList = styled(StyledRideItem)`
 `;
 
 const RideLinkedList = memo(({rides}) => {
-    let lists = rides.map((ride) => {
+    let lists = rides.map(ride => {
         const {
             id,
             name,
@@ -56,7 +56,7 @@ const RideLinkedList = memo(({rides}) => {
             },
             {
                 name: '장소',
-                value: `${address} ${address_detail}`
+                value: `${address} ${address_detail || ''}`
             }
         ];
 
