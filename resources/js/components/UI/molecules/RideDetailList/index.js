@@ -36,7 +36,7 @@ const RideDetailList = memo(({detailItems}) => {
     const lists = detailItems.map(item => {
         const {name, value} = item;
         return (
-            <StyledItem>
+            <StyledItem key={value}>
                 <StyledName>{name}</StyledName>
                 <StyledDistance>{value}</StyledDistance>
             </StyledItem>

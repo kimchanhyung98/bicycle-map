@@ -36,7 +36,7 @@ const RideDetail = memo(({...props}) => {
             const response = await getRideData(options);
 
             if (response.success) {
-                const {ride, participants_count} = response;
+                const {ride, participants_count} = response.data.data;
                 setRideData({
                     ...ride
                 });
@@ -55,7 +55,7 @@ const RideDetail = memo(({...props}) => {
 
         setIsLoading(true);
         try {
-            const user_id = user.user.id;
+            const user_id = user.info.id;
             const options = {
                 data: {
                     user_id: user_id,
@@ -76,14 +76,14 @@ const RideDetail = memo(({...props}) => {
             alert('오류');
             setIsLoading(false);
         }
-    }, [isLoading, participantsCount]);
+    }, [props.user, isLoading, participantsCount]);
 
     useEffect(() => {
         getData();
     }, []);
 
     return (
-        <PageTemplate>
+        <PageTemplate padding="0 0 20px">
             <section>
                 <Map mapOptions={{
                     height: '360px',
@@ -92,12 +92,12 @@ const RideDetail = memo(({...props}) => {
                     center: {
                         lat: rideData.latitude,
                         lng: rideData.longitude
-                    },
-                    markers: {
-                        lat: rideData.latitude,
-                        lng: rideData.longitude
                     }
-                }}/>
+                }}
+                     markers={[{
+                         lat: rideData.latitude,
+                         lng: rideData.longitude
+                     }]}/>
             </section>
 
             <StyledMainSection>

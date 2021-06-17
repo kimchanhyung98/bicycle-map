@@ -31,12 +31,12 @@ const StyledRideDescription = styled.p`
 `;
 
 const StyledRideCapacity = styled(RideContentGroup)`
-    > div {
+    div {
         float: left;
         margin-right: 12px;
     }
 
-    > div::before {
+    div::before {
         float: right;
         width: 1px;
         height: 12px;
@@ -45,7 +45,25 @@ const StyledRideCapacity = styled(RideContentGroup)`
         content: '';
     }
 
-    > div:last-child::before {
+    div:last-child::before {
+        display: none;
+    }
+`;
+
+const RideCapacityDiv = styled.div`
+    float: left;
+    margin-right: 12px;
+
+    &::before {
+        float: right;
+        width: 1px;
+        height: 12px;
+        margin: 1px 0 0 12px;
+        background: ${color.gray};
+        content: '';
+    }
+
+    &:last-child::before {
         display: none;
     }
 `;
@@ -68,6 +86,7 @@ const ButtonWrapper = styled.div`
 `;
 
 const StyledAttendButton = styled(Button)`
+    display: block;
     width: auto;
     height: 40px;
     margin: 0 auto;
@@ -148,34 +167,34 @@ const RideContent = memo(({rideData, participantsCount, onSubmit}) => {
                     </RideContentGroupItem>
                     }
                 </RideContentGroup>
+
+                {file &&
+                <RideContentGroup>
+                    <Map id={'gpx-map'}
+                         width={'100%'}
+                         height={'360px'}
+                         disabled={true}
+                         zoom={14}
+                         gpx={file}/>
+
+                    <DownloadButton href={file.path}
+                                    download>
+                        GPX파일 다운로드
+                    </DownloadButton>
+                </RideContentGroup>
+                }
+
+                <RideContentGroup>
+                    <StyledRideDescription>
+                        {description}
+                    </StyledRideDescription>
+                </RideContentGroup>
+
+                <StyledRideCapacity>
+                    <RideCapacityDiv>정원 {capacity}명</RideCapacityDiv>
+                    <RideCapacityDiv>현재 {participantsCount}명 참석</RideCapacityDiv>
+                </StyledRideCapacity>
             </StyledContentWrapper>
-
-            {file &&
-            <RideContentGroup>
-                <Map id={'gpx-map'}
-                     width={'100%'}
-                     height={'360px'}
-                     disabled={true}
-                     zoom={14}
-                     gpx={file}/>
-
-                <DownloadButton href={file.path}
-                                download>
-                    GPX파일 다운로드
-                </DownloadButton>
-            </RideContentGroup>
-            }
-
-            <RideContentGroup>
-                <StyledRideDescription>
-                    {description}
-                </StyledRideDescription>
-            </RideContentGroup>
-
-            <StyledRideCapacity>
-                <div>정원 {capacity}명</div>
-                <div>현재 {participantsCount}명 참석</div>
-            </StyledRideCapacity>
 
             <ButtonWrapper>
                 <StyledAttendButton type="button"

@@ -7,14 +7,19 @@ import storage from "@/utils/storage";
 import Header from "@components/UI/organisms/Header";
 import Navigation from "@components/UI/organisms/Navigation";
 
+const StyledSection = styled.section`
+    padding-bottom: 45px;
+`;
+
 const StyledMain = styled.main`
     margin-top: 45px;
-    padding: 20px 20px 45px;
+    padding: ${props => props.padding};
 `;
 
 const PageTemplate = memo(({
     Header: HeaderComponent,
     Navigation: NavComponent,
+    padding = '20px',
     children,
     ...props
 }) => {
@@ -33,14 +38,14 @@ const PageTemplate = memo(({
     }, []);
 
     return (
-        <section>
+        <StyledSection>
             {HeaderComponent || <Header/>}
             {NavComponent || <Navigation/>}
 
-            <StyledMain>
+            <StyledMain padding={padding}>
                 {children}
             </StyledMain>
-        </section>
+        </StyledSection>
     );
 });
 
