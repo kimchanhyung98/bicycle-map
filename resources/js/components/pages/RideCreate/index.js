@@ -1,17 +1,11 @@
 import React, {memo, useCallback, useState} from "react";
-import styled from "styled-components";
 import PageTemplate from "@components/templates/PageTemplate";
 import RideForm from "@components/UI/organisms/RideForm";
 import {formatDate} from '@/utils/dateFormat';
-
 import {getReverseGeocode} from "@/api/mapApi";
 import {rideCreate} from "@/api/rideApi";
 
 const formType = 'create';
-
-const StyledSection = styled.section`
-    padding-bottom: 20px;
-`;
 
 const RideCreate = memo(({...props}) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -129,14 +123,14 @@ const RideCreate = memo(({...props}) => {
 
     return (
         <PageTemplate>
-            <StyledSection>
+            <section>
                 <RideForm formType={formType}
                           rideData={rideData}
                           onSubmit={handleSubmit}
                           setRideData={setRideData}
                           setFile={handleSetFile}
                           setLocation={handleSetLocation}/>
-            </StyledSection>
+            </section>
         </PageTemplate>
     );
 });

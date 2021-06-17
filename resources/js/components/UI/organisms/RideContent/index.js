@@ -69,16 +69,18 @@ const RideCapacityDiv = styled.div`
 `;
 
 const DownloadButton = styled.a`
+    display: block;
     width: 100%;
     height: 40px;
     margin: 10px auto 0;
     padding: 0 20px;
-    border: 1px solid ${color.pageColor};
-    background: ${color.white};
+    background: ${color.pageColor};
     font-size: ${font.sizeBase};
     line-height: 40px;
-    color: ${color.pageColor};
+    color: ${color.white};
     text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
 `;
 
 const ButtonWrapper = styled.div`
@@ -170,12 +172,14 @@ const RideContent = memo(({rideData, participantsCount, onSubmit}) => {
 
                 {file &&
                 <RideContentGroup>
-                    <Map id={'gpx-map'}
-                         width={'100%'}
-                         height={'360px'}
-                         disabled={true}
-                         zoom={14}
-                         gpx={file}/>
+                    <Map mapOptions={{
+                        id: 'gpx-map',
+                        width: '100%',
+                        height: '360px',
+                        disabled: true,
+                        zoom: 14,
+                        gpx: file
+                    }}/>
 
                     <DownloadButton href={file.path}
                                     download>

@@ -1,10 +1,7 @@
 import React, {memo, useCallback, useEffect, useState} from "react";
 import PageTemplate from "@components/templates/PageTemplate";
-import Header from "@components/UI/organisms/Header";
-import Aside from "@components/UI/organisms/Aside";
 import RideForm from "@components/UI/organisms/RideForm";
 import {formatDate, formatNaturalDate, getTime} from '@/utils/dateFormat';
-
 import {getReverseGeocode} from "@/api/mapApi";
 import {getRideEditData, rideUpdate} from "@/api/rideApi";
 
@@ -22,10 +19,10 @@ const RideEdit = memo(({...props}) => {
         description: '',
         started_at: '',
         ended_at: '',
-        start_date: new Date(),
-        start_time: '00:00',
-        end_date: new Date(),
-        end_time: '00:00',
+        start_date: '',
+        start_time: '',
+        end_date: '',
+        end_time: '',
         address: '',
         address_detail: '',
         locality: '',
@@ -54,22 +51,24 @@ const RideEdit = memo(({...props}) => {
         });
     }, [rideData]);
 
-    const handleSetLocation = useCallback(async (latitude, longitude) => {
+    const handleSetLocation = useCallback(async ({latlng}) => {
+        const {x: lng, y: lat} = latlng;
+
         try {
-            const lnglat = `${longitude},${latitude}`;
+            const lnglat = `${lng},${lat}`;
             const options = {
                 params: {
                     lnglat: lnglat
                 }
             };
             const response = await getReverseGeocode(options);
+            const {success} = response;
 
-            if (response.success) {
-                const data = response.data.results[0].region;
-                const {area1, area2, area3} = data;
+            if (success) {
+                const {area1, area2, area3} = response.data.results[0].region;
                 const newRideData = {
-                    latitude: latitude,
-                    longitude: longitude,
+                    latitude: lat,
+                    longitude: lng,
                     address: `${area1.name} ${area2.name} ${area3.name}`,
                     locality: area1.name,
                     sublocality1: area2.name,
@@ -94,7 +93,6 @@ const RideEdit = memo(({...props}) => {
         event.preventDefault();
 
         if (isLoading) return false;
-
         setIsLoading(true);
 
         try {
@@ -112,9 +110,9 @@ const RideEdit = memo(({...props}) => {
             const response = await rideUpdate(options);
 
             if (response.success) {
-                const {message} = response.data;
+                const {ride_id, message} = response.data;
                 alert(message);
-                props.history.push(`/ride/${id}`);
+                props.history.push(`/ride/${ride_id}`);
             } else {
                 throw response;
             }
@@ -133,13 +131,14 @@ const RideEdit = memo(({...props}) => {
 
             if (response.success) {
                 const rideData = response.data.ride;
-                const {started_at, ended_at} = rideData;
+                const {started_at, ended_at, file} = rideData;
                 const newRideData = {
                     ...rideData,
-                    started_date: formatNaturalDate(started_at),
-                    started_time: getTime(started_at),
-                    ended_date: formatNaturalDate(ended_at),
-                    ended_time: getTime(ended_at)
+                    start_date: formatNaturalDate(started_at),
+                    start_time: getTime(started_at),
+                    end_date: formatNaturalDate(ended_at),
+                    end_time: getTime(ended_at),
+                    file: file || {}
                 };
 
                 setRideData(prevRideData => {
@@ -154,15 +153,14 @@ const RideEdit = memo(({...props}) => {
         } catch (err) {
             alert('오류');
         }
-    }, [rideData]);
+    }, [id, rideData]);
 
     useEffect(() => {
         getData();
     }, []);
 
     return (
-        <PageTemplate Header={Header}
-                      Aside={Aside}>
+        <PageTemplate>
             <section>
                 <RideForm formType={formType}
                           rideData={rideData}

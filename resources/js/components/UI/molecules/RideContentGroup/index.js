@@ -6,7 +6,7 @@ import font from "@/constant/font";
 const Styles = css`
     overflow: hidden;
     margin-top: 16px;
-    padding: 0 8px 16px;
+    padding: 0 0 16px;
     border-bottom: 1px solid ${color.gray600};
 `;
 
