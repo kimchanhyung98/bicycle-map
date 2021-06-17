@@ -222,7 +222,7 @@ const RideForm = memo(({
                            children: '난이도'
                        }}>
                 <StyledFullSelectBox name="difficulty"
-                                     defaultValue={difficulty}
+                                     value={difficulty}
                                      onChange={handleSetRideData}
                                      children={difficultyOptions}/>
             </FormGroup>
@@ -257,7 +257,7 @@ const RideForm = memo(({
                        }}>
                 <StyledAltitudeGroup>
                     <SelectBox name="altitude"
-                               defaultValue={altitude}
+                               value={altitude}
                                children={altitudeOptions}
                                onChange={handleSetRideData}/>
 
