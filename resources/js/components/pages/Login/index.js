@@ -8,7 +8,7 @@ import LoginForm from "@components/UI/organisms/LoginForm";
 import Heading from "@components/UI/atoms/Heading";
 
 const StyledHeading = styled(Heading)`
-    margin-top: 10px;
+    margin: 10px 0 15px;
     font-weight: bold;
     font-size: 20px;
 `;

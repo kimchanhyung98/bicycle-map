@@ -7,7 +7,7 @@ import RegisterForm from "@components/UI/organisms/RegisterForm";
 import {registerApi} from "@/api/userApi";
 
 const StyledHeading = styled(Heading)`
-    margin-top: 10px;
+    margin: 10px 0 15px;
     font-weight: bold;
     font-size: 20px;
 `;
