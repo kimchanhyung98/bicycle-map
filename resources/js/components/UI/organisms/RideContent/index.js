@@ -1,4 +1,5 @@
 import React, {memo} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import RideContentHeader from "@components/UI/molecules/RideContentHeader";
 import RideContentGroup from "@components/UI/molecules/RideContentGroup";
@@ -209,5 +210,11 @@ const RideContent = memo(({rideData, participantsCount, onSubmit}) => {
         </>
     );
 });
+
+RideContent.propTypes = {
+    rideData: PropTypes.object.isRequired,
+    participantsCount: PropTypes.number.isRequired,
+    onSubmit: PropTypes.func.isRequired
+};
 
 export default RideContent;

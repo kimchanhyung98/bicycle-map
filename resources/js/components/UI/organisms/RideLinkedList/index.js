@@ -1,4 +1,5 @@
 import React, {memo} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 import List from "@components/UI/atoms/List";
@@ -90,5 +91,9 @@ const RideLinkedList = memo(({rides}) => {
         </List>
     );
 });
+
+RideLinkedList.propTypes ={
+    rides: PropTypes.array
+};
 
 export default RideLinkedList;

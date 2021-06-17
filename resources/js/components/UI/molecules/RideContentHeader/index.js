@@ -30,4 +30,8 @@ const RideContentHeader = memo(({children}) => {
     );
 });
 
+RideContentHeader.defalutProps = {
+    children: ''
+};
+
 export default RideContentHeader;

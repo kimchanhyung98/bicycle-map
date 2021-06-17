@@ -1,4 +1,5 @@
 import React, {memo} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import color from "@/constant/color";
 import font from "@/constant/font";
@@ -33,5 +34,15 @@ const SelectBox = memo(({
         </StyledSelectBox>
     );
 });
+
+SelectBox.defaultProps = {
+    value: '',
+    children: ''
+};
+
+SelectBox.propTypes = {
+    onChange: PropTypes.func,
+    children: PropTypes.any
+};
 
 export default SelectBox;

@@ -14,4 +14,8 @@ const Label = memo(({children, ...props}) => {
     );
 });
 
+Label.defaultProps = {
+    children: ''
+};
+
 export default Label;

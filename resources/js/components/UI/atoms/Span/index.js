@@ -15,4 +15,8 @@ const Span = memo(({children, ...props}) => {
     );
 });
 
+Span.defaultProps = {
+    children: ''
+};
+
 export default Span;

@@ -1,4 +1,5 @@
 import React, {memo, useCallback, useEffect} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import {connect} from "react-redux";
 import {loginSuccess} from "@/actions/user";
@@ -39,8 +40,8 @@ const PageTemplate = memo(({
 
     return (
         <StyledSection>
-            {HeaderComponent || <Header/>}
-            {NavComponent || <Navigation/>}
+            <HeaderComponent/>
+            <NavComponent/>
 
             <StyledMain padding={padding}>
                 {children}
@@ -48,5 +49,16 @@ const PageTemplate = memo(({
         </StyledSection>
     );
 });
+
+PageTemplate.defaultProps = {
+    Header: Header,
+    Navigation: Navigation,
+    padding: '20px'
+};
+
+PageTemplate.propTypes = {
+    Header: PropTypes.any,
+    Navigation: PropTypes.any
+};
 
 export default connect()(PageTemplate);

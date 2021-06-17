@@ -1,4 +1,5 @@
 import React, {memo} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import Label from "@components/UI/atoms/Label";
 import color from "@/constant/color";
@@ -54,5 +55,9 @@ const FormGroup = memo(({isRequired, labelProps, children}) => {
         </StyledFormGroup>
     );
 });
+
+FormGroup.propTypes = {
+    labelProps: PropTypes.object
+};
 
 export default FormGroup;

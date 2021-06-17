@@ -1,4 +1,5 @@
 import React, {memo, useCallback} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import LabelInput from "@components/UI/molecules/LabelInput";
 import FormGroup from "@components/UI/molecules/FormGroup";
@@ -59,10 +60,10 @@ const StyledSubmitInput = styled(Input)`
 const RideForm = memo(({
     formType,
     rideData,
-    onSubmit,
     setRideData,
     setFile,
-    setLocation
+    setLocation,
+    onSubmit
 }) => {
     const {
         name,
@@ -275,5 +276,14 @@ const RideForm = memo(({
         </form>
     );
 });
+
+RideForm.propTypes = {
+    formType: PropTypes.string,
+    rideData: PropTypes.object.isRequired,
+    setRideData: PropTypes.func.isRequired,
+    setFile: PropTypes.func.isRequired,
+    setLocation: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired
+};
 
 export default RideForm;

@@ -1,4 +1,5 @@
 import React, {memo} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import Label from "@components/UI/atoms/Label";
 import Input from "@components/UI/atoms/Input";
@@ -55,5 +56,10 @@ const LabelInput = memo(({isRequired, labelProps, inputProps}) => {
         </StyledLabelInput>
     );
 });
+
+LabelInput.propTypes = {
+    labelProps: PropTypes.object,
+    inputProps: PropTypes.object
+};
 
 export default LabelInput;

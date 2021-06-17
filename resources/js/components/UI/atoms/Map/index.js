@@ -1,4 +1,5 @@
 import React, {memo, useCallback, useEffect} from "react";
+import PropTypes from "prop-types";
 import {RenderAfterNavermapsLoaded, NaverMap, Marker} from "react-naver-maps";
 
 const NAVER_API_KEY = env.NCLOUD_CLIENT_ID;
@@ -64,5 +65,10 @@ const Map = memo(({
         </RenderAfterNavermapsLoaded>
     );
 });
+
+Map.propTypes = {
+    mapOptions: PropTypes.object,
+    markers: PropTypes.array
+};
 
 export default Map;

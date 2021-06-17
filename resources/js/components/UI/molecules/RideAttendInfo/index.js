@@ -28,4 +28,8 @@ const RideAttendInfo = memo(({children, ...props}) => {
     );
 });
 
+RideAttendInfo.defaultProps = {
+    children: ''
+};
+
 export default RideAttendInfo;

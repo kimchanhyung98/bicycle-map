@@ -1,4 +1,5 @@
 import React, {memo, useCallback, useEffect} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import {connect} from "react-redux";
 import {loginSuccess} from "@/actions/user";
@@ -36,8 +37,8 @@ const MyPageTemplate = memo(({
 
     return (
         <section>
-            {HeaderComponent || <Header/>}
-            {NavComponent || <Navigation/>}
+            <HeaderComponent/>
+            <NavComponent/>
 
             <StyledMain>
                 <MyPageHeader />
@@ -47,5 +48,15 @@ const MyPageTemplate = memo(({
         </section>
     );
 });
+
+MyPageTemplate.defaultProps = {
+    Header: Header,
+    Navigation: Navigation
+};
+
+MyPageTemplate.propTypes = {
+    Header: PropTypes.any,
+    Navigation: PropTypes.any
+};
 
 export default connect()(MyPageTemplate);

@@ -1,4 +1,5 @@
 import React, {memo} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import List from "@components/UI/atoms/List";
 import font from "@/constant/font";
@@ -49,5 +50,9 @@ const RideDetailList = memo(({detailItems}) => {
         </StyledList>
     );
 });
+
+RideDetailList.propTypes = {
+    detailItems: PropTypes.array.isRequired
+};
 
 export default RideDetailList;

@@ -1,4 +1,5 @@
 import React, {memo} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import Heading from "@components/UI/atoms/Heading";
 import Span from "@components/UI/atoms/Span";
@@ -50,5 +51,17 @@ const RideHeader = memo(({level, name, difficulty}) => {
         </StyledRideHeader>
     );
 });
+
+RideHeader.defaultProps = {
+    difficulty: ''
+};
+
+RideHeader.propTypes = {
+    level: PropTypes.oneOfType([
+        PropTypes.number.isRequired,
+        PropTypes.oneOf([1, 2, 3, 4, 5, 6])
+    ]),
+    name: PropTypes.string.isRequired
+};
 
 export default RideHeader;

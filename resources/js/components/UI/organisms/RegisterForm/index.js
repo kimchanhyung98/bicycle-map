@@ -1,4 +1,5 @@
 import React, {memo} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import LabelInput from "@components/UI/molecules/LabelInput";
 import Input from "@components/UI/atoms/Input";
@@ -102,5 +103,19 @@ const RegisterForm = memo(({
         </form>
     );
 });
+
+RegisterForm.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    name: PropTypes.string.isRequired,
+    setName: PropTypes.func.isRequired,
+    email: PropTypes.string.isRequired,
+    setEmail: PropTypes.func.isRequired,
+    phone: PropTypes.string.isRequired,
+    setPhone: PropTypes.func.isRequired,
+    password: PropTypes.string.isRequired,
+    setPassword: PropTypes.func.isRequired,
+    pwConfirm: PropTypes.string.isRequired,
+    setPwConfirm: PropTypes.func.isRequired
+};
 
 export default RegisterForm;

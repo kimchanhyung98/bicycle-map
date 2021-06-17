@@ -1,4 +1,5 @@
 import React, {memo} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import Span from "@components/UI/atoms/Span";
 import color from "@/constant/color";
@@ -36,5 +37,18 @@ const RideContentGroupItem = memo(({title, children}) => {
         </StyledListItem>
     );
 });
+
+RideContentGroupItem.defaultProps = {
+    title: '',
+    children: ''
+};
+
+RideContentGroupItem.propTypes = {
+    title: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.element,
+        PropTypes.number
+    ])
+};
 
 export default RideContentGroupItem;

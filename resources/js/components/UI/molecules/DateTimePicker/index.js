@@ -1,4 +1,5 @@
 import React, {memo} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import DatePicker from "react-date-picker";
 import SelectBox from "@components/UI/atoms/SelectBox";
@@ -47,5 +48,10 @@ const DateTimePicker = memo(({
         </Wrapper>
     );
 });
+
+DateTimePicker.propTypes = {
+    datePickerProps: PropTypes.object.isRequired,
+    timePickerProps: PropTypes.object.isRequired
+};
 
 export default DateTimePicker;

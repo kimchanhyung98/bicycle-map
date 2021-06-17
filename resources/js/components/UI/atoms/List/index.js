@@ -12,4 +12,9 @@ const List = memo(({ordered, children, ...props}) => {
     return React.createElement(ordered ? Ol : Ul, props || null, children);
 });
 
+List.defaultProps = {
+    ordered: false,
+    children: ''
+};
+
 export default List;

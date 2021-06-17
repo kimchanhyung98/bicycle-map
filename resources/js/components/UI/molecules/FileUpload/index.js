@@ -1,9 +1,10 @@
 import React, {memo, useCallback} from "react";
-import axios from "axios";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import Input from "@components/UI/atoms/Input";
 import Label from "@components/UI/atoms/Label";
 import color from "@/constant/color";
+import request from "@/api/request";
 
 const FileWrapper = styled.div`
     overflow: hidden;
@@ -41,16 +42,23 @@ const FileUpload = memo(({
 }) => {
     const {name} = file;
 
-    const handleSubmit = useCallback((event) => {
+    const handleSubmit = useCallback(async (event) => {
         const formData = new FormData();
         formData.append('file', event.target.files[0]);
 
-        axios.post(url, formData).then(res => {
-            setFile(res.data.file);
+        try {
+            const options = {
+                method: 'post',
+                url: url,
+                data: formData
+            };
+            const response = await request(options);
+            const {file} = response.data;
+            setFile(file);
             alert('업로드 성공');
-        }).catch(() => {
+        } catch (err) {
             alert('업로드 실패');
-        });
+        }
     }, [setFile]);
 
     return (
@@ -67,5 +75,17 @@ const FileUpload = memo(({
         </FileWrapper>
     );
 });
+
+FileUpload.defaultProps = {
+    file: {
+        name: ''
+    },
+    placeholder: ''
+};
+
+FileUpload.propTypes = {
+    url: PropTypes.string.isRequired,
+    setFile: PropTypes.func.isRequired
+};
 
 export default FileUpload;

@@ -1,4 +1,5 @@
 import React, {memo} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import LabelInput from "@components/UI/molecules/LabelInput";
 import Input from "@components/UI/atoms/Input";
@@ -54,5 +55,13 @@ const LoginForm = memo(({onSubmit, email, setEmail, password, setPassword}) => {
         </form>
     );
 });
+
+LoginForm.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    email: PropTypes.string.isRequired,
+    setEmail: PropTypes.func.isRequired,
+    password: PropTypes.string.isRequired,
+    setPassword: PropTypes.func.isRequired
+};
 
 export default LoginForm;

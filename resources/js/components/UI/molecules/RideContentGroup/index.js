@@ -56,4 +56,8 @@ const RideContentGroup = memo(({type, children}) => {
     }
 });
 
+RideContentGroup.defaultProps = {
+    children: ''
+};
+
 export default RideContentGroup;

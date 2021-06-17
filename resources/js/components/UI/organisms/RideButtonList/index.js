@@ -1,4 +1,5 @@
 import React, {memo} from "react";
+import PropTypes from "prop-types";
 import styled, {css} from "styled-components";
 import List from "@components/UI/atoms/List";
 import RideHeader from "@components/UI/molecules/RideHeader";
@@ -119,5 +120,17 @@ const RideButtonList = memo(({type, rides, emptyMessage, rideDelete, rideCancel}
         </StyledList>
     );
 });
+
+RideButtonList.defaultProps = {
+    emptyMessage: '리스트가 없습니다.'
+};
+
+RideButtonList.propTypes = {
+    type: PropTypes.string.isRequired,
+    rides: PropTypes.array.isRequired,
+    emptyMessage: PropTypes.string,
+    rideDelete: PropTypes.func,
+    rideCancel: PropTypes.func
+};
 
 export default RideButtonList;
