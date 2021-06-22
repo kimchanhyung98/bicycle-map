@@ -32,7 +32,8 @@ const RegisterForm = memo(({
     password,
     setPassword,
     pwConfirm,
-    setPwConfirm
+    setPwConfirm,
+    buttonText
 }) => {
     return (
         <form onSubmit={onSubmit}>
@@ -98,7 +99,7 @@ const RegisterForm = memo(({
 
             <ButtonWrapper>
                 <StyledSubmitInput type="submit"
-                                   value="회원가입"/>
+                                   value={buttonText || '확인'}/>
             </ButtonWrapper>
         </form>
     );

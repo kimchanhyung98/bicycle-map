@@ -64,8 +64,30 @@ const registerApi = async ({...options}) => {
     }
 };
 
+const userEditApiUrl = '/api/account';
+const userEditApi = async ({...options}) => {
+    try {
+        const response = await request({
+            method: 'put',
+            url: userEditApiUrl,
+            ...options
+        });
+
+        return {
+            success: true,
+            data: response
+        };
+    } catch (err) {
+        return {
+            success: false,
+            data: err
+        };
+    }
+};
+
 export {
     getUserStatus,
     loginApi,
-    registerApi
+    registerApi,
+    userEditApi
 };

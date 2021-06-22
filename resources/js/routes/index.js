@@ -8,6 +8,7 @@ import RideCreate from "@components/pages/RideCreate";
 import RideEdit from "@components/pages/RideEdit";
 import RideDetail from "@components/pages/RideDetail";
 import MyPage from "@components/pages/MyPage";
+import UserEdit from "@components/pages/UserEdit";
 
 const Routes = () => {
     return (
@@ -20,6 +21,7 @@ const Routes = () => {
                 <AuthRoute check={true} path='/ride/edit/:id' component={RideEdit}/>
                 <AuthRoute path='/ride/:id' component={RideDetail}/>
                 <AuthRoute check={true} path='/mypage' component={MyPage}/>
+                <AuthRoute check={true} path='/user/edit' component={UserEdit}/>
             </Switch>
         </BrowserRouter>
     );

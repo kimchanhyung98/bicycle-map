@@ -1,10 +1,13 @@
-import React, {memo, useCallback, useState} from "react";
+import React, {memo, useCallback, useEffect, useState} from "react";
 import styled from "styled-components";
 import PageTemplate from "@components/templates/PageTemplate";
 import Heading from "@components/UI/atoms/Heading";
 import RegisterForm from "@components/UI/organisms/RegisterForm";
 
-import {registerApi} from "@/api/userApi";
+import {userEditApi} from "@/api/userApi";
+import {compose} from "redux";
+import {withRouter} from "react-router-dom";
+import {connect} from "react-redux";
 
 const StyledHeading = styled(Heading)`
     margin: 10px 0 15px;
@@ -12,9 +15,15 @@ const StyledHeading = styled(Heading)`
     font-size: 20px;
 `;
 
-const buttonText = '회원가입';
+const buttonText = '내 정보 수정';
 
-const Register = memo(({...props}) => {
+const mapStateToProps = (state) => {
+    return {
+        ...state
+    };
+};
+
+const UserEdit = memo(({...props}) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
@@ -43,10 +52,10 @@ const Register = memo(({...props}) => {
                     password_confirmation: pwConfirm
                 }
             };
-            const response = await registerApi(options);
+            const response = await userEditApi(options);
 
             if (response.success) {
-                alert('회원가입 성공');
+                alert('회원정보 수정 성공');
                 props.history.push('/login');
             } else {
                 throw response;
@@ -57,6 +66,16 @@ const Register = memo(({...props}) => {
         }
 
     }, [name, email, phone, password, pwConfirm, isLoading]);
+
+    useEffect(() => {
+        const check = props.user.isLoggedIn;
+        if (check) {
+            const userInfo = props.user.info;
+            setName(userInfo.name);
+            setEmail(userInfo.email);
+            setPhone(userInfo.phone);
+        }
+    }, [props.user]);
 
     return (
         <PageTemplate>
@@ -74,10 +93,13 @@ const Register = memo(({...props}) => {
                               setPassword={setPassword}
                               pwConfirm={pwConfirm}
                               setPwConfirm={setPwConfirm}
-                              buttonText={buttonText}/>
+                              buttonText={buttonText} />
             </section>
         </PageTemplate>
     );
 });
 
-export default Register;
+export default compose(
+    withRouter,
+    connect(mapStateToProps)
+)(UserEdit);

@@ -1,8 +1,8 @@
 import React, {memo, useCallback} from "react";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import {compose} from "redux";
 import {connect} from "react-redux";
-import {withRouter} from "react-router-dom";
+import {withRouter, Link} from "react-router-dom";
 import Heading from "@components/UI/atoms/Heading";
 import Button from "@components/UI/atoms/Button";
 import font from "@/constant/font";
@@ -56,22 +56,30 @@ const NameHeading = styled(Heading)`
 `;
 
 const ButtonWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
     height: 28px;
     margin-top: 12px;
 `;
 
-const StyledButton = styled(Button)`
+const ButtonStyles = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100px;
+    width: auto;
     height: 100%;
+    margin-right: 8px;
+    padding: 0 8px;
     border-radius: 4px;
     background: ${color.pageColor};
-    font-weight: bold;
-    font-size: ${font.sizeBase};
+    font-weight: normal;
+    font-size: ${font.sizeSmall};
     color: ${color.white};
+    text-decoration: none;
 `;
+
+const StyledButton = styled(Button)`${ButtonStyles}`;
+const StyledLink = styled(Link)`${ButtonStyles}`;
 
 const mapStateToProps = (state) => {
     return {
@@ -104,6 +112,7 @@ const MyPageHeader = memo(({...props}) => {
 
                 <ButtonWrapper>
                     <StyledButton onClick={handleLogout}>로그아웃</StyledButton>
+                    <StyledLink to="/user/edit">내 정보 수정</StyledLink>
                 </ButtonWrapper>
             </StyledSection>
         </StyledHeader>
