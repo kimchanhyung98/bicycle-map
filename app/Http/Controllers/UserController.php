@@ -9,17 +9,6 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     /**
-     * 유저 상태
-     *
-     * @param Request $request
-     * @return mixed
-     */
-    public function index(Request $request)
-    {
-        return $request->user();
-    }
-
-    /**
      * 라이드 참가 상태
      *
      * @param Request $request

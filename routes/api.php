@@ -15,7 +15,9 @@ Route::post('register', [AuthController::class, 'register']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
         // 유저 상태
-        Route::get('/', [UserController::class, 'index']);
+        Route::get('/', [AuthController::class, 'index']);
+        // 로그아웃
+        Route::get('logout', [AuthController::class, 'logout']);
 
         // 라이드 참가 상태
         Route::get('participation', [UserController::class, 'participation'])->name('participation');

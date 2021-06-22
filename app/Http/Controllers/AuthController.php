@@ -3,12 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    /**
+     * 유저 상태
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function index(Request $request)
+    {
+        return $request->user();
+    }
+
+    /**
+     * 로그인
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -37,6 +55,28 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * 로그아웃
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+        // Auth::guard('web')->logout();
+
+        return response()->json([
+            'message' => 'logout'
+        ], 204);
+    }
+
+    /**
+     * 회원가입
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function register(Request $request)
     {
         $validatedData = $request->validate([
