@@ -1,8 +1,8 @@
 import React, {memo, useCallback} from "react";
 import styled, {css} from "styled-components";
 import {compose} from "redux";
-import {connect} from "react-redux";
-import {withRouter, Link} from "react-router-dom";
+import {connect, useDispatch} from "react-redux";
+import {withRouter, Link, useHistory} from "react-router-dom";
 import Heading from "@components/UI/atoms/Heading";
 import Button from "@components/UI/atoms/Button";
 import font from "@/constant/font";
@@ -88,15 +88,16 @@ const mapStateToProps = (state) => {
 };
 
 const MyPageHeader = memo(({...props}) => {
+    let history = useHistory();
+    const dispatch = useDispatch();
     const user = props.user.info;
     const {name} = user;
 
     const handleLogout = useCallback((event) => {
         event.preventDefault();
-        const {dispatch} = props;
         dispatch(logout());
-        alert('로그아웃 되었습니다.');
-        props.history.push('/');
+        alert('로그아웃 하셨습니다.');
+        history.push('/');
     }, []);
 
     return (
@@ -111,7 +112,7 @@ const MyPageHeader = memo(({...props}) => {
                 </NameWrapper>
 
                 <ButtonWrapper>
-                    <StyledButton onClick={handleLogout}>로그아웃</StyledButton>
+                    {/*<StyledButton onClick={handleLogout}>로그아웃</StyledButton>*/}
                     <StyledLink to="/user/edit">내 정보 수정</StyledLink>
                 </ButtonWrapper>
             </StyledSection>

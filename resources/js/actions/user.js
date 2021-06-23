@@ -1,5 +1,5 @@
 import storage from "@/utils/storage";
-import {loginApi, getUserStatus} from "@/api/userApi";
+import {loginApi, logoutApi, getUserStatus} from "@/api/userApi";
 
 export const LOGIN_NON = 'LOGIN_NON';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
@@ -29,6 +29,7 @@ export const login = (email, password) => {
                     dispatch(saveLoggedInfo());
                 } else {
                     storage.set('loggedToken', '');
+                    storage.set('loggedInfo', '');
                     alert('이메일 또는 비밀번호를 확인해주세요.');
                 }
             } else {
@@ -68,9 +69,21 @@ export const saveLoggedInfo = () => {
 };
 
 export const logout = () => {
-    return (dispatch) => {
-        storage.set('loggedToken', '');
-        dispatch(loginNon());
+    return async (dispatch) => {
+        try {
+            const response = await logoutApi();
+
+            if (response.success) {
+                storage.set('loggedToken', '');
+                storage.set('loggedInfo', '');
+                dispatch(loginNon());
+            } else {
+                throw response;
+            }
+
+        } catch (err) {
+            alert('오류');
+        }
     };
 };
 

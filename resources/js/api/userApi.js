@@ -85,9 +85,31 @@ const userEditApi = async ({...options}) => {
     }
 };
 
+const logoutApiUrl = '/api/user/logout';
+const logoutApi = async () => {
+    try {
+        const response = await request({
+            method: 'post',
+            url: logoutApiUrl
+        });
+        const {data} = response;
+
+        return {
+            success: true,
+            data: data
+        };
+    } catch (err) {
+        return {
+            success: false,
+            data: err
+        };
+    }
+};
+
 export {
     getUserStatus,
     loginApi,
     registerApi,
-    userEditApi
+    userEditApi,
+    logoutApi
 };
