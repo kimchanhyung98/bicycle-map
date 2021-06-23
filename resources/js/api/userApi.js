@@ -92,12 +92,17 @@ const logoutApi = async () => {
             method: 'get',
             url: logoutApiUrl
         });
-        const {data} = response;
 
-        return {
-            success: true,
-            data: data
-        };
+        if (!response.isAxiosError) {
+            const {data} = response;
+
+            return {
+                success: true,
+                data: data
+            };
+        } else {
+            throw response;
+        }
     } catch (err) {
         return {
             success: false,
