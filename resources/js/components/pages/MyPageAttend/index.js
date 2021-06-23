@@ -1,6 +1,5 @@
 import React, {memo, useCallback, useEffect, useState} from "react";
 import RideButtonList from "@components/UI/organisms/RideButtonList";
-
 import {getAttendRides, rideAttendCancel} from "@/api/rideAttendApi";
 
 const MyPageAttend = memo(() => {
@@ -59,7 +58,7 @@ const MyPageAttend = memo(() => {
             const response = await getAttendRides(options);
 
             if (response.success) {
-                const data = response.data.rides.data;
+                const data = response.data;
                 const newData = rides.concat(data);
 
                 if (data.length < 10) {

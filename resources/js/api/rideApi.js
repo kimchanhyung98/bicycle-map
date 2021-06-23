@@ -92,15 +92,13 @@ const rideUpdate = async ({...options}) => {
 
 };
 
-const rideDelete = async ({...options}) => {
-    const id = options.data.id;
+const rideDelete = async ({id}) => {
     const url = `/api/ride/${id}`;
 
     try {
         const response = await request({
             method: 'delete',
-            url: url,
-            ...options
+            url: url
         });
         const data = response.data;
 

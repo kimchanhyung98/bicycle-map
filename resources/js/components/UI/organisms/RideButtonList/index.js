@@ -6,6 +6,7 @@ import RideHeader from "@components/UI/molecules/RideHeader";
 import RideDetailList from "@components/UI/molecules/RideDetailList";
 import color from "@/constant/color";
 import {Link} from "react-router-dom";
+import font from "@/constant/font";
 
 const StyledList = styled(List)`
     margin-top: 20px;
@@ -46,8 +47,10 @@ const ButtonStyles = css`
     padding: 0 8px;
     border: 1px solid ${color.pageColor};
     background: ${color.white};
+    font-size: ${font.sizeSmall};
     line-height: 28px;
     color: ${color.pageColor};
+    text-decoration: none;
 `;
 
 const StyledLink = styled(Link)`${ButtonStyles}`;
@@ -79,7 +82,7 @@ const RideButtonList = memo(({type, rides, emptyMessage, rideDelete, rideCancel}
                 <StyledLink to={`/ride/${id}`}>바로가기</StyledLink>
                 <StyledLink to={`/ride/edit/${id}`}>수정하기</StyledLink>
                 <StyledButton type="button"
-                              onClick={rideDelete(id)}>
+                              onClick={() => rideDelete(id)}>
                     삭제하기
                 </StyledButton>
             </>;
@@ -87,7 +90,7 @@ const RideButtonList = memo(({type, rides, emptyMessage, rideDelete, rideCancel}
             buttons = <>
                 <StyledLink to={`/ride/${id}`}>바로가기</StyledLink>
                 <StyledButton type="button"
-                              onClick={rideCancel(id)}>
+                              onClick={() => rideCancel(id)}>
                     취소하기
                 </StyledButton>
             </>;

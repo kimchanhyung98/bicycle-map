@@ -31,7 +31,7 @@ const getCreateList = async ({...options}) => {
             url: getCreateListUrl,
             ...options
         });
-        const data = response.data;
+        const data = response.data.rides.data;
 
         return {
             success: true,

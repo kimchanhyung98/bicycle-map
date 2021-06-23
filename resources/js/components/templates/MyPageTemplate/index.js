@@ -15,9 +15,14 @@ const StyledMain = styled.main`
     padding-bottom: 45px;
 `;
 
+const StyledWrapper = styled.div`
+    padding: ${props => props.padding};
+`;
+
 const MyPageTemplate = memo(({
     Header: HeaderComponent,
     Navigation: NavComponent,
+    padding = '0 20px',
     children,
     ...props
 }) => {
@@ -43,7 +48,10 @@ const MyPageTemplate = memo(({
             <StyledMain>
                 <MyPageHeader />
                 <MyPageNavigation />
-                {children}
+
+                <StyledWrapper padding={padding}>
+                    {children}
+                </StyledWrapper>
             </StyledMain>
         </section>
     );
@@ -51,7 +59,8 @@ const MyPageTemplate = memo(({
 
 MyPageTemplate.defaultProps = {
     Header: Header,
-    Navigation: Navigation
+    Navigation: Navigation,
+    padding: '0 20px'
 };
 
 MyPageTemplate.propTypes = {

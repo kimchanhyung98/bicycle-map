@@ -24,12 +24,9 @@ const MyPageManage = memo(() => {
         setIsEnd(true);
 
         try {
-            const options = {
-                data: {
-                    ride_id: id
-                }
-            };
-            const response = await rideDelete(options);
+            const response = await rideDelete({
+                id: id
+            });
 
             if (response.success) {
                 const newData = [...rides].filter(ride => {
@@ -60,7 +57,7 @@ const MyPageManage = memo(() => {
             const response = await getCreateList(options);
 
             if (response.success) {
-                const data = response.data.rides.data;
+                const data = response.data;
                 const newData = rides.concat(data);
 
                 if (data.length < 10) {
