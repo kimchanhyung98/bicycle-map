@@ -112,7 +112,7 @@ const MyPageHeader = memo(({...props}) => {
                 </NameWrapper>
 
                 <ButtonWrapper>
-                    {/*<StyledButton onClick={handleLogout}>로그아웃</StyledButton>*/}
+                    <StyledButton onClick={handleLogout}>로그아웃</StyledButton>
                     <StyledLink to="/user/edit">내 정보 수정</StyledLink>
                 </ButtonWrapper>
             </StyledSection>
