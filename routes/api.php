@@ -20,29 +20,29 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('logout', [AuthController::class, 'logout']);
 
         // 라이드 참가 상태
-        Route::get('participation', [UserController::class, 'participation'])->name('participation');
+        Route::get('participation', [UserController::class, 'participation']);
     });
 
     // 마이 페이지
     Route::group(['prefix' => 'account', 'as' => 'account.'], function () {
         // 회원 정보 업데이트
-        Route::put('/', [AccountController::class, 'update'])->name('update');
+        Route::put('/', [AccountController::class, 'update']);
         // 회원 탈퇴
-        Route::delete('/', [AccountController::class, 'destroy'])->name('destroy');
+        Route::delete('/', [AccountController::class, 'destroy']);
 
         // 개설 내역
-        Route::get('manage', [AccountController::class, 'manage'])->name('manage');
+        Route::get('manage', [AccountController::class, 'manage']);
         // 참가 내역
-        Route::get('attend', [AccountController::class, 'attend'])->name('attend');
+        Route::get('attend', [AccountController::class, 'attend']);
     });
 
     // 업로드
     Route::group(['prefix' => 'upload', 'as' => 'upload.'], function () {
         // GPX 파일 업로드
-        Route::post('gpx', [FileController::class, 'gpx'])->name('gpx');
+        Route::post('gpx', [FileController::class, 'gpx']);
 
         // 썸네일 업로드
-        Route::post('thumbnail', [FileController::class, 'thumbnail'])->name('thumbnail');
+        Route::post('thumbnail', [FileController::class, 'thumbnail']);
     });
 
     // 네이버 지도 리버스 지오코드
@@ -51,24 +51,24 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::group(['prefix' => 'ride', 'as' => 'ride.'], function () {
     // 라이드 리스트
-    Route::get('/', [RideController::class, 'index'])->name('index');
+    Route::get('/', [RideController::class, 'index']);
 
     // 라이드 상세
-    Route::get('{ride}', [RideController::class, 'show'])->name('show');
+    Route::get('{ride}', [RideController::class, 'show']);
 
     Route::middleware('auth:sanctum')->group(function () {
         // 라이드 저장
-        Route::post('store', [RideController::class, 'store'])->name('store');
+        Route::post('store', [RideController::class, 'store']);
         // 라이드 수정
-        Route::get('edit/{ride}', [RideController::class, 'edit'])->name('edit');
+        Route::get('edit/{ride}', [RideController::class, 'edit']);
         // 라이드 업데이트
-        Route::put('{ride}', [RideController::class, 'update'])->name('update');
+        Route::put('{ride}', [RideController::class, 'update']);
         // 라이드 삭제
-        Route::delete('{ride}', [RideController::class, 'destroy'])->name('destroy');
+        Route::delete('{ride}', [RideController::class, 'destroy']);
 
         // 라이드 참가
-        Route::post('attend', [ParticipantController::class, 'store'])->name('attend');
+        Route::post('attend', [ParticipantController::class, 'store']);
         // 라이드 참가 취소
-        Route::post('cancel', [ParticipantController::class, 'destroy'])->name('cancel');
+        Route::post('cancel', [ParticipantController::class, 'destroy']);
     });
 });
