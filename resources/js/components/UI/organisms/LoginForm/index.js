@@ -1,24 +1,43 @@
 import React, {memo} from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
+import {Link} from "react-router-dom";
+import styled, {css} from "styled-components";
 import LabelInput from "@components/UI/molecules/LabelInput";
 import Input from "@components/UI/atoms/Input";
 import color from "@/constant/color";
+import font from "@/constant/font";
 
 const ButtonWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     overflow: hidden;
     margin-top: 20px;
     line-height: 40px;
 `;
 
+const ButtonStyles = css`
+    width: auto;
+    margin: 0 6px;
+    padding: 0 20px;
+    border-radius: 4px;
+    line-height: 40px;
+    font-size: ${font.sizeSmall};
+    text-decoration: none;
+    cursor: pointer;
+`;
+
 const StyledSubmitInput = styled(Input)`
-    display: block;
-    margin: 0 auto;
+    ${ButtonStyles};
     border: 0;
     background: ${color.pageColor};
-    line-height: 40px;
     color: ${color.white};
-    cursor: pointer;
+`;
+const StyledLink = styled(Link)`
+    ${ButtonStyles};
+    border: 1px solid ${color.pageColor};
+    background: ${color.white};
+    color: ${color.pageColor};
 `;
 
 const LoginForm = memo(({onSubmit, email, setEmail, password, setPassword}) => {
@@ -51,6 +70,7 @@ const LoginForm = memo(({onSubmit, email, setEmail, password, setPassword}) => {
             <ButtonWrapper>
                 <StyledSubmitInput type="submit"
                                    value="로그인"/>
+                <StyledLink to="/register">회원가입</StyledLink>
             </ButtonWrapper>
         </form>
     );
