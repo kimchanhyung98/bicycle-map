@@ -10,18 +10,22 @@ const getRideData = async ({id}) => {
             method: 'get',
             url: url
         });
+        const {isError} = response;
 
-        return {
-            success: true,
-            data: response
-        };
+        if (!isError) {
+            return {
+                success: true,
+                data: response
+            };
+        } else {
+            throw response.response.data;
+        }
     } catch (err) {
         return {
             success: false,
             data: err
         };
     }
-
 };
 
 const getRideEditData = async ({id}) => {
@@ -32,12 +36,16 @@ const getRideEditData = async ({id}) => {
             method: 'get',
             url: url
         });
-        const data = response.data;
+        const {isError} = response;
 
-        return {
-            success: true,
-            data: data
-        };
+        if (!isError) {
+            return {
+                success: true,
+                data: response
+            };
+        } else {
+            throw response.response.data;
+        }
     } catch (err) {
         return {
             success: false,
@@ -53,12 +61,16 @@ const rideCreate = async ({...options}) => {
             url: rideCreateUrl,
             ...options
         });
-        const data = response.data;
+        const {isError} = response;
 
-        return {
-            success: true,
-            data: data
-        };
+        if (!isError) {
+            return {
+                success: true,
+                data: response
+            };
+        } else {
+            throw response.response.data;
+        }
     } catch (err) {
         return {
             success: false,
@@ -77,19 +89,22 @@ const rideUpdate = async ({...options}) => {
             url: url,
             ...options
         });
-        const data = response.data;
+        const {isError} = response;
 
-        return {
-            success: true,
-            data: data
-        };
+        if (!isError) {
+            return {
+                success: true,
+                data: response
+            };
+        } else {
+            throw response.response.data;
+        }
     } catch (err) {
         return {
             success: false,
             data: err
         };
     }
-
 };
 
 const rideDelete = async ({id}) => {
@@ -100,12 +115,16 @@ const rideDelete = async ({id}) => {
             method: 'delete',
             url: url
         });
-        const data = response.data;
+        const {isError} = response;
 
-        return {
-            success: true,
-            data: data
-        };
+        if (!isError) {
+            return {
+                success: true,
+                data: response
+            };
+        } else {
+            throw response.response.data;
+        }
     } catch (err) {
         return {
             success: false,

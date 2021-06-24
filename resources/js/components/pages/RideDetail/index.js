@@ -36,7 +36,7 @@ const RideDetail = memo(({...props}) => {
             const response = await getRideData(options);
 
             if (response.success) {
-                const {ride, participants_count} = response.data.data;
+                const {ride, participants_count} = response.data;
                 setRideData({
                     ...ride
                 });

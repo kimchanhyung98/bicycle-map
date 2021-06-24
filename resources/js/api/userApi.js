@@ -7,12 +7,16 @@ const getUserStatus = async () => {
             method: 'get',
             url: getUserStatusUrl
         });
-        const {data} = response;
+        const {isError} = response;
 
-        return {
-            success: true,
-            data: data
-        };
+        if (!isError) {
+            return {
+                success: true,
+                data: response
+            };
+        } else {
+            throw response.response.data;
+        }
     } catch (err) {
         return {
             success: false,
@@ -29,12 +33,16 @@ const loginApi = async ({...options}) => {
             url: loginApiUrl,
             ...options
         });
-        const {data} = response;
+        const {isError} = response;
 
-        return {
-            success: true,
-            data: data
-        };
+        if (!isError) {
+            return {
+                success: true,
+                data: response
+            };
+        } else {
+            throw response.response.data;
+        }
     } catch (err) {
         return {
             success: false,
@@ -51,11 +59,16 @@ const registerApi = async ({...options}) => {
             url: registerApiUrl,
             ...options
         });
+        const {isError} = response;
 
-        return {
-            success: true,
-            data: response
-        };
+        if (!isError) {
+            return {
+                success: true,
+                data: response
+            };
+        } else {
+            throw response.response.data;
+        }
     } catch (err) {
         return {
             success: false,
@@ -72,11 +85,16 @@ const userEditApi = async ({...options}) => {
             url: userEditApiUrl,
             ...options
         });
+        const {isError} = response;
 
-        return {
-            success: true,
-            data: response
-        };
+        if (!isError) {
+            return {
+                success: true,
+                data: response
+            };
+        } else {
+            throw response.response.data;
+        }
     } catch (err) {
         return {
             success: false,
@@ -92,16 +110,15 @@ const logoutApi = async () => {
             method: 'post',
             url: logoutApiUrl
         });
+        const {isError} = response;
 
-        if (!response.isAxiosError) {
-            const {data} = response;
-
+        if (!isError) {
             return {
                 success: true,
-                data: data
+                data: response
             };
         } else {
-            throw response;
+            throw response.response.data;
         }
     } catch (err) {
         return {

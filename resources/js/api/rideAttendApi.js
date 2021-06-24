@@ -11,12 +11,17 @@ const getAttendRides = async ({...options}) => {
             url: getAttendRidesUrl,
             ...options
         });
-        const data = response.data.rides.data;
+        const {isError} = response;
 
-        return {
-            success: true,
-            data: data
-        };
+        if (!isError) {
+            const {data} = response.rides;
+            return {
+                success: true,
+                data: data
+            };
+        } else {
+            throw response.response.data;
+        }
     } catch (err) {
         return {
             success: false,
@@ -32,12 +37,16 @@ const rideAttend = async ({...options}) => {
             url: rideAttendUrl,
             ...options,
         });
-        const data = response.data;
+        const {isError} = response;
 
-        return {
-            success: true,
-            data: data
-        };
+        if (!isError) {
+            return {
+                success: true,
+                data: response
+            };
+        } else {
+            throw response.response.data;
+        }
     } catch (err) {
         return {
             success: false,
@@ -53,12 +62,16 @@ const rideAttendCancel = async ({...options}) => {
             url: rideCancelUrl,
             ...options,
         });
-        const data = response.data;
+        const {isError} = response;
 
-        return {
-            success: true,
-            data: data
-        };
+        if (!isError) {
+            return {
+                success: true,
+                data: response
+            };
+        } else {
+            throw response.response.data;
+        }
     } catch (err) {
         return {
             success: false,

@@ -3,12 +3,19 @@ import axios from "axios";
 const request = async (options) => {
     try {
         const response = await axios(options);
+        const {statusText} = response;
 
-        console.log(response);
-
-        return response;
+        if (statusText === 'OK') {
+            return {
+                isError: false,
+                ...response.data
+            };
+        } else {
+            throw response;
+        }
     } catch (err) {
         return {
+            isError: true,
             ...err
         };
     }

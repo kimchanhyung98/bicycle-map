@@ -55,7 +55,6 @@ const Register = memo(({...props}) => {
             alert('오류');
             setIsLoading(false);
         }
-
     }, [name, email, phone, password, pwConfirm, isLoading]);
 
     return (

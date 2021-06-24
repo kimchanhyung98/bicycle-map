@@ -9,12 +9,16 @@ const getReverseGeocode = async ({...options}) => {
             url: gerReverseGeocodeUrl,
             ...options
         });
-        const data = response.data;
+        const {isError} = response;
 
-        return {
-            success: true,
-            data: data
-        };
+        if (!isError) {
+            return {
+                success: true,
+                data: response
+            };
+        } else {
+            throw response.response.data;
+        }
     } catch (err) {
         return {
             success: false,
