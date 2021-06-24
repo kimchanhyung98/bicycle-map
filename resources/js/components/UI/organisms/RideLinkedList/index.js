@@ -62,8 +62,8 @@ const RideLinkedList = memo(({rides}) => {
         ];
 
         return (
-            <StyledRideItem>
-                <Link to={`/ride/${id}`} key={id}>
+            <StyledRideItem key={id}>
+                <Link to={`/ride/${id}`}>
                     {/* 참여 인수 */}
                     <RideAttendInfo>
                         {participants_count}명 참석
