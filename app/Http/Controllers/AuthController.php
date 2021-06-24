@@ -63,12 +63,12 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
-        // Auth::guard('web')->logout();
+        $request->user()->tokens()->delete();
+        // Auth::logout();
 
         return response()->json([
             'message' => 'logout'
-        ], 204);
+        ], 200);
     }
 
     /**
@@ -93,11 +93,10 @@ class AuthController extends Controller
             'password' => Hash::make($validatedData['password']),
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        // $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ]);
+            'message' => 'register'
+        ], 200);
     }
 }
