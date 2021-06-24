@@ -47,7 +47,9 @@ const mapStateToProps = (state) => {
     };
 };
 
-const Navigation = memo(() => {
+const Navigation = memo(({...props}) => {
+    const {isLoggedIn} = props.user;
+
     return (
         <StyledNav>
             <NavList>
@@ -55,10 +57,10 @@ const Navigation = memo(() => {
                     <Link to="/">Home</Link>
                 </li>
                 <li>
-                    <Link to="/ride/create">Create</Link>
+                    <Link to={isLoggedIn ? '/ride/create' : '/login'}>Create</Link>
                 </li>
                 <li>
-                    <Link to="/mypage">MyPage</Link>
+                    <Link to={isLoggedIn ? '/mypage' : '/login'}>MyPage</Link>
                 </li>
             </NavList>
         </StyledNav>
