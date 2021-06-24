@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
 import {Route, useHistory} from 'react-router-dom';
-import storage from "@/utils/storage";
 
 import {getUserStatus} from "@/api/userApi";
 
@@ -10,24 +9,20 @@ const AuthRoute = ({check = null, ...props}) => {
     const authCheck = async () => {
         const response = await getUserStatus();
         console.log(response);
-
         if (check === null) return;
 
         try {
-            const loggedInfo = storage.get('loggedInfo');
+            const response = await getUserStatus();
+            const {success} = response;
 
-            if ((check && !loggedInfo) || (!check && loggedInfo)) {
-                throw {
-                    check
-                };
-            }
-        } catch (err) {
-            if (err.check) {
+            if (check && !success) {
                 alert('로그인후 가능');
                 history.push('/login');
-            } else {
+            } else if (!check && success) {
                 history.push('/');
             }
+        } catch (err) {
+            history.push('/');
         }
     };
 
