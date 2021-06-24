@@ -89,7 +89,7 @@ const logoutApiUrl = '/api/user/logout';
 const logoutApi = async () => {
     try {
         const response = await request({
-            method: 'get',
+            method: 'post',
             url: logoutApiUrl
         });
 

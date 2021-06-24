@@ -17,7 +17,7 @@ Route::middleware('auth:sanctum')->group(function () {
         // 유저 상태
         Route::get('/', [AuthController::class, 'index']);
         // 로그아웃
-        Route::get('logout', [AuthController::class, 'logout']);
+        Route::post('logout', [AuthController::class, 'logout']);
 
         // 라이드 참가 상태
         Route::get('participation', [UserController::class, 'participation']);
