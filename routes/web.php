@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('{path?}', [HomeController::class, 'index']);
+Route::view('{path}', 'app')->where('path', '.*');
 
