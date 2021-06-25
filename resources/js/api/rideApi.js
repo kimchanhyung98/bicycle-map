@@ -1,6 +1,6 @@
 import request from "@/api/request";
 
-const rideCreateUrl = '/api/ride/store';
+const rideCreateUrl = '/api/ride';
 
 const getRideData = async ({id}) => {
     const url = `/api/ride/${id}`;
@@ -29,7 +29,7 @@ const getRideData = async ({id}) => {
 };
 
 const getRideEditData = async ({id}) => {
-    const url = `/api/ride/edit/${id}`;
+    const url = `/api/ride/${id}/edit`;
 
     try {
         const response = await request({
