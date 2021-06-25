@@ -37,17 +37,20 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     // 업로드
-    Route::group(['prefix' => 'upload', 'as' => 'upload.'], function () {
-        // GPX 파일 업로드
-        Route::post('gpx', [FileController::class, 'gpx']);
+    Route::middleware('throttle:5,1')->group(function () {
+        Route::group(['prefix' => 'upload', 'as' => 'upload.'], function () {
+            // GPX 파일 업로드
+            Route::post('gpx', [FileController::class, 'gpx']);
 
-        // 썸네일 업로드
-        Route::post('thumbnail', [FileController::class, 'thumbnail']);
+            // 썸네일 업로드
+            Route::post('thumbnail', [FileController::class, 'thumbnail']);
+        });
     });
 
     // 네이버 지도 리버스 지오코드
     Route::get('reverse-geocode', [MapController::class, 'reverse_geocode']);
 });
+
 
 Route::group(['prefix' => 'ride', 'as' => 'ride.'], function () {
     // 라이드 리스트
@@ -58,9 +61,9 @@ Route::group(['prefix' => 'ride', 'as' => 'ride.'], function () {
 
     Route::middleware('auth:sanctum')->group(function () {
         // 라이드 저장
-        Route::post('store', [RideController::class, 'store']);
+        Route::post('/', [RideController::class, 'store']);
         // 라이드 수정
-        Route::get('edit/{ride}', [RideController::class, 'edit']);
+        Route::get('{ride}/edit', [RideController::class, 'edit']);
         // 라이드 업데이트
         Route::put('{ride}', [RideController::class, 'update']);
         // 라이드 삭제
