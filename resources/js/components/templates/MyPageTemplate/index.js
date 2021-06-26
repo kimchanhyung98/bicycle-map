@@ -22,7 +22,7 @@ const StyledWrapper = styled.div`
 const MyPageTemplate = memo(({
     Header: HeaderComponent,
     Navigation: NavComponent,
-    padding = '0 20px',
+    padding = '0 20px 20px',
     children,
     ...props
 }) => {
@@ -60,7 +60,7 @@ const MyPageTemplate = memo(({
 MyPageTemplate.defaultProps = {
     Header: Header,
     Navigation: Navigation,
-    padding: '0 20px'
+    padding: '0 20px 20px'
 };
 
 MyPageTemplate.propTypes = {

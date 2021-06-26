@@ -7,8 +7,6 @@ const AuthRoute = ({check = null, ...props}) => {
     const history = useHistory();
 
     const authCheck = async () => {
-        const response = await getUserStatus();
-        console.log(response);
         if (check === null) return;
 
         try {

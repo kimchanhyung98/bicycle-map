@@ -13,9 +13,10 @@ const getList = async ({...options}) => {
         const {isError} = response;
 
         if (!isError) {
+            const {data} = response.rides;
             return {
                 success: true,
-                data: response
+                data: data
             };
         } else {
             throw response.response.data;
