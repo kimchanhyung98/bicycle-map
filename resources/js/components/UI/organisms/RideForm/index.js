@@ -6,6 +6,7 @@ import FormGroup from "@components/UI/molecules/FormGroup";
 import DateTimePicker from "@components/UI/molecules/DateTimePicker";
 import FileUpload from "@components/UI/molecules/FileUpload";
 import Map from "@components/UI/atoms/Map";
+import ToolTipIInput from "@components/UI/molecules/ToolTipIInput";
 import Input from "@components/UI/atoms/Input";
 import SelectBox from "@components/UI/atoms/SelectBox";
 import color from "@/constant/color";
@@ -34,7 +35,7 @@ const StyledAltitudeGroup = styled.div`
         margin-right: 10px;
     }
 
-    input {
+    > div {
         float: left;
         width: calc(100% - 145px);
         height: 45px;
@@ -157,10 +158,9 @@ const RideForm = memo(({
                     }}/>
             </FormGroup>
 
-            <FormGroup isRequired={true}
-                       labelProps={{
-                           children: '종료 시간'
-                       }}>
+            <FormGroup labelProps={{
+                children: '종료 시간'
+            }}>
                 <DateTimePicker
                     datePickerProps={{
                         format: dateFormat,
@@ -207,65 +207,67 @@ const RideForm = memo(({
                        onChange={handleSetRideData}/>
             </FormGroup>
 
-            <FormGroup isRequired={true}
-                       labelProps={{
-                           children: '코스'
-                       }}>
+            <FormGroup labelProps={{
+                children: '코스'
+            }}>
                 <FileUpload url={'/api/upload/gpx'}
                             file={file}
                             placeholder={"GPX 파일을 업로드해주세요"}
                             setFile={setFile}/>
             </FormGroup>
 
-            <FormGroup isRequired={true}
-                       labelProps={{
-                           children: '난이도'
-                       }}>
+            <FormGroup labelProps={{
+                children: '난이도'
+            }}>
                 <StyledFullSelectBox name="difficulty"
                                      value={difficulty}
                                      onChange={handleSetRideData}
                                      children={difficultyOptions}/>
             </FormGroup>
 
-            <LabelInput isRequired={true}
-                        labelProps={{
-                            children: '정원'
-                        }}
+            <LabelInput labelProps={{
+                children: '정원'
+            }}
                         inputProps={{
                             type: 'number',
                             name: 'capacity',
                             defaultValue: capacity,
-                            placeholder: '3~30 사이 숫자만 입력해 주세요',
-                            onChange: handleSetRideData
-                        }}/>
-
-            <LabelInput isRequired={true}
-                        labelProps={{
-                            children: '거리'
-                        }}
-                        inputProps={{
-                            type: 'number',
-                            name: 'distance',
-                            defaultValue: distance,
                             placeholder: '숫자만 입력해 주세요',
                             onChange: handleSetRideData
                         }}/>
 
-            <FormGroup isRequired={true}
-                       labelProps={{
-                           children: '고도'
-                       }}>
+            <FormGroup labelProps={{
+                children: '거리'
+            }}>
+                <ToolTipIInput margin="8px 0 0 0"
+                               text="km"
+                               inputProps={{
+                                   type: 'number',
+                                   name: 'distance',
+                                   defaultValue: distance,
+                                   placeholder: '숫자만 입력해 주세요',
+                                   onChange: handleSetRideData
+                               }}/>
+            </FormGroup>
+
+            <FormGroup labelProps={{
+                children: '고도'
+            }}>
                 <StyledAltitudeGroup>
                     <SelectBox name="altitude"
                                value={altitude}
                                children={altitudeOptions}
                                onChange={handleSetRideData}/>
 
-                    <Input type="number"
-                           name="altitude_detail"
-                           defaultValue={altitude_detail}
-                           placeholder="숫자만 입력해 주세요"
-                           onChange={handleSetRideData}/>
+
+                    <ToolTipIInput text="m"
+                                   inputProps={{
+                                       type: 'number',
+                                       name: 'altitude_detail',
+                                       defaultValue: altitude_detail,
+                                       placeholder: '숫자만 입력해 주세요',
+                                       onChange: handleSetRideData
+                                   }}/>
                 </StyledAltitudeGroup>
             </FormGroup>
 

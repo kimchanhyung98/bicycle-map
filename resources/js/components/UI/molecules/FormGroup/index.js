@@ -17,13 +17,6 @@ const StyledFormGroup = styled.div`
         content: '';
     }
 
-    > &.required label::after {
-        padding-left: 4px;
-        font-size: 15px;
-        color: ${color.red};
-        content: '(필수)';
-    }
-
     > label {
         display: block;
         line-height: 18px;
@@ -46,10 +39,22 @@ const StyledFormGroup = styled.div`
     }
 `;
 
+const StyledLabel = styled(Label)`
+    &::after {
+        ${({isRequired}) => isRequired && `
+            padding-left: 4px;
+            font-size: 15px;
+            color: ${color.red};
+            content: '(필수)';
+        `}
+    }
+`;
+
 const FormGroup = memo(({isRequired, labelProps, children}) => {
     return (
-        <StyledFormGroup className={isRequired ? 'required' : ''}>
-            <Label {...labelProps} />
+        <StyledFormGroup>
+            <StyledLabel {...labelProps}
+                         isRequired={isRequired}/>
 
             {children}
         </StyledFormGroup>

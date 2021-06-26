@@ -12,17 +12,10 @@ const StyledLabelInput = styled.div`
         margin-top: 0;
     }
 
-    &:after{
+    &:after {
         display: block;
         clear: both;
         content: '';
-    }
-
-    > &.required label::after {
-        padding-left: 4px;
-        font-size: 15px;
-        color: ${color.red};
-        content: '(필수)';
     }
 
     > label {
@@ -48,10 +41,22 @@ const StyledLabelInput = styled.div`
     }
 `;
 
+const StyledLabel = styled(Label)`
+    &::after {
+        ${({isRequired}) => isRequired && `
+            padding-left: 4px;
+            font-size: 15px;
+            color: ${color.red};
+            content: '(필수)';
+        `}
+    }
+`;
+
 const LabelInput = memo(({isRequired, labelProps, inputProps}) => {
     return (
-        <StyledLabelInput className={isRequired ? 'required' : ''}>
-            <Label {...labelProps} />
+        <StyledLabelInput>
+            <StyledLabel {...labelProps}
+                         isRequired={isRequired}/>
             <Input {...inputProps} />
         </StyledLabelInput>
     );
