@@ -1,6 +1,6 @@
 import React, {memo} from "react";
 import styled from "styled-components";
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import List from "@components/UI/atoms/List";
 import color from "@/constant/color";
 import font from "@/constant/font";
@@ -37,15 +37,25 @@ const StyledList = styled(List)`
     }
 `;
 
+const CustomLink = ({children, ...props}) => {
+    return (
+        <NavLink {...props} activeStyle={{
+            fontWeight: 'bold'
+        }}>
+            {children}
+        </NavLink>
+    );
+};
+
 const MyPageNavigation = memo(() => {
     return (
         <StyledNav>
             <StyledList>
                 <li>
-                    <Link to="/mypage">신청내역</Link>
+                    <CustomLink exact to="/mypage">신청내역</CustomLink>
                 </li>
                 <li>
-                    <Link to="/mypage/manage">개설내역</Link>
+                    <CustomLink to="/mypage/manage">개설내역</CustomLink>
                 </li>
             </StyledList>
         </StyledNav>
