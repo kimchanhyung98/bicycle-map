@@ -53,11 +53,12 @@ const FileUpload = memo(({
                 data: formData
             };
             const response = await request(options);
-            const {file} = response.data;
+            const {file, message} = response.data;
             setFile(file);
-            alert('업로드 성공');
+            alert(message);
         } catch (err) {
-            alert('업로드 실패');
+            const {message} = err.data;
+            alert(message);
         }
     }, [setFile]);
 

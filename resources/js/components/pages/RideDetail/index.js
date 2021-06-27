@@ -45,7 +45,8 @@ const RideDetail = memo(({...props}) => {
                 throw response;
             }
         } catch (err) {
-            alert('오류');
+            const {message} = err.data;
+            alert(message);
         }
     }, [id]);
 
@@ -73,7 +74,8 @@ const RideDetail = memo(({...props}) => {
                 throw response;
             }
         } catch (err) {
-            alert('오류');
+            const {message} = err.data;
+            alert(message);
             setIsLoading(false);
         }
     }, [props.user, isLoading, participantsCount]);

@@ -6,6 +6,7 @@ use App\Models\Ride;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
@@ -24,7 +25,12 @@ class AccountController extends Controller
             'password' => 'nullable|string|min:8|confirmed'
         ]);
 
-        $user = $request->user()->update($validatedData);
+        $user = $request->user()->update([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'phone' => $validatedData['phone'],
+            'password' => Hash::make($validatedData['password']),
+        ]);
 
         return response()->json([
             'user' => $user,

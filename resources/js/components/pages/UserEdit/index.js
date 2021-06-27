@@ -55,13 +55,15 @@ const UserEdit = memo(({...props}) => {
             const response = await userEditApi(options);
 
             if (response.success) {
-                alert('회원정보 수정 성공');
-                props.history.push('/login');
+                const {message} = response.data;
+                alert(message);
+                props.history.push('/');
             } else {
                 throw response;
             }
         } catch (err) {
-            alert('오류');
+            const {message} = err.data;
+            alert(message);
             setIsLoading(false);
         }
 

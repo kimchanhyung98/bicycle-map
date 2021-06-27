@@ -13,9 +13,11 @@ const request = async (options) => {
         } else {
             throw response;
         }
-    } catch (err) {
+    } catch ({...err}) {
+        const message = err.response.data.message;
         return {
             isError: true,
+            message: message,
             ...err
         };
     }

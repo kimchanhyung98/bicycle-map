@@ -85,7 +85,8 @@ const RideEdit = memo(({...props}) => {
                 throw response;
             }
         } catch (err) {
-            alert('오류');
+            const {message} = err.data;
+            alert(message);
         }
     }, [rideData]);
 
@@ -117,7 +118,8 @@ const RideEdit = memo(({...props}) => {
                 throw response;
             }
         } catch (err) {
-            alert('오류');
+            const {message} = err.data;
+            alert(message);
             setIsLoading(false);
         }
     }, [isLoading, rideData]);
@@ -151,7 +153,8 @@ const RideEdit = memo(({...props}) => {
                 throw response;
             }
         } catch (err) {
-            alert('오류');
+            const {message} = err.data;
+            alert(message);
         }
     }, [id, rideData]);
 

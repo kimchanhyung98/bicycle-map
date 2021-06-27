@@ -118,7 +118,6 @@ class Aside extends Component {
         const {dispatch} = this.props;
 
         dispatch(logout());
-        alert('로그아웃 되었습니다.');
         this.handleMenuClick();
         this.props.history.push('/');
     }

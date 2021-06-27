@@ -25,7 +25,6 @@ const Login = memo(({...props}) => {
             const check = storage.get('loggedToken');
 
             if (check) {
-                alert('로그인 성공');
                 props.history.push('/');
             }
         });

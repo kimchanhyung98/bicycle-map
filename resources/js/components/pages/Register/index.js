@@ -46,13 +46,15 @@ const Register = memo(({...props}) => {
             const response = await registerApi(options);
 
             if (response.success) {
-                alert('회원가입 성공');
+                const {message} = response.data;
+                alert(message);
                 props.history.push('/login');
             } else {
                 throw response;
             }
         } catch (err) {
-            alert('오류');
+            const {message} = err.data;
+            alert(message);
             setIsLoading(false);
         }
     }, [name, email, phone, password, pwConfirm, isLoading]);

@@ -41,7 +41,8 @@ const MyPageManage = memo(() => {
                 throw response;
             }
         } catch (err) {
-            alert('오류');
+            const {message} = err.data;
+            alert(message);
         } finally {
             setIsEnd(false);
         }
@@ -71,7 +72,8 @@ const MyPageManage = memo(() => {
                 throw response;
             }
         } catch (err) {
-            alert('오류');
+            const {message} = err.data;
+            alert(message);
         } finally {
             setIsLoading(false);
         }

@@ -84,7 +84,8 @@ const RideCreate = memo(({...props}) => {
                 throw response;
             }
         } catch (err) {
-            alert('오류');
+            const {message} = err.data;
+            alert(message);
         }
     }, [rideData]);
 
@@ -116,7 +117,8 @@ const RideCreate = memo(({...props}) => {
             }
 
         } catch (err) {
-            alert('오류');
+            const {message} = err.data;
+            alert(message);
             setIsLoading(false);
         }
     }, [isLoading, rideData]);

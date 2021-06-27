@@ -96,7 +96,6 @@ const MyPageHeader = memo(({...props}) => {
     const handleLogout = useCallback((event) => {
         event.preventDefault();
         dispatch(logout());
-        alert('로그아웃 하셨습니다.');
         history.push('/');
     }, []);
 

@@ -22,22 +22,19 @@ export const login = (email, password) => {
             if (response.success) {
                 const {data} = response;
 
-                if (data) {
-                    const {token_type, access_token} = data;
-                    storage.set('loggedToken', data);
-                    axios.defaults.headers.common.Authorization = `${token_type} ${access_token}`;
-                    dispatch(saveLoggedInfo());
-                } else {
-                    storage.set('loggedToken', '');
-                    storage.set('loggedInfo', '');
-                    alert('이메일 또는 비밀번호를 확인해주세요.');
-                }
+                const {token_type, access_token} = data;
+                storage.set('loggedToken', data);
+                axios.defaults.headers.common.Authorization = `${token_type} ${access_token}`;
+                dispatch(saveLoggedInfo());
+                alert('로그인 성공');
             } else {
                 throw response;
             }
-
         } catch (err) {
-            alert('오류');
+            const {message} = err.data;
+            storage.set('loggedToken', '');
+            storage.set('loggedInfo', '');
+            alert(message);
         }
     };
 };
@@ -74,15 +71,17 @@ export const logout = () => {
             const response = await logoutApi();
 
             if (response.success) {
+                const {message} = response.data;
                 storage.set('loggedToken', '');
                 storage.set('loggedInfo', '');
                 dispatch(loginNon());
+                alert(message);
             } else {
                 throw response;
             }
-
         } catch (err) {
-            alert('오류');
+            const {message} = err.data;
+            alert(message);
         }
     };
 };

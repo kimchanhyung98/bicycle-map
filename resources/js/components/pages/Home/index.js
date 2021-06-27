@@ -44,7 +44,8 @@ const Home = memo(() => {
                 throw response;
             }
         } catch (err) {
-            alert('오류');
+            const {message} = err.data;
+            alert(message);
         } finally {
             setIsLoading(false);
         }
