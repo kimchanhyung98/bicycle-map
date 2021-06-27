@@ -204,7 +204,7 @@ const RideContent = memo(({rideData, participantsCount, onSubmit}) => {
             <ButtonWrapper>
                 <StyledAttendButton type="button"
                                     onClick={onSubmit}>
-                    참가 하기
+                    참가하기
                 </StyledAttendButton>
             </ButtonWrapper>
         </>

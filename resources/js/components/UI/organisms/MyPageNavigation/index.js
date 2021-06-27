@@ -23,14 +23,16 @@ const StyledList = styled(List)`
     li {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
         flex: 1 1 auto;
         height: 100%;
     }
 
     a {
-        padding: 12px 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
         font-size: ${font.sizeBase};
         color: ${font.color};
         text-decoration: none;
@@ -40,7 +42,8 @@ const StyledList = styled(List)`
 const CustomLink = ({children, ...props}) => {
     return (
         <NavLink {...props} activeStyle={{
-            fontWeight: 'bold'
+            background: color.pageColor,
+            color: color.white
         }}>
             {children}
         </NavLink>

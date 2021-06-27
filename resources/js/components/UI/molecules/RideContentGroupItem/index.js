@@ -9,7 +9,7 @@ const StyledListItem = styled.li`
     overflow: hidden;
     margin-top: 12px;
     font-size: ${font.sizeBase};
-    line-height: 16px;
+    line-height: 20px;
 
     &:first-child {
         margin-top: 0;
