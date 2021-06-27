@@ -1,17 +1,18 @@
 import React, {memo, useCallback, useState} from "react";
 import styled from "styled-components";
-
 import PageTemplate from "@components/templates/PageTemplate";
-import Header from "@components/UI/organisms/Header";
-import Aside from "@components/UI/organisms/Aside";
 import Heading from "@components/UI/atoms/Heading";
 import RegisterForm from "@components/UI/organisms/RegisterForm";
 
+import {registerApi} from "@/api/userApi";
+
 const StyledHeading = styled(Heading)`
-    margin-top: 10px;
+    margin: 10px 0 15px;
     font-weight: bold;
     font-size: 20px;
 `;
+
+const buttonText = '회원가입';
 
 const Register = memo(({...props}) => {
     const [name, setName] = useState('');
@@ -21,11 +22,9 @@ const Register = memo(({...props}) => {
     const [pwConfirm, setPwConfirm] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = useCallback((event) => {
+    const handleSubmit = useCallback(async (event) => {
         event.preventDefault();
 
-        console.log('form submit');
-        console.log(isLoading);
         if (isLoading) return false;
 
         if (password !== pwConfirm) {
@@ -34,35 +33,36 @@ const Register = memo(({...props}) => {
         }
 
         setIsLoading(true);
+        try {
+            const options = {
+                data: {
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    password: password,
+                    password_confirmation: pwConfirm
+                }
+            };
+            const response = await registerApi(options);
 
-        const req = {
-            name: name,
-            email: email,
-            phone: phone,
-            password: password,
-            password_confirmation: pwConfirm
-        };
-
-        axios.post('/register', req).then(res => {
-            alert('회원가입 성공');
-            props.history.push('/login');
-        }).catch(err => {
-            if (err.response.status == 422) {
-                const messages = err.response.data.errors;
-                alert(messages[Object.keys(messages)[0]]);
+            if (response.success) {
+                const {message} = response.data;
+                alert(message);
+                props.history.push('/login');
             } else {
-                alert('오류');
+                throw response;
             }
+        } catch (err) {
+            const {message} = err.data;
+            alert(message);
             setIsLoading(false);
-        });
-
+        }
     }, [name, email, phone, password, pwConfirm, isLoading]);
 
     return (
-        <PageTemplate Header={Header}
-                      Aside={Aside}>
+        <PageTemplate>
             <section>
-                <StyledHeading level={2}>회원가입</StyledHeading>
+                <StyledHeading level={2}>{buttonText}</StyledHeading>
 
                 <RegisterForm onSubmit={handleSubmit}
                               name={name}
@@ -74,7 +74,8 @@ const Register = memo(({...props}) => {
                               password={password}
                               setPassword={setPassword}
                               pwConfirm={pwConfirm}
-                              setPwConfirm={setPwConfirm} />
+                              setPwConfirm={setPwConfirm}
+                              buttonText={buttonText}/>
             </section>
         </PageTemplate>
     );

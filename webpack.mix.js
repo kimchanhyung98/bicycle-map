@@ -1,43 +1,26 @@
 const mix = require('laravel-mix');
-require('laravel-mix-alias');
+// require('laravel-mix-alias');
 
 const webpack = require('webpack');
-const dotenv = require('dotenv');
-
-/*
- |--------------------------------------------------------------------------
- | Mix Asset Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel application. By default, we are compiling the Sass
- | file for the application as well as bundling up all the JS files.
- |
- */
-
-mix.alias({
-    '@': '/resources/js',
-    '@components': '/resources/js/components',
-    '@sass': '/resources/sass'
- });
 
 mix.webpackConfig({
     module: {
         rules: [
             {
-                test: /\.(sc|c|sa)ss$/,
-                // use: [
-                //     { loader: 'scoped-css-loader' },
-                // ],
-                use: ['style-loader', 'css-loader', 'scoped-css-loader', 'sass-loader'],
+                enforce: 'pre',
+                exclude: /node_modules/,
+                loader: 'eslint-loader',
+                test: /\.(js|vue)?$/
             },
-            // {
-            //     enforce: 'pre',
-            //     exclude: /node_modules/,
-            //     test: /\.(js)$/,
-            //     use: ['eslint-loader'],
-            // },
         ]
+    },
+    resolve: {
+        extensions: ['.js', '.json'],
+        alias: {
+            '@': __dirname + '/resources/js',
+            '@components': __dirname + '/resources/js/components',
+            '@sass': __dirname + '/resources/sass'
+        },
     },
     plugins: [
         new webpack.DefinePlugin({
@@ -50,7 +33,7 @@ mix.webpackConfig({
 });
 
 // TODO: prod dev 버전 분리
-mix.react('resources/js/app.js', 'public/js').sourceMaps();
+mix.js('resources/js/app.js', 'public/js').react().sourceMaps();
 
 mix.options({
     processCssUrls: false

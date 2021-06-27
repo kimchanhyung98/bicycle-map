@@ -1,50 +1,34 @@
-import React, {memo, useCallback, useEffect, useState} from "react";
+import React, {memo, useCallback, useEffect} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
-import {connect} from 'react-redux';
-import {loginSuccess} from '@/store/actions/user';
-import storage from '@/utils/storage';
-import color from "@/constant/color";
+import {connect} from "react-redux";
+import {loginSuccess} from "@/actions/user";
+import storage from "@/utils/storage";
+
+import Header from "@components/UI/organisms/Header";
+import Navigation from "@components/UI/organisms/Navigation";
+
+const StyledSection = styled.section`
+    padding-bottom: 45px;
+`;
 
 const StyledMain = styled.main`
-    padding: 20px;
+    margin-top: 45px;
+    padding: ${props => props.padding};
 `;
-
-const StyledHeader = styled.header`
-    height: 56px;
-    background: ${color.pageColor};
-`;
-
-const StyledAside = styled.aside`
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 300;
-    width: 100%;
-    height: 100%;
-    background: ${color.white};
-
-    &.show{
-        display: block;
-    }
-`;
-
-const mapStateToProps = (state) => ({
-    state
-});
 
 const PageTemplate = memo(({
-   Header, Aside, children, ...props
+    Header: HeaderComponent,
+    Navigation: NavComponent,
+    padding = '20px',
+    children,
+    ...props
 }) => {
-    const [showAside, setShowAside] = useState(false);
-    const toggleAside = useCallback((isShow) => {
-        setShowAside((prevShowAside) => isShow || !prevShowAside);
-    }, []);
     const initUserInfo = useCallback(() => {
         const loggedToken = storage.get('loggedToken');
         if (!loggedToken) return;
         const loggedInfo = storage.get('loggedInfo');
-        const { dispatch } = props;
+        const {dispatch} = props;
 
         axios.defaults.headers.common.Authorization = `Bearer ${loggedToken.access_token}`;
         dispatch(loginSuccess(loggedInfo));
@@ -52,23 +36,29 @@ const PageTemplate = memo(({
 
     useEffect(() => {
         initUserInfo();
-    }, [])
+    }, []);
 
     return (
-        <>
-            <StyledHeader>
-                <Header toggleAside={toggleAside} />
-            </StyledHeader>
+        <StyledSection>
+            <HeaderComponent/>
+            <NavComponent/>
 
-            <StyledAside className={showAside ? 'show' : ''}>
-                <Aside toggleAside={toggleAside} />
-            </StyledAside>
-
-            <StyledMain>
+            <StyledMain padding={padding}>
                 {children}
             </StyledMain>
-        </>
+        </StyledSection>
     );
 });
 
-export default connect(mapStateToProps)(PageTemplate);
+PageTemplate.defaultProps = {
+    Header: Header,
+    Navigation: Navigation,
+    padding: '20px'
+};
+
+PageTemplate.propTypes = {
+    Header: PropTypes.any,
+    Navigation: PropTypes.any
+};
+
+export default connect()(PageTemplate);

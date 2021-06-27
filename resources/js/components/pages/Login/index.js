@@ -1,23 +1,17 @@
 import React, {memo, useCallback, useState} from "react";
 import styled from "styled-components";
 import {connect} from "react-redux";
-import {login} from "@/store/actions/user";
+import {login} from "@/actions/user";
 import storage from "@/utils/storage";
 import PageTemplate from "@components/templates/PageTemplate";
-import Header from "@components/UI/organisms/Header";
-import Aside from "@components/UI/organisms/Aside";
 import LoginForm from "@components/UI/organisms/LoginForm";
 import Heading from "@components/UI/atoms/Heading";
 
 const StyledHeading = styled(Heading)`
-    margin-top: 10px;
+    margin: 10px 0 15px;
     font-weight: bold;
     font-size: 20px;
 `;
-
-const mapStateToProps = (state) => ({
-    state
-});
 
 const Login = memo(({...props}) => {
     const [email, setEmail] = useState('');
@@ -27,14 +21,10 @@ const Login = memo(({...props}) => {
         event.preventDefault();
         const {dispatch} = props;
 
-        console.log(email);
-        console.log(password);
-
         dispatch(login(email, password)).then(() => {
             const check = storage.get('loggedToken');
 
             if (check) {
-                alert('로그인 성공');
                 props.history.push('/');
             }
         });
@@ -42,8 +32,7 @@ const Login = memo(({...props}) => {
     }, [email, password]);
 
     return (
-        <PageTemplate Header={Header}
-                      Aside={Aside}>
+        <PageTemplate>
             <section>
                 <StyledHeading level={2}>로그인</StyledHeading>
 
@@ -57,4 +46,4 @@ const Login = memo(({...props}) => {
     );
 });
 
-export default connect(mapStateToProps)(Login);
+export default connect()(Login);

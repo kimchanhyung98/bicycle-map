@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Schema::defaultStringLength(191);
+        // https://github.com/spatie/laravel-permission/issues/1689#issuecomment-792484813
+        Schema::defaultStringLength(125);
     }
 }

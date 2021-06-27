@@ -1,6 +1,6 @@
 const color = {};
 
-color.pageColor = 'rgb(228, 63, 90)';
+color.pageColor = '#444';
 color.bgGray = 'rgb(51, 51, 51)';
 color.white = '#fff';
 

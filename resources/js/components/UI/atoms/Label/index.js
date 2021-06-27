@@ -11,7 +11,11 @@ const Label = memo(({children, ...props}) => {
         <StyledLabel {...props}>
             {children}
         </StyledLabel>
-    )
+    );
 });
+
+Label.defaultProps = {
+    children: ''
+};
 
 export default Label;

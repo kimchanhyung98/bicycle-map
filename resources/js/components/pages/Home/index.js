@@ -1,60 +1,79 @@
 import React, {memo, useCallback, useEffect, useState} from "react";
 import PageTemplate from "@components/templates/PageTemplate";
-import Header from "@components/UI/organisms/Header";
-import Aside from "@components/UI/organisms/Aside";
 import RideLinkedList from "@components/UI/organisms/RideLinkedList";
+
+import {getList} from "@/api/rideListApi";
 
 const Home = memo(() => {
     const [rides, setRides] = useState([]);
-    const [page, setPage] = useState(0);
-    const [isEnd, setIsEnd] = useState(false);
+    const [page, setPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleScroll = useCallback((event) => {
-        if (isEnd) {
-            let scrollPosition = event.srcElement.scrollingElement.scrollTop + window.innerHeight;
+    const handleScroll = useCallback(() => {
+        if (!isLoading) {
+            const scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
+            const clientHeight = document.documentElement.clientHeight;
+            const scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight) - 50;
 
-            if (scrollPosition >= document.body.offsetHeight) {
-                this.getData();
+            if (scrollTop + clientHeight >= scrollHeight) {
+                setPage(page + 1);
             }
         }
-    }, []);
+    }, [isLoading, page]);
 
-    const getData = useCallback(() => {
-        setIsEnd(false, () => {
-            axios.get(`/api/ride?page=${page + 1}`).then(res => {
-                const resData = res.data.rides.data;
-                const data = rides.concat(resData);
-
-                if (resData.length < 10) {
-                    window.removeEventListener('scroll', this.handleScroll);
+    const getData = useCallback(async () => {
+        setIsLoading(true);
+        try {
+            const options = {
+                params: {
+                    page: page
                 }
+            };
+            const response = await getList(options);
 
-                setRides(data);
-                setPage((prevPage) => prevPage + 1);
-                setIsEnd(true);
-            }).catch(err => {
-                console.log(err);
-            });
-        });
-    }, []);
+            if (response.success) {
+                const {data} = response;
+                const newData = rides.concat(data);
+
+                setRides(newData);
+
+                if (data.length < 10) {
+                    setPage(0);
+                }
+            } else {
+                throw response;
+            }
+        } catch (err) {
+            const {message} = err.data;
+            alert(message);
+        } finally {
+            setIsLoading(false);
+        }
+    }, [page, rides]);
 
     useEffect(() => {
-        getData();
-        window.addEventListener('scroll', handleScroll);
+        if (page) {
+            getData();
+        }
+    }, [page]);
+
+    useEffect(() => {
+        if (page) {
+            window.addEventListener('scroll', handleScroll);
+        }
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
-        }
-    }, []);
+        };
+    }, [page, isLoading]);
 
     return (
-        <PageTemplate Header={Header}
-                      Aside={Aside}>
+        <PageTemplate>
             <section>
                 <RideLinkedList rides={rides} />
             </section>
         </PageTemplate>
-    )
+    );
 });
 
 export default Home;

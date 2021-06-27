@@ -1,4 +1,5 @@
 import React, {memo} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import LabelInput from "@components/UI/molecules/LabelInput";
 import Input from "@components/UI/atoms/Input";
@@ -31,7 +32,8 @@ const RegisterForm = memo(({
     password,
     setPassword,
     pwConfirm,
-    setPwConfirm
+    setPwConfirm,
+    buttonText
 }) => {
     return (
         <form onSubmit={onSubmit}>
@@ -44,7 +46,7 @@ const RegisterForm = memo(({
                             name: 'name',
                             defaultValue: name,
                             placeholder: '이름을 입력해주세요.',
-                            onChange: setName
+                            onChange: event => setName(event.target.value)
                         }}/>
 
             <LabelInput isRequired={true}
@@ -56,7 +58,7 @@ const RegisterForm = memo(({
                             name: 'email',
                             defaultValue: email,
                             placeholder: '이메일을 입력해주세요.',
-                            onChange: setEmail
+                            onChange: event => setEmail(event.target.value)
                         }}/>
 
             <LabelInput isRequired={true}
@@ -68,7 +70,7 @@ const RegisterForm = memo(({
                             name: 'phone',
                             defaultValue: phone,
                             placeholder: '전화번호를 입력해주세요.',
-                            onChange: setPhone
+                            onChange: event => setPhone(event.target.value)
                         }}/>
 
             <LabelInput isRequired={true}
@@ -80,7 +82,7 @@ const RegisterForm = memo(({
                             name: 'password',
                             defaultValue: password,
                             placeholder: '비밀번호를 입력해주세요.',
-                            onChange: setPassword
+                            onChange: event => setPassword(event.target.value)
                         }}/>
 
             <LabelInput isRequired={true}
@@ -92,15 +94,29 @@ const RegisterForm = memo(({
                             name: 'password_confirmation',
                             defaultValue: pwConfirm,
                             placeholder: '비밀번호 다시 입력해주세요.',
-                            onChange: setPwConfirm
+                            onChange: event => setPwConfirm(event.target.value)
                         }}/>
 
             <ButtonWrapper>
                 <StyledSubmitInput type="submit"
-                                   value="회원가입"/>
+                                   value={buttonText || '확인'}/>
             </ButtonWrapper>
         </form>
     );
 });
+
+RegisterForm.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    name: PropTypes.string.isRequired,
+    setName: PropTypes.func.isRequired,
+    email: PropTypes.string.isRequired,
+    setEmail: PropTypes.func.isRequired,
+    phone: PropTypes.string.isRequired,
+    setPhone: PropTypes.func.isRequired,
+    password: PropTypes.string.isRequired,
+    setPassword: PropTypes.func.isRequired,
+    pwConfirm: PropTypes.string.isRequired,
+    setPwConfirm: PropTypes.func.isRequired
+};
 
 export default RegisterForm;

@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import styled from "styled-components";
 import {connect} from "react-redux";
 import {Link, withRouter} from "react-router-dom";
-import {logout} from "@/store/actions/user";
+import {logout} from "@/actions/user";
 import color from "@/constant/color";
 import font from "@/constant/font";
 
@@ -91,9 +91,11 @@ const StyledAside = styled.div`
     }
 `;
 
-const mapStateToProps = (state) => ({
-    state
-});
+const mapStateToProps = (state) => {
+    return {
+        ...state
+    };
+};
 
 class Aside extends Component {
     constructor(props) {
@@ -116,14 +118,13 @@ class Aside extends Component {
         const {dispatch} = this.props;
 
         dispatch(logout());
-        alert('로그아웃 되었습니다.');
         this.handleMenuClick();
         this.props.history.push('/');
     }
 
     render() {
-        let user = this.props.state.user.user;
-        let isLoggedIn = this.props.state.user.isLoggedIn;
+        const user = this.props.user.info;
+        const isLoggedIn = this.props.user.isLoggedIn;
 
         return (
             <StyledAside>

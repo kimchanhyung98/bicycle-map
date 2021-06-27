@@ -1,7 +1,9 @@
 module.exports = {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "node": true,
+        "commonjs": true
     },
     "extends": [
         "eslint:recommended",
@@ -18,21 +20,17 @@ module.exports = {
         "react"
     ],
     "rules": {
-        "indent": [
-            "error",
-            "tab",
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
+        "react/display-name": "off",
+        "react/prop-types": "off",
+        "react/no-children-prop": "off",
         "semi": [
             "error",
             "always"
         ]
-    }
+    },
+    "globals": {
+        "env": true,
+        "$": true,
+        "axios": true
+    },
 };

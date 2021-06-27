@@ -1,5 +1,5 @@
 import React, {memo} from "react";
-import {connect} from 'react-redux';
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 import List from "@components/UI/atoms/List";
@@ -29,12 +29,8 @@ const StyledEmptyList = styled(StyledRideItem)`
     text-align: center;
 `;
 
-const mapStateToProps = (state) => ({
-    state
-});
-
-const RideLinkedList = memo(({rides, ...props}) => {
-    let lists = rides.map((ride) => {
+const RideLinkedList = memo(({rides}) => {
+    let lists = rides.map(ride => {
         const {
             id,
             name,
@@ -61,26 +57,28 @@ const RideLinkedList = memo(({rides, ...props}) => {
             },
             {
                 name: '장소',
-                value: `${address} ${address_detail}`
+                value: `${address} ${address_detail || ''}`
             }
         ];
 
         return (
-            <Link to={`/ride/${id}`}>
-                <StyledRideItem key={id}>
+            <StyledRideItem key={id}>
+                <Link to={`/ride/${id}`}>
                     {/* 참여 인수 */}
                     <RideAttendInfo>
                         {participants_count}명 참석
                     </RideAttendInfo>
 
                     {/* 리스트 해더 영역 */}
-                    <RideHeader level={2} name={name} difficulty={difficulty}/>
+                    <RideHeader level={2}
+                                name={name}
+                                difficulty={difficulty}/>
 
                     {/* 리스트 디테일 영역 */}
                     <RideDetailList detailItems={detailItems}/>
-                </StyledRideItem>
-            </Link>
-        )
+                </Link>
+            </StyledRideItem>
+        );
     });
 
     if (lists.length === 0) {
@@ -91,7 +89,11 @@ const RideLinkedList = memo(({rides, ...props}) => {
         <List ordered={false}>
             {lists}
         </List>
-    )
+    );
 });
 
-export default connect(mapStateToProps)(RideLinkedList);
+RideLinkedList.propTypes ={
+    rides: PropTypes.array
+};
+
+export default RideLinkedList;

@@ -1,4 +1,5 @@
 import React, {memo} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import List from "@components/UI/atoms/List";
 import font from "@/constant/font";
@@ -32,22 +33,26 @@ const StyledDistance = styled.p`
     word-break: keep-all;
 `;
 
-const RideDetailList = memo(({detailItems, ...props}) => {
-    const lists = detailItems.maps(item => {
+const RideDetailList = memo(({detailItems}) => {
+    const lists = detailItems.map(item => {
         const {name, value} = item;
         return (
-            <StyledItem>
+            <StyledItem key={value}>
                 <StyledName>{name}</StyledName>
                 <StyledDistance>{value}</StyledDistance>
             </StyledItem>
-        )
+        );
     });
 
     return (
         <StyledList>
             {lists}
         </StyledList>
-    )
+    );
 });
+
+RideDetailList.propTypes = {
+    detailItems: PropTypes.array.isRequired
+};
 
 export default RideDetailList;

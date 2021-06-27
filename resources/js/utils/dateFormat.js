@@ -1,7 +1,3 @@
-export function formatYMD(date) {
-
-}
-
 export function formatKR(date) {
     date = date.split(' ');
     let splitDate = date[0].split('-');

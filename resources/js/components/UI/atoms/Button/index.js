@@ -1,5 +1,5 @@
+import React, {memo} from "react";
 import styled from "styled-components";
-import {memo} from "react";
 
 const StyledButton = styled.button`
     padding: 0;
@@ -13,7 +13,11 @@ const Button = memo(({children, ...props}) => {
         <StyledButton {...props}>
             {children}
         </StyledButton>
-    )
+    );
 });
+
+Button.defaultProps = {
+    children: ''
+};
 
 export default Button;
