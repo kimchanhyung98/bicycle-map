@@ -1,8 +1,6 @@
 import request from "@/api/request";
 
 const getAttendRidesUrl = '/api/account/attend';
-const rideAttendUrl = '/api/ride/attend';
-const rideCancelUrl = '/api/ride/cancel';
 
 const getAttendRides = async ({...options}) => {
     try {
@@ -30,6 +28,7 @@ const getAttendRides = async ({...options}) => {
     }
 };
 
+const rideAttendUrl = '/api/ride/attend';
 const rideAttend = async ({...options}) => {
     try {
         const response = await request({
@@ -55,6 +54,7 @@ const rideAttend = async ({...options}) => {
     }
 };
 
+const rideCancelUrl = '/api/ride/cancel';
 const rideAttendCancel = async ({...options}) => {
     try {
         const response = await request({
@@ -80,8 +80,35 @@ const rideAttendCancel = async ({...options}) => {
     }
 };
 
+const getAttendStatusUrl = '/api/user/participation';
+const getAttendStatus = async ({...options}) => {
+    try {
+        const response = await request({
+            method: 'get',
+            url: getAttendStatusUrl,
+            ...options,
+        });
+        const {isError} = response;
+
+        if (!isError) {
+            return {
+                success: true,
+                data: response
+            };
+        } else {
+            throw response.response.data;
+        }
+    } catch (err) {
+        return {
+            success: false,
+            data: err
+        };
+    }
+};
+
 export {
     getAttendRides,
     rideAttend,
-    rideAttendCancel
+    rideAttendCancel,
+    getAttendStatus
 };

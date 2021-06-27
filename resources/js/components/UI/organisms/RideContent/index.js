@@ -100,7 +100,7 @@ const StyledAttendButton = styled(Button)`
     color: ${color.white};
 `;
 
-const RideContent = memo(({rideData, participantsCount, onSubmit}) => {
+const RideContent = memo(({rideData, participantsCount, isAttend, onSubmit}) => {
     const {
         difficulty,
         name,
@@ -204,7 +204,11 @@ const RideContent = memo(({rideData, participantsCount, onSubmit}) => {
             <ButtonWrapper>
                 <StyledAttendButton type="button"
                                     onClick={onSubmit}>
-                    참가하기
+
+                    {isAttend ?
+                        '신청한 라이드 입니다' :
+                        '참가하기'
+                    }
                 </StyledAttendButton>
             </ButtonWrapper>
         </>
@@ -214,6 +218,7 @@ const RideContent = memo(({rideData, participantsCount, onSubmit}) => {
 RideContent.propTypes = {
     rideData: PropTypes.object.isRequired,
     participantsCount: PropTypes.number.isRequired,
+    isAttend: PropTypes.bool,
     onSubmit: PropTypes.func.isRequired
 };
 

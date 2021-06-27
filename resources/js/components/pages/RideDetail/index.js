@@ -6,7 +6,7 @@ import Map from "@components/UI/atoms/Map";
 import RideContent from "@components/UI/organisms/RideContent";
 
 import {getRideData} from "@/api/rideApi";
-import {rideAttend} from "@/api/rideAttendApi";
+import {rideAttend, getAttendStatus} from "@/api/rideAttendApi";
 
 const StyledMainSection = styled.section`
     overflow: hidden;
@@ -25,6 +25,7 @@ const RideDetail = memo(({...props}) => {
     });
     const [participantsCount, setParticipantsCount] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
+    const [isAttend, setIsAttend] = useState(false);
     const id = props.match.params.id;
     const user = props.user;
 
@@ -50,9 +51,31 @@ const RideDetail = memo(({...props}) => {
         }
     }, [id]);
 
+    const getIsAttend = useCallback(async () => {
+        if (!user.isLoggedIn) return;
+        try {
+            const options = {
+                params: {
+                    user_id: user.info.id,
+                    ride_id: id
+                }
+            };
+            const response = await getAttendStatus(options);
+
+            if (response.success) {
+                const {is_attend} = response.data;
+                setIsAttend(is_attend);
+            } else {
+                throw response;
+            }
+        } catch (err) {
+            setIsAttend(false);
+        }
+    }, [id, props.user]);
+
     const handleSubmit = useCallback(async (event) => {
         event.preventDefault();
-        if (isLoading) return false;
+        if (isLoading || isAttend) return false;
 
         setIsLoading(true);
         try {
@@ -78,11 +101,15 @@ const RideDetail = memo(({...props}) => {
             alert(message);
             setIsLoading(false);
         }
-    }, [props.user, isLoading, participantsCount]);
+    }, [props.user, isLoading, isAttend]);
 
     useEffect(() => {
         getData();
     }, []);
+
+    useEffect(() => {
+        getIsAttend();
+    }, [props.user]);
 
     return (
         <PageTemplate padding="0 0 20px">
@@ -105,6 +132,7 @@ const RideDetail = memo(({...props}) => {
             <StyledMainSection>
                 <RideContent rideData={rideData}
                              participantsCount={participantsCount}
+                             isAttend={isAttend}
                              onSubmit={handleSubmit}/>
             </StyledMainSection>
         </PageTemplate>
