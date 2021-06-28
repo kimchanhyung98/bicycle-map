@@ -2,24 +2,13 @@ import React, {memo, useCallback, useEffect, useState} from "react";
 import RideButtonList from "@components/UI/organisms/RideButtonList";
 import {rideDelete} from "@/api/rideApi";
 import {getCreateList} from "@/api/rideListApi";
+import {scrollPaging} from "@/utils/scroll";
 
 const MyPageManage = memo(() => {
     const [rides, setRides] = useState([]);
     const [page, setPage] = useState(1);
     const [isEnd, setIsEnd] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
-    const handleScroll = useCallback(() => {
-        if (!isLoading) {
-            const scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
-            const clientHeight = document.documentElement.clientHeight;
-            const scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight) - 50;
-
-            if (scrollTop + clientHeight >= scrollHeight) {
-                setPage(page + 1);
-            }
-        }
-    }, [isLoading, page]);
 
     const handleRideDelete = useCallback(async (id) => {
         if (isEnd) return;
@@ -86,6 +75,12 @@ const MyPageManage = memo(() => {
     }, [page]);
 
     useEffect(() => {
+        function handleScroll() {
+            scrollPaging(isLoading, () => {
+                setPage(page + 1);
+            });
+        }
+
         if (page) {
             window.addEventListener('scroll', handleScroll);
         }

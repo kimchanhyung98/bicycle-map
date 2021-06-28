@@ -1,25 +1,13 @@
 import React, {memo, useCallback, useEffect, useState} from "react";
 import PageTemplate from "@components/templates/PageTemplate";
 import RideLinkedList from "@components/UI/organisms/RideLinkedList";
-
 import {getList} from "@/api/rideListApi";
+import {scrollPaging} from "@/utils/scroll";
 
 const Home = memo(() => {
     const [rides, setRides] = useState([]);
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
-
-    const handleScroll = useCallback(() => {
-        if (!isLoading) {
-            const scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
-            const clientHeight = document.documentElement.clientHeight;
-            const scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight) - 50;
-
-            if (scrollTop + clientHeight >= scrollHeight) {
-                setPage(page + 1);
-            }
-        }
-    }, [isLoading, page]);
 
     const getData = useCallback(async () => {
         setIsLoading(true);
@@ -58,6 +46,12 @@ const Home = memo(() => {
     }, [page]);
 
     useEffect(() => {
+        function handleScroll() {
+            scrollPaging(isLoading, () => {
+                setPage(page + 1);
+            });
+        }
+
         if (page) {
             window.addEventListener('scroll', handleScroll);
         }
