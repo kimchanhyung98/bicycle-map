@@ -53,12 +53,18 @@ const FileUpload = memo(({
                 data: formData
             };
             const response = await request(options);
-            const {file, message} = response.data;
-            setFile(file);
-            alert(message);
+            const {isError} = response;
+
+            if (!isError) {
+                const {file, message} = response;
+                setFile(file);
+                alert(message);
+            } else {
+                throw response.response;
+            }
         } catch (err) {
-            const {message} = err.data;
-            alert(message);
+            const {statusText} = err;
+            alert(statusText);
         }
     }, [setFile]);
 
