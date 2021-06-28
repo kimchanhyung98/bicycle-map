@@ -17,6 +17,7 @@ const StyledHeader = styled.header`
 
 const HeaderWrapper = styled.div`
     display: flex;
+    justify-content: center;
     align-items: center;
     overflow: hidden;
     position: relative;
@@ -25,15 +26,10 @@ const HeaderWrapper = styled.div`
 `;
 
 const HeaderLogo = styled(Heading)`
-    position: absolute;
-    left: 50%;
-    width: 200px;
-    margin-left: -100px;
-    text-align: center;
 
     a {
         font-weight: normal;
-        font-size: ${font.sizeLarge};
+        font-size: ${font.sizeBase};
         line-height: 32px;
         color: ${color.white};
         text-decoration: none;
@@ -45,7 +41,7 @@ const Header = memo(() => {
         <StyledHeader>
             <HeaderWrapper>
                 <HeaderLogo level={1}>
-                    <Link to="/">Ride</Link>
+                    <Link to="/">[BETA] 문제 발생 시 관리자에게 문의</Link>
                 </HeaderLogo>
             </HeaderWrapper>
         </StyledHeader>
