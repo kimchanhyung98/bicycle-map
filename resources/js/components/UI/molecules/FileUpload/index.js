@@ -74,7 +74,7 @@ const FileUpload = memo(({
                              value={name || ''}
                              placeholder={placeholder}
                              readOnly/>
-            <StyledLabel htmlFor="file">업로드 버튼</StyledLabel>
+            <StyledLabel htmlFor="file">업로드</StyledLabel>
             <StyledFileInput type="file"
                              id="file"
                              readOnly

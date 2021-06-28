@@ -2,7 +2,6 @@ import React, {memo, useCallback, useEffect, useState} from "react";
 import PageTemplate from "@components/templates/PageTemplate";
 import RideForm from "@components/UI/organisms/RideForm";
 import {formatDate, formatNaturalDate, getTime} from '@/utils/dateFormat';
-import {getReverseGeocode} from "@/api/mapApi";
 import {getRideEditData, rideUpdate} from "@/api/rideApi";
 
 const formType = 'update';
@@ -36,59 +35,6 @@ const RideEdit = memo(({...props}) => {
         altitude: 'flat',
         altitude_detail: ''
     });
-
-    const handleSetFile = useCallback(({...file}) => {
-        const newRideData = {
-            file: file,
-            file_id: file.id
-        };
-
-        setRideData(prevRideData => {
-            return {
-                ...prevRideData,
-                ...newRideData
-            };
-        });
-    }, [rideData]);
-
-    const handleSetLocation = useCallback(async ({latlng}) => {
-        const {x: lng, y: lat} = latlng;
-
-        try {
-            const lnglat = `${lng},${lat}`;
-            const options = {
-                params: {
-                    lnglat: lnglat
-                }
-            };
-            const response = await getReverseGeocode(options);
-            const {success} = response;
-
-            if (success) {
-                const {area1, area2, area3} = response.data.results[0].region;
-                const newRideData = {
-                    latitude: lat,
-                    longitude: lng,
-                    address: `${area1.name} ${area2.name} ${area3.name}`,
-                    locality: area1.name,
-                    sublocality1: area2.name,
-                    sublocality2: area3.name
-                };
-
-                setRideData(prevRideData => {
-                    return {
-                        ...prevRideData,
-                        ...newRideData
-                    };
-                });
-            } else {
-                throw response;
-            }
-        } catch (err) {
-            const {message} = err.data;
-            alert(message);
-        }
-    }, [rideData]);
 
     const handleSubmit = useCallback(async (event) => {
         event.preventDefault();
@@ -168,9 +114,7 @@ const RideEdit = memo(({...props}) => {
                 <RideForm formType={formType}
                           rideData={rideData}
                           onSubmit={handleSubmit}
-                          setRideData={setRideData}
-                          setFile={handleSetFile}
-                          setLocation={handleSetLocation}/>
+                          setRideData={setRideData}/>
             </section>
         </PageTemplate>
     );
