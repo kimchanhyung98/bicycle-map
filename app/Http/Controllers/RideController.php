@@ -37,7 +37,7 @@ class RideController extends Controller
             'ended_at' => 'nullable|date|after:started_at',
 
             'address' => 'required|max:255',
-            'address_detail' => 'nullable|max:255',
+            'address_detail' => 'required|max:255',
             'locality' => 'nullable|max:255',
             'sublocality1' => 'nullable|max:255',
             'sublocality2' => 'nullable|max:255',
@@ -71,7 +71,7 @@ class RideController extends Controller
             'ride' => $ride->load('file', 'participants.user'),
             'host' => $ride->user->name,
             'participants_count' => $ride->participants()->count(),
-            'comments' => $ride->comments(),
+            'comments' => $ride->comments->load('user:id,name'),
         ]);
     }
 
