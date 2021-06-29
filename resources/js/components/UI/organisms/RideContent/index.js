@@ -132,12 +132,6 @@ const RideContent = memo(({rideData, participantsCount, isAttend, rideAttend}) =
                     <RideContentGroupItem title="개설자">
                         <p>{user.name}</p>
                     </RideContentGroupItem>
-                    <RideContentGroupItem title="이메일">
-                        <p>{user.email}</p>
-                    </RideContentGroupItem>
-                    <RideContentGroupItem title="전화번호">
-                        <p>{user.phone}</p>
-                    </RideContentGroupItem>
                 </RideContentGroup>
 
                 <RideContentGroup type={'list'}>
