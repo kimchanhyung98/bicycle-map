@@ -6,12 +6,12 @@ import {scrollPaging} from "@/utils/scroll";
 const MyPageAttend = memo(() => {
     const [rides, setRides] = useState([]);
     const [page, setPage] = useState(1);
-    const [isEnd, setIsEnd] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleRideCancel = useCallback(async (id) => {
-        if (isEnd) return;
-        setIsEnd(true);
+    const handleRideCancel = useCallback(async ({event, id}) => {
+        const {target} = event;
+        if (target.disabled) return;
+        target.disabled = true;
 
         try {
             const options = {
@@ -35,9 +35,9 @@ const MyPageAttend = memo(() => {
             const {message} = err.data;
             alert(message);
         } finally {
-            setIsEnd(false);
+            target.disabled = false;
         }
-    }, [isEnd, rides]);
+    }, [rides]);
 
     const getData = useCallback(async () => {
         setIsLoading(true);

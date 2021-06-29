@@ -8,7 +8,6 @@ const formType = 'update';
 
 const RideEdit = memo(({...props}) => {
     const [id] = useState(props.match.params.id);
-    const [isLoading, setIsLoading] = useState(false);
     const [rideData, setRideData] = useState({
         file: {
             name: ''
@@ -39,8 +38,9 @@ const RideEdit = memo(({...props}) => {
     const handleSubmit = useCallback(async (event) => {
         event.preventDefault();
 
-        if (isLoading) return false;
-        setIsLoading(true);
+        const target = event.target.querySelector('input[type="submit"]');
+        if (target.disabled) return;
+        target.disabled = true;
 
         try {
             const {start_date, start_time, end_date, end_time} = rideData;
@@ -66,9 +66,9 @@ const RideEdit = memo(({...props}) => {
         } catch (err) {
             const {message} = err.data;
             alert(message);
-            setIsLoading(false);
+            target.disabled = false;
         }
-    }, [isLoading, rideData]);
+    }, [rideData]);
 
     const getData = useCallback(async () => {
         try {

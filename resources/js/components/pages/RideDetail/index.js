@@ -24,7 +24,6 @@ const RideDetail = memo(({...props}) => {
         user: {}
     });
     const [participantsCount, setParticipantsCount] = useState(0);
-    const [isLoading, setIsLoading] = useState(false);
     const [isAttend, setIsAttend] = useState(false);
     const id = props.match.params.id;
     const user = props.user;
@@ -73,11 +72,12 @@ const RideDetail = memo(({...props}) => {
         }
     }, [id, props.user]);
 
-    const handleSubmit = useCallback(async (event) => {
+    const handleRideAttend = useCallback(async (event) => {
         event.preventDefault();
-        if (isLoading || isAttend) return false;
+        const {target} = event;
+        if (target.disabled || isAttend) return;
+        target.disabled = true;
 
-        setIsLoading(true);
         try {
             const user_id = user.info.id;
             const options = {
@@ -91,17 +91,18 @@ const RideDetail = memo(({...props}) => {
             if (response.success) {
                 const {message} = response.data;
                 setParticipantsCount(prevCount => prevCount + 1);
+                setIsAttend(true);
                 alert(message);
-                setIsLoading(false);
+                target.disabled = false;
             } else {
                 throw response;
             }
         } catch (err) {
             const {message} = err.data;
             alert(message);
-            setIsLoading(false);
+            target.disabled = true;
         }
-    }, [props.user, isLoading, isAttend]);
+    }, [props.user, isAttend]);
 
     useEffect(() => {
         getData();
@@ -133,7 +134,7 @@ const RideDetail = memo(({...props}) => {
                 <RideContent rideData={rideData}
                              participantsCount={participantsCount}
                              isAttend={isAttend}
-                             onSubmit={handleSubmit}/>
+                             rideAttend={handleRideAttend}/>
             </StyledMainSection>
         </PageTemplate>
     );

@@ -7,7 +7,6 @@ import {rideCreate} from "@/api/rideApi";
 const formType = 'create';
 
 const RideCreate = memo(({...props}) => {
-    const [isLoading, setIsLoading] = useState(false);
     const [rideData, setRideData] = useState({
         file: {
             name: ''
@@ -38,8 +37,9 @@ const RideCreate = memo(({...props}) => {
     const handleSubmit = useCallback(async (event) => {
         event.preventDefault();
 
-        if (isLoading) return false;
-        setIsLoading(true);
+        const target = event.target.querySelector('input[type="submit"]');
+        if (target.disabled) return;
+        target.disabled = true;
 
         try {
             const {start_date, start_time, end_date, end_time} = rideData;
@@ -65,9 +65,9 @@ const RideCreate = memo(({...props}) => {
         } catch (err) {
             const {message} = err.data;
             alert(message);
-            setIsLoading(false);
+            target.disabled = false;
         }
-    }, [isLoading, rideData]);
+    }, [rideData]);
 
     return (
         <PageTemplate>
