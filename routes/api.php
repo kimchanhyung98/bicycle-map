@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\ParticipantController;
@@ -37,7 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     // 업로드
-    Route::middleware('throttle:5,1')->group(function () {
+    Route::middleware('throttle:30,1')->group(function () {
         Route::group(['prefix' => 'upload', 'as' => 'upload.'], function () {
             // GPX 파일 업로드
             Route::post('gpx', [FileController::class, 'gpx']);
@@ -49,6 +50,14 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // 네이버 지도 리버스 지오코드
     Route::get('reverse-geocode', [MapController::class, 'reverse_geocode']);
+
+    // 댓글
+    Route::group(['prefix' => 'comment', 'as' => 'comment.'], function () {
+        // 댓글 저장
+        Route::post('/', [CommentController::class, 'store']);
+        // 댓글 삭제
+        Route::delete('{comment}', [CommentController::class, 'destroy']);
+    });
 });
 
 

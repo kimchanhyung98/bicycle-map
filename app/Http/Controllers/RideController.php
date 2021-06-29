@@ -68,8 +68,10 @@ class RideController extends Controller
     public function show(Ride $ride)
     {
         return response()->json([
-            'ride' => $ride->load('user', 'file', 'participants.user'),
+            'ride' => $ride->load('file', 'participants.user'),
+            'host' => $ride->user->name,
             'participants_count' => $ride->participants()->count(),
+            'comments' => $ride->comments(),
         ]);
     }
 
