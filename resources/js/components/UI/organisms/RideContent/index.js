@@ -10,7 +10,7 @@ import Button from "@components/UI/atoms/Button";
 
 import color from "@/constant/color";
 import font from "@/constant/font";
-import {formatAltitude, formatDifficulty} from '@/utils/ride';
+import {formatDifficulty} from '@/utils/ride';
 
 const StyledContentWrapper = styled.div`
     padding: 0 20px;
@@ -106,7 +106,6 @@ const RideContent = memo(({rideData, participantsCount, isAttend, rideAttend}) =
         name,
         user,
         distance,
-        altitude,
         altitude_detail,
         started_at,
         ended_at,
@@ -135,7 +134,9 @@ const RideContent = memo(({rideData, participantsCount, isAttend, rideAttend}) =
                 </RideContentGroup>
 
                 <RideContentGroup type={'list'}>
-                    <RideContentGroupItem title="거리">
+                    <RideContentGroupItem isEmpty={true}
+                                          check={distance}
+                                          title="거리">
                         <p>
                             {distance ?
                                 `${distance}km` :
@@ -143,26 +144,29 @@ const RideContent = memo(({rideData, participantsCount, isAttend, rideAttend}) =
                             }
                         </p>
                     </RideContentGroupItem>
-                    <RideContentGroupItem title="고도">
+                    <RideContentGroupItem isEmpty={true}
+                                          check={altitude_detail}
+                                          title="고도">
                         <p>
-                            {formatAltitude(altitude)}
                             {altitude_detail && <span>{altitude_detail}m</span>}
                         </p>
                     </RideContentGroupItem>
                     <RideContentGroupItem title="시작시간">
                         <p>{started_at}</p>
                     </RideContentGroupItem>
-                    <RideContentGroupItem title="종료시간">
+                    <RideContentGroupItem isEmpty={true}
+                                          check={ended_at}
+                                          title="종료시간">
                         <p>{ended_at}</p>
                     </RideContentGroupItem>
                     <RideContentGroupItem title="장소">
                         <p>{address}</p>
                     </RideContentGroupItem>
-                    {address_detail &&
-                    <RideContentGroupItem title="장소상세">
+                    <RideContentGroupItem isEmpty={true}
+                                          check={address_detail}
+                                          title="장소상세">
                         <p>{address_detail}</p>
                     </RideContentGroupItem>
-                    }
                 </RideContentGroup>
 
                 {file &&

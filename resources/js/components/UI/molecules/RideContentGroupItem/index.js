@@ -28,19 +28,25 @@ const StyledSpan = styled(Span)`
     color: ${color.gray600};
 `;
 
-const RideContentGroupItem = memo(({title, children}) => {
-    return (
-        <StyledListItem>
-            <StyledSpan>{title}</StyledSpan>
+const RideContentGroupItem = memo(({isEmpty, check, title, children}) => {
+    if (isEmpty && !check) {
+        return '';
+    } else {
+        return (
+            <StyledListItem>
+                <StyledSpan>{title}</StyledSpan>
 
-            {children}
-        </StyledListItem>
-    );
+                {children}
+            </StyledListItem>
+        );
+    }
 });
 
 RideContentGroupItem.defaultProps = {
+    isEmpty: false,
+    check: true,
     title: '',
-    children: ''
+    children: '',
 };
 
 RideContentGroupItem.propTypes = {
