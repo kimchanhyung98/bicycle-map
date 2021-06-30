@@ -31,10 +31,13 @@ Route::middleware('auth:sanctum')->group(function () {
         // 회원 탈퇴
         Route::delete('/', [AccountController::class, 'destroy']);
 
-        // 개설 내역
-        Route::get('manage', [AccountController::class, 'manage']);
         // 참가 내역
         Route::get('attend', [AccountController::class, 'attend']);
+        // 개설 내역
+        Route::get('manage', [AccountController::class, 'manage']);
+
+        // 참가자 리스트
+        Route::get('{ride}/entry', [AccountController::class, 'entry']);
     });
 
     // 업로드
