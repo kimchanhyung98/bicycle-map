@@ -102,9 +102,9 @@ const StyledAttendButton = styled(Button)`
 
 const RideContent = memo(({rideData, participantsCount, isAttend, rideAttend}) => {
     const {
+        host,
         difficulty,
         name,
-        user,
         distance,
         altitude_detail,
         started_at,
@@ -129,7 +129,7 @@ const RideContent = memo(({rideData, participantsCount, isAttend, rideAttend}) =
 
                 <RideContentGroup type={'list'}>
                     <RideContentGroupItem title="개설자">
-                        <p>{user.name}</p>
+                        <p>{host}</p>
                     </RideContentGroupItem>
                 </RideContentGroup>
 
