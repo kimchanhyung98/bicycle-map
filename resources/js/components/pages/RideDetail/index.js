@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import PageTemplate from "@components/templates/PageTemplate";
 import Map from "@components/UI/atoms/Map";
 import RideContent from "@components/UI/organisms/RideContent";
+import RideComment from "@components/UI/organisms/RideComment";
 
 import {getRideData} from "@/api/rideApi";
 import {rideAttend, getAttendStatus} from "@/api/rideAttendApi";
@@ -23,6 +24,7 @@ const RideDetail = memo(({...props}) => {
     const [rideData, setRideData] = useState({
         user: {}
     });
+    const [comments, setComments] = useState([]);
     const [participantsCount, setParticipantsCount] = useState(0);
     const [isAttend, setIsAttend] = useState(false);
     const id = props.match.params.id;
@@ -36,11 +38,29 @@ const RideDetail = memo(({...props}) => {
             const response = await getRideData(options);
 
             if (response.success) {
-                const {ride, participants_count} = response.data;
+                const {comments, host, ride, participants_count} = response.data;
                 setRideData({
-                    ...ride
+                    ...ride,
+                    host
                 });
                 setParticipantsCount(participants_count);
+
+                // TODO: 추후 수정
+                let newComments = comments.filter(e => !e.parent_id);
+                if (newComments.length !== comments.length) {
+                    const replyArr = comments.filter(e => e.parent_id);
+
+                    newComments = newComments.map(comment => {
+                        const reply = replyArr.filter(e => {
+                            return e.parent_id === comment.id;
+                        });
+                        return {
+                            ...comment,
+                            reply: reply
+                        };
+                    });
+                }
+                setComments(newComments);
             } else {
                 throw response;
             }
@@ -136,6 +156,10 @@ const RideDetail = memo(({...props}) => {
                              isAttend={isAttend}
                              rideAttend={handleRideAttend}/>
             </StyledMainSection>
+
+            <RideComment rideId={id}
+                         comments={comments}
+                         setComments={setComments}/>
         </PageTemplate>
     );
 });
