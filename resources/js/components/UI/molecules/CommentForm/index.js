@@ -45,6 +45,11 @@ const CommentForm = memo(({rideId, parentId, setComments}) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        if (!text) {
+            alert('댓글을 입력해주세요.');
+            return;
+        }
+        
         const target = event.target.querySelector('button[type="submit"]');
         if (target.disabled) return;
         target.disabled = true;
