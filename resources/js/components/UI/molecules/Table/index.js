@@ -10,7 +10,7 @@ const StyledTable = styled.table`
     width: 100%;
     border: 1px solid ${color.pageColor};
     color: ${font.color};
-`
+`;
 
 const Table = ({
     caption, head, foot, children, ...props
@@ -23,7 +23,7 @@ const Table = ({
             <tbody>{children}</tbody>
         </StyledTable>
     );
-}
+};
 
 Table.propTypes = {
     caption: PropTypes.string,

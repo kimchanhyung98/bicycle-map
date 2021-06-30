@@ -106,9 +106,35 @@ const getAttendStatus = async ({...options}) => {
     }
 };
 
+const getAttendEntry = async ({id}) => {
+    try {
+        const url = `/api/account/${id}/entry`;
+        const response = await request({
+            method: 'get',
+            url: url
+        });
+        const {isError} = response;
+
+        if (!isError) {
+            return {
+                success: true,
+                data: response
+            };
+        } else {
+            throw response.response.data;
+        }
+    } catch (err) {
+        return {
+            success: false,
+            data: err
+        };
+    }
+};
+
 export {
     getAttendRides,
     rideAttend,
     rideAttendCancel,
-    getAttendStatus
+    getAttendStatus,
+    getAttendEntry
 };

@@ -89,7 +89,8 @@ class AccountController extends Controller
     public function entry(Ride $ride)
     {
         return response()->json([
-            'entry' => $ride->participants,
+            'ride_name' => $ride->name,
+            'entry' => $ride->participants->load('user:id,name'),
         ]);
     }
 }
