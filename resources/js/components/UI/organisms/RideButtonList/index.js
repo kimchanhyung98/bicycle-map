@@ -27,8 +27,10 @@ const StyledRideItem = styled.li`
 `;
 
 const ButtonWrapper = styled.div`
-    overflow: hidden;
-    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 7px;
 `;
 
 const StyledEmptyList = styled(StyledRideItem)`
@@ -40,10 +42,9 @@ const StyledEmptyList = styled(StyledRideItem)`
 
 const ButtonStyles = css`
     display: block;
-    float: left;
     width: auto;
     height: 28px;
-    margin-right: 8px;
+    margin: 8px 8px 0 0;
     padding: 0 8px;
     border: 1px solid ${color.pageColor};
     background: ${color.white};
@@ -82,15 +83,16 @@ const RideButtonList = memo(({type, rides, emptyMessage, rideDelete, rideCancel}
                 <StyledLink to={`/ride/${id}`}>바로가기</StyledLink>
                 <StyledLink to={`/ride/edit/${id}`}>수정하기</StyledLink>
                 <StyledButton type="button"
-                              onClick={() => rideDelete(id)}>
+                              onClick={event => rideDelete({event, id})}>
                     삭제하기
                 </StyledButton>
+                <StyledLink to={`/mypage/${id}/entry`}>참여자정보</StyledLink>
             </>;
         } else if (type === 'attend') {
             buttons = <>
                 <StyledLink to={`/ride/${id}`}>바로가기</StyledLink>
                 <StyledButton type="button"
-                              onClick={() => rideCancel(id)}>
+                              onClick={event => rideCancel({event, id})}>
                     취소하기
                 </StyledButton>
             </>;

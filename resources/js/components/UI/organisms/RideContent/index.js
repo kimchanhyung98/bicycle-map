@@ -10,7 +10,7 @@ import Button from "@components/UI/atoms/Button";
 
 import color from "@/constant/color";
 import font from "@/constant/font";
-import {formatAltitude, formatDifficulty} from '@/utils/ride';
+import {formatDifficulty} from '@/utils/ride';
 
 const StyledContentWrapper = styled.div`
     padding: 0 20px;
@@ -100,13 +100,12 @@ const StyledAttendButton = styled(Button)`
     color: ${color.white};
 `;
 
-const RideContent = memo(({rideData, participantsCount, isAttend, onSubmit}) => {
+const RideContent = memo(({rideData, participantsCount, isAttend, rideAttend}) => {
     const {
+        host,
         difficulty,
         name,
-        user,
         distance,
-        altitude,
         altitude_detail,
         started_at,
         ended_at,
@@ -130,18 +129,14 @@ const RideContent = memo(({rideData, participantsCount, isAttend, onSubmit}) => 
 
                 <RideContentGroup type={'list'}>
                     <RideContentGroupItem title="개설자">
-                        <p>{user.name}</p>
-                    </RideContentGroupItem>
-                    <RideContentGroupItem title="이메일">
-                        <p>{user.email}</p>
-                    </RideContentGroupItem>
-                    <RideContentGroupItem title="전화번호">
-                        <p>{user.phone}</p>
+                        <p>{host}</p>
                     </RideContentGroupItem>
                 </RideContentGroup>
 
                 <RideContentGroup type={'list'}>
-                    <RideContentGroupItem title="거리">
+                    <RideContentGroupItem isEmpty={true}
+                                          check={distance}
+                                          title="거리">
                         <p>
                             {distance ?
                                 `${distance}km` :
@@ -149,26 +144,29 @@ const RideContent = memo(({rideData, participantsCount, isAttend, onSubmit}) => 
                             }
                         </p>
                     </RideContentGroupItem>
-                    <RideContentGroupItem title="고도">
+                    <RideContentGroupItem isEmpty={true}
+                                          check={altitude_detail}
+                                          title="고도">
                         <p>
-                            {formatAltitude(altitude)}
                             {altitude_detail && <span>{altitude_detail}m</span>}
                         </p>
                     </RideContentGroupItem>
                     <RideContentGroupItem title="시작시간">
                         <p>{started_at}</p>
                     </RideContentGroupItem>
-                    <RideContentGroupItem title="종료시간">
+                    <RideContentGroupItem isEmpty={true}
+                                          check={ended_at}
+                                          title="종료시간">
                         <p>{ended_at}</p>
                     </RideContentGroupItem>
                     <RideContentGroupItem title="장소">
                         <p>{address}</p>
                     </RideContentGroupItem>
-                    {address_detail &&
-                    <RideContentGroupItem title="장소상세">
+                    <RideContentGroupItem isEmpty={true}
+                                          check={address_detail}
+                                          title="장소상세">
                         <p>{address_detail}</p>
                     </RideContentGroupItem>
-                    }
                 </RideContentGroup>
 
                 {file &&
@@ -203,7 +201,7 @@ const RideContent = memo(({rideData, participantsCount, isAttend, onSubmit}) => 
 
             <ButtonWrapper>
                 <StyledAttendButton type="button"
-                                    onClick={onSubmit}>
+                                    onClick={rideAttend}>
 
                     {isAttend ?
                         '신청한 라이드 입니다' :
@@ -219,7 +217,7 @@ RideContent.propTypes = {
     rideData: PropTypes.object.isRequired,
     participantsCount: PropTypes.number.isRequired,
     isAttend: PropTypes.bool,
-    onSubmit: PropTypes.func.isRequired
+    rideAttend: PropTypes.func.isRequired
 };
 
 export default RideContent;

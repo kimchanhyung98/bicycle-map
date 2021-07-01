@@ -6,18 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Ride extends Model
+class Comment extends Model
 {
     use HasFactory, SoftDeletes;
-
-    /**
-     * The model's default values for attributes.
-     *
-     * @var array
-     */
-    protected $attributes = [
-        // 'attribute' => false,
-    ];
 
     /**
      * The attributes that aren't mass assignable.
@@ -34,19 +25,14 @@ class Ride extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function file()
+    public function ride()
     {
-        return $this->belongsTo(File::class);
+        return $this->belongsTo(Ride::class);
     }
 
-    public function participants()
+    public function parent()
     {
-        return $this->hasMany(Participant::class);
-    }
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
+        return $this->belongsTo(Comment::class, 'parent_id');
     }
 
 }

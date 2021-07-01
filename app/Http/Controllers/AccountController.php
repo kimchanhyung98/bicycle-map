@@ -55,6 +55,19 @@ class AccountController extends Controller
     }
 
     /**
+     * 마이 페이지, 참가 내역
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function attend(Request $request)
+    {
+        return response()->json([
+            'rides' => Ride::whereIn('id', $request->user()->participants()->pluck('ride_id'))->paginate(10),
+        ]);
+    }
+
+    /**
      * 마이 페이지, 개설 내역
      *
      * @param Request $request
@@ -68,15 +81,16 @@ class AccountController extends Controller
     }
 
     /**
-     * 마이 페이지, 참가 내역
+     * 마이 페이지, 참가자 명단
      *
-     * @param Request $request
+     * @param Ride $ride
      * @return JsonResponse
      */
-    public function attend(Request $request)
+    public function entry(Ride $ride)
     {
         return response()->json([
-            'rides' => Ride::whereIn('id', $request->user()->participants()->pluck('ride_id'))->paginate(10),
+            'ride_name' => $ride->name,
+            'entry' => $ride->participants->load('user:id,name'),
         ]);
     }
 }

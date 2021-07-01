@@ -11,6 +11,7 @@ import Input from "@components/UI/atoms/Input";
 import SelectBox from "@components/UI/atoms/SelectBox";
 import color from "@/constant/color";
 import {timeOptions, difficultyOptions, altitudeOptions} from "@/utils/option";
+import {getReverseGeocode} from "@/api/mapApi";
 
 const dateFormat = 'y-MM-dd';
 
@@ -62,8 +63,6 @@ const RideForm = memo(({
     formType,
     rideData,
     setRideData,
-    setFile,
-    setLocation,
     onSubmit
 }) => {
     const {
@@ -110,6 +109,59 @@ const RideForm = memo(({
             return {
                 ...prevRideData,
                 end_date: value
+            };
+        });
+    }, [rideData]);
+
+    const handleSetLocation = useCallback(async ({latlng}) => {
+        const {x: lng, y: lat} = latlng;
+
+        try {
+            const lnglat = `${lng},${lat}`;
+            const options = {
+                params: {
+                    lnglat: lnglat
+                }
+            };
+            const response = await getReverseGeocode(options);
+            const {success} = response;
+
+            if (success) {
+                const {area1, area2, area3} = response.data.results[0].region;
+                const newRideData = {
+                    latitude: lat,
+                    longitude: lng,
+                    address: `${area1.name} ${area2.name} ${area3.name}`,
+                    locality: area1.name,
+                    sublocality1: area2.name,
+                    sublocality2: area3.name
+                };
+
+                setRideData(prevRideData => {
+                    return {
+                        ...prevRideData,
+                        ...newRideData
+                    };
+                });
+            } else {
+                throw response;
+            }
+        } catch (err) {
+            const {message} = err.data;
+            alert(message);
+        }
+    }, [rideData]);
+
+    const handleSetFile = useCallback(({...file}) => {
+        const newRideData = {
+            file: file,
+            file_id: file.id
+        };
+
+        setRideData(prevRideData => {
+            return {
+                ...prevRideData,
+                ...newRideData
             };
         });
     }, [rideData]);
@@ -193,7 +245,7 @@ const RideForm = memo(({
                             lng: longitude
                         },
                         zoom: 13,
-                        onClick: setLocation
+                        onClick: handleSetLocation
                     }}
                     markers={[{
                         lat: latitude,
@@ -213,7 +265,7 @@ const RideForm = memo(({
                 <FileUpload url={'/api/upload/gpx'}
                             file={file}
                             placeholder={"GPX 파일을 업로드해주세요"}
-                            setFile={setFile}/>
+                            setFile={handleSetFile}/>
             </FormGroup>
 
             <FormGroup labelProps={{
@@ -283,8 +335,6 @@ RideForm.propTypes = {
     formType: PropTypes.string,
     rideData: PropTypes.object.isRequired,
     setRideData: PropTypes.func.isRequired,
-    setFile: PropTypes.func.isRequired,
-    setLocation: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired
 };
 

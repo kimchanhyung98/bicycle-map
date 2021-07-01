@@ -1,3 +1,18 @@
+const formatNumber = (num) => {
+    return (num + '').length === 1 ? '0' + num : num;
+};
+
+export function convertDate(date) {
+    const newDate = new Date(date);
+    const year = newDate.getFullYear();
+    const month = formatNumber(newDate.getMonth() + 1);
+    const day = formatNumber(newDate.getDate());
+    const hour = formatNumber(newDate.getHours());
+    const minute = formatNumber(newDate.getMinutes());
+
+    return `${year}-${month}-${day} ${hour}:${minute}`;
+}
+
 export function formatKR(date) {
     date = date.split(' ');
     let splitDate = date[0].split('-');

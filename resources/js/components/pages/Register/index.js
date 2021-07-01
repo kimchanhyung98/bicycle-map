@@ -20,19 +20,19 @@ const Register = memo(({...props}) => {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [pwConfirm, setPwConfirm] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = useCallback(async (event) => {
         event.preventDefault();
 
-        if (isLoading) return false;
+        const target = event.target.querySelector('input[type="submit"]');
+        if (target.disabled) return;
 
         if (password !== pwConfirm) {
             alert('비빌번호가 일치하지 않습니다.');
-            return false;
+            return;
         }
 
-        setIsLoading(true);
+        target.disabled = true;
         try {
             const options = {
                 data: {
@@ -55,9 +55,9 @@ const Register = memo(({...props}) => {
         } catch (err) {
             const {message} = err.data;
             alert(message);
-            setIsLoading(false);
+            target.disabled = false;
         }
-    }, [name, email, phone, password, pwConfirm, isLoading]);
+    }, [name, email, phone, password, pwConfirm]);
 
     return (
         <PageTemplate>

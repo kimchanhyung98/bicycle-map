@@ -39,7 +39,7 @@ const RegisterForm = memo(({
         <form onSubmit={onSubmit}>
             <LabelInput isRequired={true}
                         labelProps={{
-                            children: '이름'
+                            children: '닉네임'
                         }}
                         inputProps={{
                             type: 'text',
