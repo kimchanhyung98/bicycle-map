@@ -62,7 +62,6 @@ const CommentButtonWrapper = styled.div`
     }
 `;
 
-
 const mapStateToProps = (state) => {
     return {
         ...state
