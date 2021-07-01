@@ -36,6 +36,9 @@ const StyledDistance = styled.p`
 const RideDetailList = memo(({detailItems}) => {
     const lists = detailItems.map(item => {
         const {name, value} = item;
+
+        if (!value) return null;
+
         return (
             <StyledItem key={value}>
                 <StyledName>{name}</StyledName>
