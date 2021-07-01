@@ -29,6 +29,7 @@ const StyledRideDescription = styled.p`
     font-size: ${font.sizeSmall};
     line-height: 16px;
     color: ${color.gray600};
+    white-space: pre-line;
 `;
 
 const StyledRideCapacity = styled(RideContentGroup)`
