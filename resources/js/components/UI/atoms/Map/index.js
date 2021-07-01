@@ -1,29 +1,23 @@
-import React, {memo, useCallback, useEffect} from "react";
+import React, {memo, useEffect, useRef} from "react";
 import PropTypes from "prop-types";
 import {RenderAfterNavermapsLoaded, NaverMap, Marker} from "react-naver-maps";
 
 const NAVER_API_KEY = env.NCLOUD_CLIENT_ID;
-const location = {
-    latitude: '37.554722',
-    longitude: '126.970833'
-};
 
 const Map = memo(({
     mapOptions,
-    markers,
-    ...props
+    markers
 }) => {
-    const {id, width, height, center, zoom} = mapOptions;
-    const {gpx} = props;
-    let mapRef;
-
-    const startDataLayer = useCallback((xmlDoc) => {
-        mapRef.instance.data.addGpx(xmlDoc);
-    }, []);
+    const {id, width, height, center, zoom, gpx} = mapOptions;
+    const mapRef = useRef(null);
 
     useEffect(() => {
-        if (gpx) {
-            window.naver.maps.Event.once(mapRef.instance, 'init_stylemap', () => {
+        function startDataLayer(xmlDoc) {
+            mapRef.current.instance.data.addGpx(xmlDoc);
+        }
+
+        if (gpx && mapRef.current) {
+            window.naver.maps.Event.once(mapRef.current.instance, 'init_stylemap', function () {
                 $.ajax({
                     url: gpx.path,
                     dataType: 'xml',
@@ -33,7 +27,7 @@ const Map = memo(({
                 });
             });
         }
-    }, []);
+    }, [gpx, mapRef.current]);
 
     return (
         <RenderAfterNavermapsLoaded ncpClientId={NAVER_API_KEY}
@@ -45,11 +39,11 @@ const Map = memo(({
                           width: width || '100%',
                           height: height || '300px'
                       }}
-                      defaultCenter={center || location}
-                      center={center || location}
+                      defaultCenter={center}
+                      center={center}
                       zoom={zoom || 12}
                       naverRef={ref => {
-                          mapRef = ref;
+                          mapRef.current = ref;
                       }}>
 
                 {(markers && window.naver) &&
