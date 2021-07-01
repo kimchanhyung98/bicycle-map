@@ -8,7 +8,7 @@ import color from "@/constant/color";
 const StyledCommentItem = styled.li`
     display: flex;
     flex-direction: column;
-    padding: 15px 0;
+    padding: 15px 0 0;
     border-bottom: 1px solid ${color.borderColor};
 
     &:last-child {
@@ -19,11 +19,19 @@ const StyledCommentItem = styled.li`
 
 const ReplySection = styled.section`
     margin-top: 15px;
-    padding: 10px 10px 15px;
+    padding: ${({isShow}) => isShow ? '10px 10px 15px' : '0 10px'};
     background: ${color.lightGray};
 
     form {
         display: ${({isShow}) => isShow ? 'flex' : 'none'};
+    }
+
+    ul li {
+        padding-bottom: 15px;
+
+        &:last-child {
+            padding-bottom: ${({isShow}) => isShow ? '0' : '15px'};
+        }
     }
 `;
 
