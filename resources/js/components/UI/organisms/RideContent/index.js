@@ -29,6 +29,7 @@ const StyledRideDescription = styled.p`
     font-size: ${font.sizeSmall};
     line-height: 16px;
     color: ${color.gray600};
+    white-space: pre-line;
 `;
 
 const StyledRideCapacity = styled(RideContentGroup)`
@@ -107,6 +108,8 @@ const RideContent = memo(({rideData, participantsCount, isAttend, rideAttend}) =
         name,
         distance,
         altitude_detail,
+        latitude,
+        longitude,
         started_at,
         ended_at,
         address,
@@ -175,8 +178,12 @@ const RideContent = memo(({rideData, participantsCount, isAttend, rideAttend}) =
                         id: 'gpx-map',
                         width: '100%',
                         height: '360px',
+                        center: {
+                            lat: latitude,
+                            lng: longitude
+                        },
                         disabled: true,
-                        zoom: 14,
+                        zoom: 10,
                         gpx: file
                     }}/>
 

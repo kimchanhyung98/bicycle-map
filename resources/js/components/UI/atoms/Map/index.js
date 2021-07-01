@@ -1,70 +1,88 @@
-import React, {memo, useCallback, useEffect} from "react";
+import React, {memo, useEffect, useRef, useState} from "react";
 import PropTypes from "prop-types";
 import {RenderAfterNavermapsLoaded, NaverMap, Marker} from "react-naver-maps";
 
 const NAVER_API_KEY = env.NCLOUD_CLIENT_ID;
-const location = {
-    latitude: '37.554722',
-    longitude: '126.970833'
-};
 
-const Map = memo(({
+const MapContent = memo(({
     mapOptions,
-    markers,
-    ...props
+    markers
 }) => {
-    const {id, width, height, center, zoom} = mapOptions;
-    const {gpx} = props;
-    let mapRef;
-
-    const startDataLayer = useCallback((xmlDoc) => {
-        mapRef.instance.data.addGpx(xmlDoc);
-    }, []);
+    const [gpxDoc, setGpxDoc] = useState(null);
+    const {id, width, height, center, zoom, gpx} = mapOptions;
+    const mapRef = useRef(null);
 
     useEffect(() => {
-        if (gpx) {
-            window.naver.maps.Event.once(mapRef.instance, 'init_stylemap', () => {
+        if (gpx && mapRef.current) {
+            window.naver.maps.Event.once(mapRef.current.instance, 'init_stylemap', function () {
                 $.ajax({
                     url: gpx.path,
                     dataType: 'xml',
                     success: (res) => {
-                        startDataLayer(res);
+                        setGpxDoc(res);
                     }
                 });
             });
         }
-    }, []);
+
+        return () => {
+            setGpxDoc(null);
+        };
+    }, [gpx, mapRef.current]);
+
+    useEffect(() => {
+        if (mapRef.current && gpxDoc) {
+            mapRef.current.instance.data.addGpx(gpxDoc);
+        }
+    }, [gpxDoc]);
+
+    return (
+        <NaverMap {...mapOptions}
+                  id={id || 'map'}
+                  style={{
+                      width: width || '100%',
+                      height: height || '300px'
+                  }}
+                  defaultCenter={center}
+                  center={center}
+                  zoom={zoom || 12}
+                  naverRef={ref => {
+                      mapRef.current = ref;
+                  }}>
+            {markers && markers.map(({lat, lng}) => {
+                const latlng = new window.naver.maps.LatLng(lat, lng);
+                return (
+                    <Marker key={latlng}
+                            position={latlng}/>
+                );
+            })}
+        </NaverMap>
+    );
+});
+
+const Map = ({
+    mapOptions,
+    ...props
+}) => {
+    const [markers, setMarkers] = useState(props.markers || []);
+
+    useEffect(() => {
+        setMarkers(props.markers);
+
+        return () => {
+            setMarkers([]);
+        };
+    }, [props.markers]);
 
     return (
         <RenderAfterNavermapsLoaded ncpClientId={NAVER_API_KEY}
                                     error={<p>오류</p>}
                                     loading={<p>Loading</p>}>
-            <NaverMap {...mapOptions}
-                      id={id || 'map'}
-                      style={{
-                          width: width || '100%',
-                          height: height || '300px'
-                      }}
-                      defaultCenter={center || location}
-                      center={center || location}
-                      zoom={zoom || 12}
-                      naverRef={ref => {
-                          mapRef = ref;
-                      }}>
-
-                {(markers && window.naver) &&
-                    markers.map(({lat, lng}) => {
-                        const latlng = new window.naver.maps.LatLng(lat, lng);
-                        return (
-                            <Marker key={latlng}
-                                    position={latlng}/>
-                        );
-                    })
-                }
-            </NaverMap>
+            <MapContent mapOptions={mapOptions}
+                        markers={markers}/>
         </RenderAfterNavermapsLoaded>
     );
-});
+};
 
 Map.propTypes = {
     mapOptions: PropTypes.object,

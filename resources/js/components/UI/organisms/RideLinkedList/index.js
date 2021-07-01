@@ -45,7 +45,7 @@ const RideLinkedList = memo(({rides}) => {
         const detailItems = [
             {
                 name: '거리',
-                value: distance ? `${distance}km` : '미정'
+                value: distance ? `${distance}km` : ''
             },
             {
                 name: '출발시간',

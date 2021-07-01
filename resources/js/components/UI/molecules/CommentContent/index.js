@@ -45,7 +45,7 @@ const CommentText = styled.div`
     margin-top: 12px;
     font-size: ${font.sizeSmall};
     line-height: 16px;
-    word-break: break-all;
+    white-space: pre-line;
 `;
 
 const CommentButtonWrapper = styled.div`
