@@ -18,10 +18,13 @@ const StyledCommentItem = styled.li`
 `;
 
 const ReplySection = styled.section`
-    display: ${({isShow}) => isShow ? 'block' : 'none'};
     margin-top: 15px;
     padding: 10px 10px 15px;
     background: ${color.lightGray};
+
+    form {
+        display: ${({isShow}) => isShow ? 'flex' : 'none'};
+    }
 `;
 
 const CommentItem = memo(({commentData, setComments}) => {
