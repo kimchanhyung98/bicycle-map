@@ -57,7 +57,7 @@ const CommentButtonWrapper = styled.div`
 
     button {
         background: none;
-        font-size: ${font.sizeBase};
+        font-size: ${font.sizeSmall};
         text-decoration: underline;
     }
 `;
@@ -127,7 +127,7 @@ const CommentContent = memo(({commentData, setIsShow, setComments, ...props}) =>
 
                     <CommentButtonWrapper>
                         {!parent_id ?
-                            <Button onClick={handleSetIsShow}>대댓글</Button> : <div></div>
+                            <Button onClick={handleSetIsShow}>답글쓰기</Button> : <div></div>
                         }
                         { user.id === userId ?
                             <Button onClick={handleCommentDelete}>삭제</Button> : ''
